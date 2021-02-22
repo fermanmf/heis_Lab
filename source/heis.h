@@ -11,15 +11,15 @@
     int naavaerendeEtasje;
     bool standPlass;
     int currentDestination;
+    int bestillingsliste[10];
     
     void enterWaitingMode()
-    void kjorTilNesteDestinasjon(); 
-    bool destinasjonNaadd();
-    void settNyDestinasjon();
-    bool tomBestillingsliste();
-    void settRetning();
+    void kjorTilNesteDestinasjon(int i); 
+    bool destinasjonNaadd(int i);
+    void settNyDestinasjon(int[] bestillingsliste );
+    bool tomBestillingsliste(bestillingsliste b);
+    void settRetning(int i, bool b);
     
 
 
 /*Kjører til etasjen destinasjon*/
-

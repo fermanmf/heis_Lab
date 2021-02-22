@@ -1,13 +1,14 @@
-#include <stdbool.h>
+
+#include "main.c"
 #include "heis.h"
-#include "hardware.h"
+#include <stdbool.h>
 #include "bestilling.h"
+#include "hardware.h"
 
 
-
-void kjorTilDestinasjon(){
-    settNyDestinasjon();
-    settRetning();
+void kjorTilDestinasjon(int currentDestination){
+    settNyDestinasjon(currentDestination);
+    settRetning(currentDestination,true);
 }
 void sjekkOmDestinasjonErNaadd(){
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
@@ -21,7 +22,7 @@ void sjekkOmDestinasjonErNaadd(){
         }
     }
 }
-void settNyDestinasjon(int& currentDestination){
+void settNyDestinasjon(int currentDestination){
     currentDestination = bestillingsListe[0].etasje;
 }
 void settRetning(int currentDestination,bool retnintOpp){
