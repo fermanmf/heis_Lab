@@ -1,20 +1,20 @@
 
 #include "main.c"
 #include "heis.h"
-#include <stdbool.h>
-#include "bestilling.h"
-#include "hardware.h"
 
 
-void kjorTilDestinasjon(int currentDestination){
+
+
+void kjorTilNesteDestinasjon(int* currentDestination){
     settNyDestinasjon(currentDestination);
-    settRetning(currentDestination,true);
+    settRetning(currentDestination,true,5);
 }
-void sjekkOmDestinasjonErNaadd(){
+void sjekkOmDestinasjonErNaadd(int bestillingsListe[],int currentDestination){
+    
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f) == currentDestination){
-            if (!tomBestillingsliste()){
-                kjorTilDestinasjon();
+            if (!tomBestillingsliste(bestillingsListe)){
+                kjorTilNesteDestinasjon(f);
             }
             else{
                 enterWaitingMode();
@@ -22,10 +22,10 @@ void sjekkOmDestinasjonErNaadd(){
         }
     }
 }
-void settNyDestinasjon(int currentDestination){
-    currentDestination = bestillingsListe[0].etasje;
+void settNyDestinasjon(int bestillingsListe []){
+    int currentDestination = bestillingsListe[0];
 }
-void settRetning(int currentDestination,bool retnintOpp){
+void settRetning(int currentDestination,bool retnintOpp,int currentFloor){
     if (currentDestination < naavaerendeEtasje){
         hardware_command_movement(HARDWARE_ORDER_DOWN);
     }
@@ -39,3 +39,14 @@ void settRetning(int currentDestination,bool retnintOpp){
     }
     return;
     }
+
+bool tomBestillingsListe(int b[]){
+    if (b[0]=0){
+        return true;
+    };
+}
+
+void undefinedManouver(enum state* state){
+     hardware_command_movement(HARDWARE_MOVEMENT_UP);
+     state* = StandPlass;
+}
