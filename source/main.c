@@ -39,25 +39,43 @@ int main(){
         //}
         lookForOrders();
         switch(state){
-            case 0 : 
+            case Undefined : 
 
                undefinedManouver(state);
                if (definedState!=0){
-
+                   state = StandPlass;
                }
                 break;
-            case 1 :
+            case StandPlass :
+                stop();
                 if (orderFound()){
                     state = Bevegelse;
                 }
                 break;
-            case 2 : 
+            case StoppMellomEtasje :
+                if (orderFound()){
+                    state = StandPlass;
+                }
                 break;
-            case 3 :
+            case Bevegelse :
+                kjør();
+                if (atDestination()){
+                    state = DørÅpen;
+                }
+                stop(&state);
                 break;
-            case 4 : 
+            case DørÅpen:
+                if (!stop()){
+                    state = StandPlass;
+                    OpenTimedDoor();
+                }
+                else{
+                openDoor();
+                }
                 break;
+
             default :
+                
                 break;
         };
     }
