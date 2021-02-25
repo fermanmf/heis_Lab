@@ -62,7 +62,9 @@ int main(){
                 if (atDestination()){
                     state = DørÅpen;
                 }
-                stop(&state);
+                if (stop(state)){
+                    state = StoppMellomEtasje;
+                }
                 break;
             case DørÅpen:
                 if (!stop()){
