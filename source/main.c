@@ -31,18 +31,25 @@ int main(){
         exit(1);
     }
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
-    bool definedState = 0;
+    int definedState = 0;
     while(1){
         //if(hardware_read_stop_signal()){
         //  hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         //  break;
         //}
+        lookForOrders();
         switch(state){
             case 0 : 
+
                undefinedManouver(state);
+               if (definedState!=0){
+
+               }
                 break;
             case 1 :
-                
+                if (orderFound()){
+                    state = Bevegelse;
+                }
                 break;
             case 2 : 
                 break;
