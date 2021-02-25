@@ -39,10 +39,10 @@ int main(){
         //}
         switch(state){
             case 0 : 
-               undefinedManouver();
+               undefinedManouver(state);
                 break;
             case 1 :
-
+                
                 break;
             case 2 : 
                 break;
