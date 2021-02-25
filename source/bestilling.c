@@ -44,3 +44,4 @@ bool bestillingFraHeispanel(struct bestilling panelBestilling) {
     }
     return false;
 };
+//$sfe
