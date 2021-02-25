@@ -46,7 +46,7 @@ bool tomBestillingsListe(int b[]){
     };
 }
 
-void undefinedManouver(enum state* state){
+void undefinedManouver(enum State* state){
      hardware_command_movement(HARDWARE_MOVEMENT_UP);
-     state* = StandPlass;
+     *state = StandPlass;
 }
