@@ -31,8 +31,9 @@ void leggTilBestilling(struct bestilling nyBestilling) {
 int antallBestillinger = NELEMS(bestillingsKø);
 
 int returnerAntallBestillinger(struct bestilling kø) {
+
     return antallBestillinger;
-}
+};
 
 
 
