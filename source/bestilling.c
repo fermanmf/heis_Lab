@@ -1,10 +1,26 @@
 #include "stdbool.h"
 #include "bestilling.h"
+#include "hardware.h"
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 void checkForOrders() {
-    
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+
+            if (hardware_read_order(i, j)) {
+            
+                // Knappen er trykket inn i etasje i og knapp av typen j
+                // Det opprettes en ny bestilling
+                struct bestilling newOrder;
+                newOrder.etasje = i;
+                newOrder.type = j;
+                leggTilBestilling(newOrder);
+                delete(newOrder);
+            }
+        }
+    }
 };
 
 void leggTilBestilling(struct bestilling nyBestilling) {

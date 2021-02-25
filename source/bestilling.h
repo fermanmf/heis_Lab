@@ -1,5 +1,5 @@
 
-enum bestillingsType{opp, ned, inn};
+enum bestillingsType{opp, inn, ned};
 
 struct bestilling
 {
