@@ -20,7 +20,7 @@
     bool tomBestillingsliste(int b []);
     void settRetning(int i, bool b, int currentFloor);
     void undefinedManouver(enum State* state);
-
+    void stop();
 
             /* Code block that makes the elevator go up when it reach the botton
             if(hardware_read_floor_sensor(0)){
