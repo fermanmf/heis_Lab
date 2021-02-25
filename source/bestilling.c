@@ -3,6 +3,10 @@
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
+void checkForOrders() {
+    
+};
+
 void leggTilBestilling(struct bestilling nyBestilling) {
 
     // Først må det sjekkes om bestillingen kommer fra heispanelet eller etasjepanelet
@@ -28,14 +32,9 @@ void leggTilBestilling(struct bestilling nyBestilling) {
     return 0;
 };
 
-void checkForOrders() {
-
-};
-
 int antallBestillinger = NELEMS(bestillingsKø);
 
 int returnerAntallBestillinger() {
-
     return antallBestillinger;
 };
 
