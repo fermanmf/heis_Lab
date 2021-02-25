@@ -28,14 +28,16 @@ void leggTilBestilling(struct bestilling nyBestilling) {
     return 0;
 };
 
+void checkForOrders() {
+
+};
+
 int antallBestillinger = NELEMS(bestillingsKø);
 
-int returnerAntallBestillinger(struct bestilling kø) {
+int returnerAntallBestillinger() {
 
     return antallBestillinger;
 };
-
-
 
 bool bestillingFraHeispanel(struct bestilling panelBestilling) {
     if (panelBestilling.type == 2) {
@@ -43,4 +45,11 @@ bool bestillingFraHeispanel(struct bestilling panelBestilling) {
         return true;
     }
     return false;
+};
+
+bool orderFound() {
+    if (returnerAntallBeestillinger() == 0) {
+        return false;
+    }
+    return true;
 };
