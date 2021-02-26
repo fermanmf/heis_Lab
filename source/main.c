@@ -19,7 +19,7 @@ static void clear_all_order_lights(){
 }
  enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DørÅpen};
 int main(){
-    
+    initiateHardware();
     enum State state;
     state = Undefined;
     int currentFloor = 0;
@@ -74,7 +74,7 @@ int main(){
                 break;
 
             default :
-            
+
                 break;
         };
     }
