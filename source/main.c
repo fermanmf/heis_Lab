@@ -68,8 +68,8 @@ int main(){
                 break;
             case DørÅpen:
                 if (!stop()){
-                    openTimedDoor;
-                    if (doorIsClose){
+                    openTimedDoor();
+                    if (doorIsClose()){
                         state = StandPlass;
                     }
                 }
