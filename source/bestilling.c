@@ -132,17 +132,17 @@ bool o_orderFound() {
     return true;
 };
 
-int o_returnNextOrder(bool m_orderDone) {
+int o_returnNextOrder(bool* m_orderDone) {
     if (o_orderFound){
     int next = bestillingsKø[0].etasje;
-        if (m_orderDone == false) {
+        if (m_orderDone* == false) {
             return next;
         }
         else {
              delete(bestillingsKø[0]);
             pushArray();
             return bestillingsKø[0].etasje;
-            m_orderDone = false;
+            m_orderDone* = false;
         }
      }
     else {

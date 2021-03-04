@@ -20,10 +20,14 @@ int o_returnSizeOfOrders();
 
 bool o_orderFound();
 
-int o_returnNextOrder();      // Funksjon skal bare brukes hvis det finnes en bestilling
+int o_returnNextOrder(bool* m_orderDone);      // Funksjon skal bare brukes hvis det finnes en bestilling
 
 void o_checkIfOrderisInLine(struct bestilling order);
 
 void o_findPriority(struct bestilling order);
 
 void o_checkDir(struct bestilling order);
+
+void pushArrayBack();
+
+void pushArray();
