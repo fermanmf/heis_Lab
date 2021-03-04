@@ -1,10 +1,17 @@
 
 #include "main.c"
 #include "heis.h"
+#include "hardware.h"
 
 
+void initiateHardware(){
+    int error = hardware_init();
 
-
+    if(error != 0){
+        fprintf(stderr, "Unable to initialize hardware\n");
+        exit(1);
+    }
+}
 void kjorTilNesteDestinasjon(int* currentDestination){
     settNyDestinasjon(currentDestination);
     settRetning(currentDestination,true,5);
@@ -46,7 +53,21 @@ bool tomBestillingsListe(int b[]){
     };
 }
 
-void undefinedManouver(enum State* state){
-     hardware_command_movement(HARDWARE_MOVEMENT_UP);
-     *state = StandPlass;
+void GoToDefinedState(enum State* state,int* currentFloor){
+    hardware_command_movement(HARDWARE_MOVEMENT_UP);
+    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+        if(hardware_read_floor_sensor(f)){
+            state = StandPlass;
+            currentFloor = f;
+        }
+    }
+}
+
+bool stop(){
+    if(hardware_read_stop_signal()){
+          hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+        }
+}
+void stopElevatorMovement(){
+    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
 }

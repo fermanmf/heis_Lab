@@ -17,59 +17,56 @@ static void clear_all_order_lights(){
         }
     }
 }
- enum State {Undefined, StandPlass, StoppMellomEtasje, Bevegelse, DørÅpen};
+ enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DørÅpen};
 int main(){
-    
+    initiateHardware();
     enum State state;
     state = Undefined;
-
-
-    int error = hardware_init();
-
-    if(error != 0){
-        fprintf(stderr, "Unable to initialize hardware\n");
-        exit(1);
-    }
-    hardware_command_movement(HARDWARE_MOVEMENT_UP);
-    int definedState = 0;
+    int currentFloor = 0;
     while(1){
-        //if(hardware_read_stop_signal()){
-        //  hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-        //  break;
-        //}
-        lookForOrders();
+        handleStopButton();
         switch(state){
-            case Undefined : 
-
-               undefinedManouver(state);
-               if (definedState!=0){
-                   state = StandPlass;
-               }
+            case UndefinedState : 
+                lookForOrders();
+               goToDefinedState(&state,&currentFloor);
                 break;
             case StandPlass :
-                stop();
-                if (orderFound()){
+                stopElevatorMovement();
+                lookForOrders();
+                if (stop()){
+                    state = DørÅpen;
+                }
+                elseif(orderFound()){
                     state = Bevegelse;
                 }
                 break;
             case StoppMellomEtasje :
+                if (!stop()){
+                    lookForOrders();
+                }
                 if (orderFound()){
-                    state = StandPlass;
+                    state = Bevegelse;
                 }
                 break;
             case Bevegelse :
-                kjør();
+                if (stop()){
+                    checkIfInBetween();
+                }
+                lookForOrders();
                 if (atDestination()){
                     state = DørÅpen;
                 }
-                if (stop(state)){
-                    state = StoppMellomEtasje;
-                }
+                
                 break;
             case DørÅpen:
                 if (!stop()){
-                    state = StandPlass;
-                    OpenTimedDoor();
+                    lookForOrders();
+                }
+                if (!stop() && !obstruksjon();){
+                    openTimedDoor();
+                    if (doorIsClose()){
+                        state = StandPlass;
+                    }
                 }
                 else{
                 openDoor();
@@ -77,9 +74,10 @@ int main(){
                 break;
 
             default :
-                
+
                 break;
         };
     }
     return 0;
 }
+ 
