@@ -3,6 +3,7 @@
 #include <signal.h>
 #include "hardware.h"
 #include <stdbool.h>
+#include "heis.h"
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
         HARDWARE_ORDER_UP,
@@ -68,7 +69,7 @@ int main(){
                 h_stop(&state);
                 break;
             case DoorOpen:
-                h_stopElevatorMovement();
+                /*h_stopElevatorMovement();
                 if (!h_stop(&state)){
                     o_lookForOrders();
                 }
@@ -81,8 +82,8 @@ int main(){
                     }
                 }
                 else{
-                openDoor();
-                }
+                //openDoor();
+                }*/
                 break;
 
             default :
