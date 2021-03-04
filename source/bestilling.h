@@ -3,8 +3,8 @@ enum bestillingsType{opp, inn, ned};
 
 struct bestilling
 {
-    int etasje;
-    enum bestillingsType type;
+    int etasje;                 // Etasje heisen skal til
+    enum bestillingsType type;  // Knapptypen, enten er knappen fra heispanelet, eller så er det utenfra med et ønske om enten opp eller ned
 
 };
 

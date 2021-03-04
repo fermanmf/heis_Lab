@@ -1,5 +1,7 @@
 #include "stdbool.h"
+#include "stdio.h"
 #include "bestilling.h"
+#include "heis.h"
 #include "hardware.h"
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
@@ -23,6 +25,7 @@ void checkForOrders() {
     }
 };
 
+
 void leggTilBestilling(struct bestilling nyBestilling) {
 
     // Først må det sjekkes om bestillingen kommer fra heispanelet eller etasjepanelet
@@ -35,7 +38,7 @@ void leggTilBestilling(struct bestilling nyBestilling) {
     else {
         /* Hvis bestillingen kommer fra etasjepanelet kan ikke bestillingen legges direkte inn.
            Det betyr at etasjen bestillingen kom fra må sammenlignes med retningen på heisen */
-        if (/*nyBestilling.etasje > nåverendeEtasje)&&(retningOpp == 0) || (nyBestilling.etasje < nåverendeEtasje)&&(retningOpp == true*/true) {
+        if (((nyBestilling.etasje > naavaerendeEtasje) && (retningOpp == 0)) || ((nyBestilling.etasje < naavaerendeEtasje) && (retningOpp == true))) {
             // Ikke legg til bestilling
             return 0;
         }
@@ -44,7 +47,6 @@ void leggTilBestilling(struct bestilling nyBestilling) {
             bestillingsKø[0] = nyBestilling;
         }
     }
-
     return 0;
 };
 
