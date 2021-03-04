@@ -26,7 +26,9 @@ int main(){
     h_initiateHardware();
     enum State state;
     state = UndefinedState;
+
     bool m_orderDone = false;
+
     int currentFloor = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     int m_currentMomentumDir = 0;
@@ -45,7 +47,9 @@ int main(){
                 if (h_stop(&state)){
                     state = DørÅpen;
                 }
+
                 else if(o_orderFound()){
+
                     state = Bevegelse;
                 }
                 break;
@@ -68,7 +72,9 @@ int main(){
                 if (!h_stop(&state)){
                     o_lookForOrders();
                 }
+
                 if (!h_stop(&state) && !obstruksjon()){
+
                     openTimedDoor();
                     if (doorIsClose()){
                         state = StandPlass;

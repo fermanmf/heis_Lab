@@ -10,12 +10,20 @@ struct bestilling
 
 struct bestilling bestillingsKø[10] = { 0 };
 
-void checkForOrders();
+void o_lookForOrders();
 
-void leggTilBestilling(struct bestilling nyBestilling);
+void o_leggTilBestilling(struct bestilling nyBestilling);
 
-bool bestillingFraHeispanel(struct bestilling panelBestilling);
+bool o_bestillingFraHeispanel(struct bestilling panelBestilling);
 
-int returnerAntallBestillinger();
+int o_returnSizeOfOrders();
 
-bool orderFound();
+bool o_orderFound();
+
+int o_returnNextOrder();      // Funksjon skal bare brukes hvis det finnes en bestilling
+
+void o_checkIfOrderisInLine(struct bestilling order);
+
+void o_findPriority(struct bestilling order);
+
+void o_checkDir(struct bestilling order);
