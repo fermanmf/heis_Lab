@@ -13,15 +13,15 @@
     int currentDestination;
     int bestillingsliste[10];
 
-    void initiateHardware();
+    void h_initiateHardware();
     void enterWaitingMode(void);
-    void kjorTilNesteDestinasjon(int* currentDestination) ; 
+    void h_goToDestination(int currentDestination, int currentFloor, bool*m_currentMomentumDir, enum State* state,bool* m_orderDone); 
     bool destinasjonNaadd(int bestillingsListe[], int i);
     void settNyDestinasjon(int bestillingsListe []  );
     bool tomBestillingsliste(int b []);
-    void settRetning(int i, bool b, int currentFloor);
-    void goToDefinedState();
-    bool stop();
+    void h_settRetning(int currentDestination, bool* currentMomentumDir, int currentFloor);
+    void h_goToDefinedState();
+    bool h_stop();
 
             /* Code block that makes the elevator go up when it reach the botton
             if(hardware_read_floor_sensor(0)){

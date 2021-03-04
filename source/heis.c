@@ -4,7 +4,7 @@
 #include "hardware.h"
 
 
-void initiateHardware(){
+void h_initiateHardware(){
     int error = hardware_init();
 
     if(error != 0){
@@ -12,37 +12,30 @@ void initiateHardware(){
         exit(1);
     }
 }
-void kjorTilNesteDestinasjon(int* currentDestination){
-    settNyDestinasjon(currentDestination);
-    settRetning(currentDestination,true,5);
+void h_goToDestination(int currentDestination, int currentFloor, bool*currentMomentumDir, enum State* state,bool* m_orderDone){
+    //Settretning
+    h_settRetning(currentDestination,&currentMomentumDir,currentFloor);
+    //sjekk om destasjonen er nådd og rapporter til bestillingsmodul + send til neste tilstand.
+    atDestination(currentFloor,currentDestination,&state,&m_orderDone);
 }
-void sjekkOmDestinasjonErNaadd(int bestillingsListe[],int currentDestination){
-    
-    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-        if(hardware_read_floor_sensor(f) == currentDestination){
-            if (!tomBestillingsliste(bestillingsListe)){
-                kjorTilNesteDestinasjon(f);
-            }
-            else{
-                enterWaitingMode();
-            }
-        }
+void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
+    if (currentFloor == currentDestination){
+        state = StandPlass;
+        m_orderDone = true;
     }
 }
+
 void settNyDestinasjon(int bestillingsListe []){
     int currentDestination = bestillingsListe[0];
 }
-void settRetning(int currentDestination,bool retnintOpp,int currentFloor){
+void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
     if (currentDestination < naavaerendeEtasje){
         hardware_command_movement(HARDWARE_ORDER_DOWN);
+        *retningOpp = false;
     }
     else if (currentDestination > naavaerendeEtasje){
-
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
-    }
-    else{
-        //error
-        return;
+        *retningOpp = true;
     }
     return;
     }
@@ -53,21 +46,53 @@ bool tomBestillingsListe(int b[]){
     };
 }
 
-void GoToDefinedState(enum State* state,int* currentFloor){
+void h_goToDefinedState(enum State* state,int* currentFloor){
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)){
-            state = StandPlass;
-            currentFloor = f;
+            *state = StandPlass;
+            *currentFloor = f;
         }
     }
 }
 
-bool stop(){
+bool h_stop(enum State* state){
+    bool stopPushed = false;
     if(hardware_read_stop_signal()){
-          hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-        }
-}
-void stopElevatorMovement(){
+          stopPushed = true;
+    }
+    switch(*state){
+        case StandPlass : 
+            if(stopPushed){
+            state = DørÅpen;}
+            break;
+        case Bevegelse : 
+            if (stopPushed && h_checkIfInbetween()){
+                state = StoppMellomEtasje;
+            }
+            else if (stopPushed){
+                state = DørÅpen;
+            }
+        return stopPushed;
+        default: 
+            break;
+    }
+};
+
+    
+
+
+    
+
+void h_stopElevatorMovement(){
     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+}
+
+bool h_checkIfInbetween(){
+    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+        if(hardware_read_floor_sensor(f)){
+            return false;
+        }
+    }
+    return true;
 }
