@@ -21,7 +21,7 @@ static void clear_all_order_lights(){
 int main(){
     initiateHardware();
     enum State state;
-    state = Undefined;
+    state = UndefinedState;
     int currentFloor = 0;
     while(1){
         handleStopButton();
@@ -36,7 +36,7 @@ int main(){
                 if (stop()){
                     state = DørÅpen;
                 }
-                elseif(orderFound()){
+                else if(orderFound()){
                     state = Bevegelse;
                 }
                 break;
@@ -62,7 +62,7 @@ int main(){
                 if (!stop()){
                     lookForOrders();
                 }
-                if (!stop() && !obstruksjon();){
+                if (!stop() && !obstruksjon()){
                     openTimedDoor();
                     if (doorIsClose()){
                         state = StandPlass;
