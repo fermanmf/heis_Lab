@@ -64,14 +64,14 @@ bool h_stop(enum State* state){
     switch(*state){
         case StandPlass : 
             if(stopPushed){
-            state = DørÅpen;}
+            state = DoorOpen;}
             break;
         case Bevegelse : 
             if (stopPushed && h_checkIfInbetween()){
                 state = StoppMellomEtasje;
             }
             else if (stopPushed){
-                state = DørÅpen;
+                state = DoorOpen;
             }
         return stopPushed;
         default: 

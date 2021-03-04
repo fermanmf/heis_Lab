@@ -21,7 +21,7 @@ int o_returnNextOrder(m_orderDone){
     return 2;
 }
 
- enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DørÅpen};
+ enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 int main(){
     h_initiateHardware();
     enum State state;
@@ -45,7 +45,7 @@ int main(){
                 h_stopElevatorMovement();
                 o_lookForOrders();
                 if (h_stop(&state)){
-                    state = DørÅpen;
+                    state = DoorOpen;
                 }
 
                 else if(o_orderFound()){
@@ -67,7 +67,7 @@ int main(){
                 o_lookForOrders();
                 h_stop(&state);
                 break;
-            case DørÅpen:
+            case DoorOpen:
                 h_stopElevatorMovement();
                 if (!h_stop(&state)){
                     o_lookForOrders();
