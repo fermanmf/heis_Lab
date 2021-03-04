@@ -1,8 +1,9 @@
 
-#include "main.c"
+#include "stdbool.h"
+#include "stdio.h"
+#include "bestilling.h"
 #include "heis.h"
 #include "hardware.h"
-
 
 void h_initiateHardware(){
     int error = hardware_init();
