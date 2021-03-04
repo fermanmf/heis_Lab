@@ -4,6 +4,7 @@
 #include "hardware.h"
 #include <stdbool.h>
 #include "heis.h"
+#include "bestilling.h"
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
         HARDWARE_ORDER_UP,
