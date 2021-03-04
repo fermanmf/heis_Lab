@@ -19,9 +19,7 @@ static void clear_all_order_lights(){
         }
     }
 }
-int o_returnNextOrder(m_orderDone){
-    return 2;
-}
+
 
  enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 int main(){
