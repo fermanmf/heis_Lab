@@ -8,7 +8,7 @@ struct bestilling
 
 };
 
-struct bestilling bestillingsKø[10] = { 0 };
+struct bestilling bestillingsKo[10] = { 0 };
 
 void o_lookForOrders();
 
@@ -20,7 +20,7 @@ int o_returnSizeOfOrders();
 
 bool o_orderFound();
 
-int o_returnNextOrder(bool* m_orderDone);      // Funksjon skal bare brukes hvis det finnes en bestilling
+int o_returnNextOrder(bool* mother_orderDone);      // Funksjon skal bare brukes hvis det finnes en bestilling
 
 void o_checkIfOrderisInLine(struct bestilling order);
 

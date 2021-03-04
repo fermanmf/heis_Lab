@@ -35,7 +35,7 @@ void o_leggTilBestilling(struct bestilling nyBestilling) {
 
     }
     else {
-        bestillingsKø[0] = nyBestilling;
+        bestillingsKo[0] = nyBestilling;
     }
 
 };
@@ -47,7 +47,7 @@ void o_checkIfOrderisInLine(struct bestilling order) {
     int orderFloor = order.etasje;
     int sizeOfOrders = o_returnSizeOfOrders();
     for (int i = 0; i < sizeOfOrders; i++) {
-        if (orderFloor == bestillingsKø[i].etasje) {
+        if (orderFloor == bestillingsKo[i].etasje) {
             // Det finnes allerede en bestilling dit
             return;
         }
@@ -62,7 +62,7 @@ void o_findPriority(struct bestilling order) {
 };
 
 void o_checkDir(struct bestilling order) {
-    struct bestilling firstOrder = bestillingsKø[0];
+    struct bestilling firstOrder = bestillingsKo[0];
     if((firstOrder.etasje < currentFloor)&&(order.etasje > currentFloor)||((firstOrder.etasje > currentFloor)&&(order.etasje < currentFloor))) {
         // Bestillingen kan ikke vurderes til å komme først i køen
 
@@ -75,23 +75,23 @@ void o_checkDir(struct bestilling order) {
             // Det må da sjekkes om knappen indikerer at den skla motsatt vei
             // Her skal heisa ned, altså legges bestillingen bakerst om den vil opp
             if (order.type==opp) {
-                bestillingsKø[o_returnSizeOfOrders()] = order;
+                bestillingsKo[o_returnSizeOfOrders()] = order;
             }
             else {
                 // Bestillingen skal legges først
                 pushArray();
-                bestillingsKø[0] = order;
+                bestillingsKo[0] = order;
             }
 
         }
         else if ((firstOrder.etasje > order.etasje)&&(firstOrder.etasje > currentFloor)) {
             if (order.type==ned) {
-                bestillingsKø[o_returnSizeOfOrders()+1] = order;
+                bestillingsKo[o_returnSizeOfOrders()+1] = order;
             }
             else {
                 // Bestillingen skal legges først
                 pushArrayBack();
-                bestillingsKø[0] = order;
+                bestillingsKo[0] = order;
             }
         }
     }
@@ -100,7 +100,7 @@ void o_checkDir(struct bestilling order) {
 void pushArrayBack() {
     for (int i = o_returnSizeOfOrders() - 1; i >= 0; i--)
     {
-        bestillingsKø[i] = bestillingsKø[i+1];
+        bestillingsKo[i] = bestillingsKo[i+1];
     }
     
 };
@@ -108,12 +108,12 @@ void pushArrayBack() {
 void pushArray() {
     for (int i = 1; i < o_returnSizeOfOrders(); i++)
     {
-        bestillingsKø[i] = bestillingsKø[i-1];
+        bestillingsKo[i] = bestillingsKo[i-1];
     }  
 };
 
 int o_returnSizeOfOrders() {
-    int antallBestillinger = NELEMS(bestillingsKø);
+    int antallBestillinger = NELEMS(bestillingsKo);
     return antallBestillinger;
 };
 
@@ -132,17 +132,17 @@ bool o_orderFound() {
     return true;
 };
 
-int o_returnNextOrder(bool* m_orderDone) {
+int o_returnNextOrder(bool* mother_orderDone) {
     if (o_orderFound){
-    int next = bestillingsKø[0].etasje;
-        if (m_orderDone* == false) {
+    int next = bestillingsKo[0].etasje;
+        if (*mother_orderDone == false) {
             return next;
         }
         else {
-             delete(bestillingsKø[0]);
+             delete(bestillingsKo[0]);
             pushArray();
-            return bestillingsKø[0].etasje;
-            m_orderDone* = false;
+            return bestillingsKo[0].etasje;
+            *mother_orderDone = false;
         }
      }
     else {
