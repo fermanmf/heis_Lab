@@ -80,11 +80,6 @@ bool h_stop(enum State* state){
     }
 };
 
-    
-
-
-    
-
 void h_stopElevatorMovement(){
     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
 }
