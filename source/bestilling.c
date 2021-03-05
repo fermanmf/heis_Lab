@@ -7,6 +7,7 @@
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 int currentFloor;
+struct bestilling bestillingsKo[10] = { 0 };
 /*
 void o_lookForOrders() {
 

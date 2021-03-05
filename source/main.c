@@ -4,7 +4,7 @@
 #include "hardware.h"
 #include <stdbool.h>
 #include "heis.h"
-//#include "bestilling.h"
+#include "bestilling.h"
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
@@ -69,7 +69,7 @@ int main(){
                 //}
                 break;
             case Bevegelse :
-                h_goToDestination(5,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                h_goToDestination(3,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
                 //o_lookForOrders();
                 h_stop(&state);
                 break;

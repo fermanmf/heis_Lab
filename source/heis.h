@@ -1,9 +1,11 @@
+
 /**
  * @file 
  * @brief This module contains functions that changes the state of the elevator. 
  */
 
-#define val MOTORSPEED
+#pragma once
+
 enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 enum State state;
 

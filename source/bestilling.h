@@ -1,4 +1,6 @@
 
+#pragma once
+
 enum bestillingsType{opp, inn, ned};
 
 struct bestilling
@@ -8,7 +10,7 @@ struct bestilling
 
 };
 
-struct bestilling bestillingsKo[10] = { 0 };
+
 
 void o_lookForOrders();
 
