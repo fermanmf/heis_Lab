@@ -23,6 +23,7 @@
     void h_goToDefinedState();
     bool h_stop();
     bool h_checkIfInbetween();
+    void h_stopElevatorMovement();
 
             /* Code block that makes the elevator go up when it reach the botton
             if(hardware_read_floor_sensor(0)){

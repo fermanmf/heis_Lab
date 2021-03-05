@@ -31,10 +31,10 @@ int main(){
 
     int currentFloor = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
-    int m_currentMomentumDir = 0;
+    bool m_currentMomentumDir = 1;
     
     while(1){
-        h_handleStopButton();
+        //h_handleStopButton();
         o_returnNextOrder(&m_orderDone);
         switch(state){
             case UndefinedState : 
