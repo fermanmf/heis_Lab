@@ -10,3 +10,4 @@
             }*/ 
 void openDoor()
 void openTimedDoor();
+float timedifference(struct timeval t0, struct timeval t1);
