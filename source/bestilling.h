@@ -10,7 +10,7 @@ struct bestilling
 
 };
 
-struct bestilling bestillingsKo[10] = { 0 };
+
 
 void o_lookForOrders();
 
