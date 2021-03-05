@@ -64,9 +64,9 @@ int main(){
                 if (!h_stop(&state)){
                     //o_lookForOrders();
                 }
-                if (o_orderFound()){
-                    state = Bevegelse;
-                }
+                //if (o_orderFound()){
+                 //   state = Bevegelse;
+                //}
                 break;
             case Bevegelse :
                 h_goToDestination(5,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
