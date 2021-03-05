@@ -30,7 +30,7 @@
                 hardware_command_movement(HARDWARE_MOVEMENT_UP);
             }
 
-            /* Code block that makes the elevator go down when it reach the top floor
+            Code block that makes the elevator go down when it reach the top floor
             if(hardware_read_floor_sensor(HARDWARE_NUMBER_OF_FLOORS - 1)){
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
             }
