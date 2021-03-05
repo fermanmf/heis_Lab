@@ -1,4 +1,4 @@
-SIM := false
+SIM := true
 SOURCES := main.c
 
 SOURCE_DIR := source
