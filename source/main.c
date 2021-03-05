@@ -69,7 +69,7 @@ int main(){
                 //}
                 break;
             case Bevegelse :
-                h_goToDestination(5,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                h_goToDestination(3,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
                 //o_lookForOrders();
                 h_stop(&state);
                 break;
