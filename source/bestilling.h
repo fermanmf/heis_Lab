@@ -1,4 +1,6 @@
 
+#pragma once
+
 enum bestillingsType{opp, inn, ned};
 
 struct bestilling
