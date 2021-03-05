@@ -1,18 +1,18 @@
 
 #include "stdbool.h"
 #include "stdio.h"
-#include "bestilling.h"
+//#include "bestilling.h"
 #include "heis.h"
 #include "hardware.h"
 
-void h_initiateHardware(){
+/*void h_initiateHardware(){
     int error = hardware_init();
 
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
-}
+}*/
 void h_goToDestination(int currentDestination, int currentFloor, bool*currentMomentumDir, enum State* state,bool* m_orderDone){
     //Settretning
     h_settRetning(currentDestination,&currentMomentumDir,currentFloor);

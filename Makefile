@@ -1,5 +1,5 @@
-SIM := false
-SOURCES := main.c
+SIM := true
+SOURCES := main.c bestilling.c heis.c
 
 SOURCE_DIR := source
 BUILD_DIR := build
@@ -10,13 +10,14 @@ DRIVER_ARCHIVE := $(BUILD_DIR)/libdriver.a
 
 ifeq ($(SIM),true)
   DRIVER_SOURCE := hardware_sim.c
+  LDFLAGS := -L$(BUILD_DIR) -ldriver 
 else
   DRIVER_SOURCE := hardware_sal.c io.c
+  LDFLAGS := -L$(BUILD_DIR) -ldriver -lcomedi 
 endif
 
 CC := gcc
 CFLAGS := -O0 -g3 -Wall -D_GNU_SOURCE -std=c11 -I$(SOURCE_DIR)
-LDFLAGS := -L$(BUILD_DIR) -ldriver 
 
 .DEFAULT_GOAL := elevator
 

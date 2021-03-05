@@ -7,7 +7,7 @@
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 int currentFloor;
-
+/*
 void o_lookForOrders() {
 
     for (int i = 0; i < 4; i++) {
@@ -25,7 +25,7 @@ void o_lookForOrders() {
             }
         }
     }
-};
+};*/
 
 void o_leggTilBestilling(struct bestilling nyBestilling) {
 
@@ -131,7 +131,7 @@ bool o_orderFound() {
     }
     return true;
 };
-
+/*
 int o_returnNextOrder(bool* mother_orderDone) {
     if (o_orderFound){
     int next = bestillingsKo[0].etasje;
@@ -149,4 +149,4 @@ int o_returnNextOrder(bool* mother_orderDone) {
         return 1;
     }
 
-};
+};*/
