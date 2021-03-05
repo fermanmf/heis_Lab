@@ -1,4 +1,4 @@
-SIM := false
+SIM := true
 SOURCES := main.c bestilling.c heis.c
 
 SOURCE_DIR := source 
