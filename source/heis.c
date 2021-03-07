@@ -26,11 +26,11 @@ void atDestination(int currentFloor,int currentDestination, enum State* state,bo
     }
 }
 void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
-    if (currentDestination < naavaerendeEtasje){
+    if (currentDestination < currentFloor){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         *retningOpp = false;
     }
-    else if (currentDestination > naavaerendeEtasje){
+    else if (currentDestination > currentFloor){
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         *retningOpp = true;
     }

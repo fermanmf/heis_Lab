@@ -74,21 +74,17 @@ int main(){
                 break;
             case DoorOpen:
                 h_stopElevatorMovement();
-                /*
                 if (!h_stop(&state)){
                     o_lookForOrders();
                 }
 
                 if (!h_stop(&state) && !obstruksjon()){
-
+                    //openTimedDoor går til neste tilstand når timeren er ferdig.
                     openTimedDoor();
-                    if (doorIsClose()){
-                        state = StandPlass;
-                    }
                 }
                 else{
-                //openDoor();
-                }*/
+                    openDoor();
+                }
                 break;
 
             default :
