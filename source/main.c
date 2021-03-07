@@ -76,7 +76,7 @@ int main(){
             case DoorOpen:
                 h_stopElevatorMovement();
                 if (!h_stop(&state)){
-                    o_lookForOrders();
+                    //o_lookForOrders();
                 }
 
                 if (!h_stop(&state) && !obstruksjon){
