@@ -1,9 +1,10 @@
+#include <stdbool.h>
 #include "door.h"
 #include "hardware.h"
 #include "heis.h"
 #include "bestilling.h"
 #include <sys/time.h>
-#include <stdbool.h>
+
 
 bool timerStarted = false;
 void openDoor(){
