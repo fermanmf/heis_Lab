@@ -4,7 +4,7 @@
 #include "bestilling.h"
 #include "heis.h"
 #include "hardware.h"
-
+#include "door.h"
 /*void h_initiateHardware(){
     int error = hardware_init();
 
@@ -17,20 +17,21 @@ void h_goToDestination(int currentDestination, int currentFloor, bool*currentMom
     //Settretning
     h_settRetning(currentDestination,currentMomentumDir,currentFloor);
     //sjekk om destasjonen er nådd og rapporter til bestillingsmodul + send til neste tilstand.
-    atDestination(currentFloor,currentDestination,&state,&m_orderDone);
+    h_atDestination(currentFloor,currentDestination,state,m_orderDone);
 }
-void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
+void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
     if (currentFloor == currentDestination){
         *state = StandPlass;
         *m_orderDone = true;
+
     }
 }
 void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
-    if (currentDestination < naavaerendeEtasje){
+    if (currentDestination < currentFloor){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         *retningOpp = false;
     }
-    else if (currentDestination > naavaerendeEtasje){
+    else if (currentDestination > currentFloor){
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         *retningOpp = true;
     }
@@ -87,4 +88,16 @@ bool h_checkIfInbetween(){
         }
     }
     return true;
+}
+
+void setDestination(int* nextDestination,enum State* state){
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+
+            if (hardware_read_order(i, j)) {
+                *nextDestination = i;
+                *state = Bevegelse;
+            }
+        }
+    }
 }

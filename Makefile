@@ -1,5 +1,5 @@
 SIM := true
-SOURCES := main.c bestilling.c heis.c
+SOURCES := main.c bestilling.c heis.c door.c
 
 SOURCE_DIR := source
 BUILD_DIR := build

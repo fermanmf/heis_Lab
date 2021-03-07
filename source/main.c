@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "heis.h"
 #include "bestilling.h"
+#include "door.h"
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
@@ -20,8 +21,8 @@ static void clear_all_order_lights(){
         }
     }
 }
-
-
+//dummy
+bool obstruksjon = false;
  
 int main(){
     int error = hardware_init();
@@ -29,11 +30,11 @@ int main(){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
-
+    timerStarted = false;
     state = UndefinedState;
 
     bool m_orderDone = false;
-
+    int currentDestination = 0;
     int currentFloor = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     bool m_currentMomentumDir = 1;
@@ -49,10 +50,11 @@ int main(){
             case StandPlass :
                 h_stopElevatorMovement();
                 //o_lookForOrders();
+                setDestination(&currentDestination,&state);
                 if (h_stop(&state)){
                     state = DoorOpen;
                 }
-
+                
                /* else if(o_orderFound()){
 
                     state = Bevegelse;
@@ -68,27 +70,23 @@ int main(){
                 //}
                 break;
             case Bevegelse :
-                h_goToDestination(3,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                h_goToDestination(currentDestination,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
                 //o_lookForOrders();
                 h_stop(&state);
                 break;
             case DoorOpen:
                 h_stopElevatorMovement();
-                /*
                 if (!h_stop(&state)){
-                    o_lookForOrders();
+                    //o_lookForOrders();
                 }
 
-                if (!h_stop(&state) && !obstruksjon()){
-
-                    openTimedDoor();
-                    if (doorIsClose()){
-                        state = StandPlass;
-                    }
+                if (!h_stop(&state) && !obstruksjon){
+                    //openTimedDoor går til neste tilstand når timeren er ferdig.
+                    openTimedDoor(&state,&t0,&t1);
                 }
                 else{
-                //openDoor();
-                }*/
+                    openDoor();
+                }
                 break;
 
             default :
