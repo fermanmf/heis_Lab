@@ -40,6 +40,7 @@ int main(){
     bool m_currentMomentumDir = 1;
     
     while(1){
+        updateCurrentFloor(&currentFloor);
         //h_handleStopButton();
         //o_returnNextOrder(&m_orderDone);
         switch(state){
