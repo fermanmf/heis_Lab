@@ -24,13 +24,12 @@ static void clear_all_order_lights(){
 
  
 int main(){
-    //h_initiateHardware();
     int error = hardware_init();
-
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
+
     state = UndefinedState;
 
     bool m_orderDone = false;
@@ -74,7 +73,8 @@ int main(){
                 h_stop(&state);
                 break;
             case DoorOpen:
-                /*h_stopElevatorMovement();
+                h_stopElevatorMovement();
+                /*
                 if (!h_stop(&state)){
                     o_lookForOrders();
                 }
