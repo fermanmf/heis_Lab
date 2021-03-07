@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "heis.h"
 #include "bestilling.h"
+#include "door.h"
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
@@ -20,8 +21,8 @@ static void clear_all_order_lights(){
         }
     }
 }
-
-
+//dummy
+bool obstruksjon = false;
  
 int main(){
     int error = hardware_init();
@@ -78,9 +79,9 @@ int main(){
                     o_lookForOrders();
                 }
 
-                if (!h_stop(&state) && !obstruksjon()){
+                if (!h_stop(&state) && !obstruksjon){
                     //openTimedDoor går til neste tilstand når timeren er ferdig.
-                    openTimedDoor();
+                    openTimedDoor(&state);
                 }
                 else{
                     openDoor();

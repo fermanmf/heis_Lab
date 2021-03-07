@@ -4,7 +4,7 @@
 #include "bestilling.h"
 #include "heis.h"
 #include "hardware.h"
-
+#include "door.h"
 /*void h_initiateHardware(){
     int error = hardware_init();
 
