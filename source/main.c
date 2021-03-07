@@ -30,11 +30,11 @@ int main(){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
-
+    timerStarted = false;
     state = UndefinedState;
 
     bool m_orderDone = false;
-
+    int currentDestination = 0;
     int currentFloor = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     bool m_currentMomentumDir = 1;
@@ -50,10 +50,11 @@ int main(){
             case StandPlass :
                 h_stopElevatorMovement();
                 //o_lookForOrders();
+                setDestination(&currentDestination,&state);
                 if (h_stop(&state)){
                     state = DoorOpen;
                 }
-
+                
                /* else if(o_orderFound()){
 
                     state = Bevegelse;
@@ -69,7 +70,7 @@ int main(){
                 //}
                 break;
             case Bevegelse :
-                h_goToDestination(3,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                h_goToDestination(currentDestination,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
                 //o_lookForOrders();
                 h_stop(&state);
                 break;
@@ -81,7 +82,7 @@ int main(){
 
                 if (!h_stop(&state) && !obstruksjon){
                     //openTimedDoor går til neste tilstand når timeren er ferdig.
-                    openTimedDoor(&state);
+                    openTimedDoor(&state,&t0,&t1);
                 }
                 else{
                     openDoor();

@@ -7,9 +7,8 @@
 #include "door.h"
 
 
-bool timerStarted = false;
-struct timeval t0;
-struct timeval t1;
+
+
 
 void openDoor(){
     hardware_command_door_open(1);
