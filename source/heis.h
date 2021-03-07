@@ -17,8 +17,8 @@ enum State state;
     bool h_stop();
     bool h_checkIfInbetween();
     void h_stopElevatorMovement();
-    void atDestination();
-
+    void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone);
+    void returnDestination(int* i);
             /* Code block that makes the elevator go up when it reach the botton
             if(hardware_read_floor_sensor(0)){
                 hardware_command_movement(HARDWARE_MOVEMENT_UP);

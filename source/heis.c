@@ -17,12 +17,13 @@ void h_goToDestination(int currentDestination, int currentFloor, bool*currentMom
     //Settretning
     h_settRetning(currentDestination,currentMomentumDir,currentFloor);
     //sjekk om destasjonen er nådd og rapporter til bestillingsmodul + send til neste tilstand.
-    atDestination(currentFloor,currentDestination,&state,&m_orderDone);
+    h_atDestination(currentFloor,currentDestination,state,m_orderDone);
 }
-void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
+void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
     if (currentFloor == currentDestination){
         *state = StandPlass;
         *m_orderDone = true;
+
     }
 }
 void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
@@ -87,4 +88,15 @@ bool h_checkIfInbetween(){
         }
     }
     return true;
+}
+
+void returnDestination(int* nextDestination){
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+
+            if (hardware_read_order(i, j)) {
+                *nextDestination = i;
+            }
+        }
+    }
 }
