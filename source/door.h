@@ -8,6 +8,6 @@
             else{
                 hardware_command_stop_light(0);
             }*/ 
-void openDoor()
+void openDoor();
 void openTimedDoor();
 float timedifference(struct timeval t0, struct timeval t1);
