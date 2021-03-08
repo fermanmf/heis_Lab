@@ -18,14 +18,14 @@ float timedifference(struct timeval t0, struct timeval t1){
 }
  
 void openTimedDoor(enum State* state,struct timeval* t0,struct timeval* t1){
-
+    openDoor();
     float elapsed = 0;
-    gettimeofday(t1,NULL);
+    gettimeofday(t1,0);
     if (timerStarted){
         elapsed = timedifference(*t0,*t1);
     }
     if(!timerStarted){
-        gettimeofday(t0, NULL);
+        gettimeofday(t0, 0);
         timerStarted = true;
     }
    else if (elapsed > 5){
