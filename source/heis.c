@@ -21,7 +21,7 @@ void h_goToDestination(int currentDestination, int currentFloor, bool*currentMom
 }
 void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
     if (currentFloor == currentDestination){
-        *state = StandPlass;
+        *state = DoorOpen;
         *m_orderDone = true;
 
     }
