@@ -14,7 +14,7 @@ void openDoor(){
     hardware_command_door_open(1);
 };
 float timedifference(struct timeval t0, struct timeval t1){
-    return (t1.tv_sec - t0.tv_sec) * 1.0+ (t1.tv_usec - t0.tv_usec) / 1.0;
+    return (t1.tv_sec - t0.tv_sec);
 }
  
 void openTimedDoor(enum State* state,struct timeval* t0,struct timeval* t1){
