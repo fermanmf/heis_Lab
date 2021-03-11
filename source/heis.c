@@ -11,7 +11,8 @@ int currentFloor = 0;
 
 static bool elevatorIsMoving = true;
 void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
-    if (currentFloor == currentDestination){
+     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+        if(hardware_read_floor_sensor(f)){{
         *state = DoorOpen;
         *m_orderDone = true;
         

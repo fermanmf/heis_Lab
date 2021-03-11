@@ -50,6 +50,7 @@ int main(){
                 o_lookForOrders();
                 h_setDestination(&state);
                 h_goToStopState(&state);
+                
                /* else if(o_orderFound()){
 
                     state = Bevegelse;
