@@ -14,7 +14,7 @@ void atDestination(int currentFloor,int currentDestination, enum State* state,bo
     if (currentFloor == currentDestination){
         *state = DoorOpen;
         *m_orderDone = true;
-
+        
     }
 }
 void settRetning(int currentDestination,bool* retningOpp,int currentFloor){
