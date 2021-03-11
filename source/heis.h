@@ -10,7 +10,7 @@ enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 enum State state;
 
 
-    int currentFloor = 0;
+    int currentFloor;
 
     void h_initiateHardware();
     void h_goToDestination(int currentDestination, int currentFloor, bool*m_currentMomentumDir, enum State* state,bool* m_orderDone); 

@@ -7,6 +7,8 @@
 #include "door.h"
 #include <stdlib.h>
 
+int currentFloor = 0;
+
 static bool elevatorIsMoving = false;
 void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
     if (currentFloor == currentDestination){
