@@ -137,5 +137,4 @@ int o_returnNextOrder(bool* mother_orderDone) {
         *mother_orderDone = false;
         return sending;
     }
-    
 };
