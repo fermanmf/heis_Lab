@@ -5,28 +5,29 @@
 #include "heis.h"
 #include "hardware.h"
 #include "door.h"
-/*void h_initiateHardware(){
+
+void h_initiateHardware(){
     int error = hardware_init();
 
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
-}*/
+}
 void h_goToDestination(int currentDestination, int currentFloor, bool*currentMomentumDir, enum State* state,bool* m_orderDone){
     //Settretning
     h_settRetning(currentDestination,currentMomentumDir,currentFloor);
     //sjekk om destasjonen er nådd og rapporter til bestillingsmodul + send til neste tilstand.
     h_atDestination(currentFloor,currentDestination,state,m_orderDone);
 }
-void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
+static void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
     if (currentFloor == currentDestination){
         *state = DoorOpen;
         *m_orderDone = true;
 
     }
 }
-void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
+static void h_settRetning(int currentDestination,bool* retningOpp,int currentFloor){
     if (currentDestination < currentFloor){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         *retningOpp = false;
@@ -47,8 +48,14 @@ void h_goToDefinedState(enum State* state,int* currentFloor){
         }
     }
 }
-
-bool h_stop(enum State* state){
+bool h_bool_stop(){
+    bool stopPushed = false;
+    if(hardware_read_stop_signal()){
+          stopPushed = true;
+    }
+    return stopPushed;
+}
+void h_stop(enum State* state){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
           stopPushed = true;
@@ -65,11 +72,9 @@ bool h_stop(enum State* state){
             else if (stopPushed){
                 *state = DoorOpen;
             }
-        return stopPushed;
         default: 
             break;
     }
-    return stopPushed;
 };
 
     

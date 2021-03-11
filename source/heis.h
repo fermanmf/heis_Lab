@@ -12,12 +12,13 @@ enum State state;
 
     void h_initiateHardware();
     void h_goToDestination(int currentDestination, int currentFloor, bool*m_currentMomentumDir, enum State* state,bool* m_orderDone); 
-    void h_settRetning(int currentDestination, bool* currentMomentumDir, int currentFloor);
+    //void h_settRetning(int currentDestination, bool* currentMomentumDir, int currentFloor);
     void h_goToDefinedState();
-    bool h_stop();
+    bool h_bool_stop();
+    void h_stop(enum State* state);
     bool h_checkIfInbetween();
     void h_stopElevatorMovement();
-    void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone);
+    //void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone);
     void setDestination(int* i, enum State* state);
     void updateCurrentFloor(int*currentFloor);
             /* Code block that makes the elevator go up when it reach the botton

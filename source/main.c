@@ -25,11 +25,7 @@ static void clear_all_order_lights(){
 bool obstruksjon = false;
  
 int main(){
-    int error = hardware_init();
-    if(error != 0){
-        fprintf(stderr, "Unable to initialize hardware\n");
-        exit(1);
-    }
+    h_initiateHardware();
     timerStarted = false;
     state = UndefinedState;
 
@@ -52,7 +48,7 @@ int main(){
                 h_stopElevatorMovement();
                 //o_lookForOrders();
                 setDestination(&currentDestination,&state);
-                if (h_stop(&state)){
+                if (h_bool_stop()){
                     state = DoorOpen;
                 }
                 
@@ -63,7 +59,7 @@ int main(){
                 break;
             case StoppMellomEtasje :
                 h_stopElevatorMovement();
-                if (!h_stop(&state)){
+                if (!h_bool_stop()){
                     //o_lookForOrders();
                 }
                 //if (o_orderFound()){
@@ -77,11 +73,11 @@ int main(){
                 break;
             case DoorOpen:
                 h_stopElevatorMovement();
-                if (!h_stop(&state)){
+                if (!h_bool_stop()){
                     //o_lookForOrders();
                 }
 
-                if (!h_stop(&state) && !obstruksjon){
+                if (!h_bool_stop() && !obstruksjon){
                     //openTimedDoor går til neste tilstand når timeren er ferdig.
                     openTimedDoor(&state,&t0,&t1);
                 }
