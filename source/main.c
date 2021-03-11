@@ -30,7 +30,6 @@ int main(){
     state = UndefinedState;
 
     bool m_orderDone = true;
-    int currentDestination = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     bool m_currentMomentumDir = 1;
     
@@ -49,7 +48,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_setDestination(&currentDestination,&state);
+                h_setDestination(&state);
                 h_goToStopState(&state);
                /* else if(o_orderFound()){
 

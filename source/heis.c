@@ -103,11 +103,10 @@ bool h_checkIfInbetween(){
     return true;
 }
 
-void h_setDestination(int* nextDestination,enum State* state){
+void h_setDestination(enum State* state){
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
             if (hardware_read_order(i, j)) {
-                *nextDestination = i;
                 *state = Bevegelse;
             }
         }

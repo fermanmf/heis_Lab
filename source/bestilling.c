@@ -6,7 +6,7 @@
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
-int bestillingsKo[10];
+int bestillingsKo[10] = {0,0,0,0,0,0,0,0,0,0};
 int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun arrayen sjekkes
 
 struct bestilling order;
