@@ -40,7 +40,7 @@ int main(){
         switch(state){
             case UndefinedState : 
 
-                //o_lookForOrders();
+                
                 h_goToDefinedState(&state,&currentFloor);
 
                 break;
@@ -50,7 +50,9 @@ int main(){
                 o_lookForOrders();
                 h_setDestination(&state);
                 h_goToStopState(&state);
-                
+                if (numOrders !=0){
+                    state = bevegelse
+                }
                /* else if(o_orderFound()){
 
                     state = Bevegelse;
