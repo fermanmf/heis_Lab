@@ -10,7 +10,7 @@ struct bestilling
 
 };
 
-
+int numOrders;
 
 void o_lookForOrders();
 

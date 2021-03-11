@@ -12,8 +12,8 @@ int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun
 struct bestilling order;
 
 void o_lookForOrders() {
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 2; j++) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
             if (hardware_read_order(i, j)) {
                 order.etasje = i;
                 order.type = j;
@@ -25,8 +25,6 @@ void o_lookForOrders() {
 
 void o_orderProcessed() {
     numOrders++;
-    order.etasje = 0;
-    order.type = 0;  
 };
 
 void o_orderCheck() {
@@ -40,6 +38,7 @@ void o_orderCheck() {
     else {
         // Det ligger inne bestillinger
         o_checkDir();
+        return;
     }
 };
 
@@ -77,6 +76,9 @@ void o_checkDir() {
                 o_orderProcessed();
             }
         }
+        else {
+            
+        }
 };
 
 void o_checkIfOrderisInLine() {
@@ -94,14 +96,14 @@ void o_checkIfOrderisInLine() {
 void pushArrayBack() {
     for (int i = numOrders; i > 0; i--)
     {
-        bestillingsKo[i-1] = bestillingsKo[i];
+        bestillingsKo[i] = bestillingsKo[i-1];
     }
 };
 
 void pushArray() {
-    for (int i = 1; i < numOrders; i++)
+    for (int i = 1; i < (numOrders+1); i++)
     {
-        bestillingsKo[i] = bestillingsKo[i-1];
+        bestillingsKo[i-1] = bestillingsKo[i];
     }  
 };
 
@@ -131,10 +133,11 @@ void orderSent() {
 };
 
 int o_returnNextOrder(bool* mother_orderDone) {
-    if(mother_orderDone) {
-        int sending = bestillingsKo[0];
+    int sending = bestillingsKo[0];
+    if(*mother_orderDone) {
         orderSent();
         *mother_orderDone = false;
         return sending;
     }
+    return sending;
 };
