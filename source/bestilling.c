@@ -26,8 +26,8 @@ void o_lookForOrders() {
 };
 
 void o_orderProcessed() {
-    order.etasje = NULL;
-    order.type = NULL;  
+    order.etasje = 0;
+    order.type = 0;  
 };
 
 void o_orderCheck() {
