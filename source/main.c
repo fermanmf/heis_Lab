@@ -31,7 +31,6 @@ int main(){
 
     bool m_orderDone = false;
     int currentDestination = 0;
-    int currentFloor = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     bool m_currentMomentumDir = 1;
     
@@ -49,7 +48,7 @@ int main(){
             case StandPlass :
 
                 h_stopElevatorMovement();
-                //o_lookForOrders();
+                o_lookForOrders();
                 h_setDestination(&currentDestination,&state);
                 h_goToStopState(&state);
                /* else if(o_orderFound()){
@@ -62,7 +61,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 if (!h_stopPushed()){
-                    //o_lookForOrders();
+                    o_lookForOrders();
                 }
                 //if (o_orderFound()){
                  //   state = Bevegelse;
@@ -71,8 +70,8 @@ int main(){
                 break;
             case Bevegelse :
 
-                h_goToDestination(currentDestination,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
-                //o_lookForOrders();
+                h_goToDestination(o_returnNextOrder(&m_orderDone),currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                o_lookForOrders();
                 h_goToStopState(&state);
 
                 break;
@@ -80,7 +79,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 if (!h_stopPushed()){
-                    //o_lookForOrders();
+                    o_lookForOrders();
                 }
                 if (!h_stopPushed() && !obstruksjon){
                     //openTimedDoor går til neste tilstand når timeren er ferdig.
