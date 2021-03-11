@@ -126,7 +126,8 @@ bool o_orderFound() {
 };
 
 void orderSent() {
-
+    pushArray();
+    numOrders--;
 };
 
 int o_returnNextOrder(bool* mother_orderDone) {
@@ -134,7 +135,6 @@ int o_returnNextOrder(bool* mother_orderDone) {
         int sending = bestillingsKo[0];
         orderSent();
         *mother_orderDone = false;
-        numOrders -= 1;
         return sending;
     }
     
