@@ -7,94 +7,93 @@
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 int currentFloor;
-struct bestilling bestillingsKo[10] = { 0 };
-/*
-void o_lookForOrders() {
 
+int bestillingsKo[10] = { 0 };
+int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun arrayen sjekkes
+
+struct bestilling order;
+
+void o_lookForOrders() {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
-
             if (hardware_read_order(i, j)) {
-            
-                // Knappen er trykket inn i etasje i og knapp av typen j
-                // Det opprettes en ny bestilling
-                struct bestilling newOrder;
-                newOrder.etasje = i;
-                newOrder.type = j;
-                o_leggTilBestilling(newOrder);
-                delete(newOrder);
+                order.etasje = i;
+                order.type = j;
+                o_orderCheck();
             }
         }
     }
-};*/
+};
 
-void o_leggTilBestilling(struct bestilling nyBestilling) {
+void o_orderProcessed() {
+    order.etasje = NULL;
+    order.type = NULL;  
+};
 
-    // Først sjekkes det om det ligger bestillinger inne fra før
-    if (o_orderFound()) {
-        // Det ligger allerede bestillinger inne
-
+void o_orderCheck() {
+    // Sjekker først om det ligger bestillinger inne
+    if (numOrders==0) {
+        // Det ligger ikke inne noen bestillinger
+        bestillingsKo[0]=order.etasje;
+        numOrders += 1;
+        o_orderProcessed();
+        return;
     }
     else {
-        bestillingsKo[0] = nyBestilling;
+        // Det ligger inne bestillinger
+        o_checkDir();
     }
-
 };
 
 // Om det ligger en eller flere bestillinger inne
-// Sjekk først om bestillingen som e trykket inn allerede skal dit
+// Sjekk først om bestillingen som er trykket inn allerede skal dit
 
-void o_checkIfOrderisInLine(struct bestilling order) {
-    int orderFloor = order.etasje;
-    int sizeOfOrders = o_returnSizeOfOrders();
-    for (int i = 0; i < sizeOfOrders; i++) {
-        if (orderFloor == bestillingsKo[i].etasje) {
-            // Det finnes allerede en bestilling dit
-            return;
-        }
-        // Det er en ny etasje og bestillingen må legges til
-        o_findPriority(order);
-    }
-};
-
-void o_findPriority(struct bestilling order) {
-    // Sjekker først om første bestilling i køa er i samme retning som bestillingen relativt til heisa
-
-};
-
-void o_checkDir(struct bestilling order) {
-    struct bestilling firstOrder = bestillingsKo[0];
-    if((firstOrder.etasje < currentFloor)&&(order.etasje > currentFloor)||((firstOrder.etasje > currentFloor)&&(order.etasje < currentFloor))) {
+void o_checkDir() {
+    int firstOrder = bestillingsKo[0];
+    if((firstOrder < currentFloor)&&(order.etasje > currentFloor)||((firstOrder > currentFloor)&&(order.etasje < currentFloor))) {
         // Bestillingen kan ikke vurderes til å komme først i køen
 
     }
     else {
         // Bestillingen er i samme retning som første bestilling
         // Hvis den er nærmere enn heisen og den skal samme vei kan den settes først
-        if ((firstOrder.etasje < order.etasje)&&(firstOrder.etasje < currentFloor)) {
+        if ((firstOrder < order.etasje)&&(firstOrder < currentFloor)) {
             // Da skal heisen til en etasje, men den nye bestillingen er på veien dit
-            // Det må da sjekkes om knappen indikerer at den skla motsatt vei
+            // Det må da sjekkes om knappen indikerer at den skal motsatt vei
             // Her skal heisa ned, altså legges bestillingen bakerst om den vil opp
             if (order.type==opp) {
-                bestillingsKo[o_returnSizeOfOrders()] = order;
+                bestillingsKo[o_returnSizeOfOrders()] = order.etasje;
             }
             else {
                 // Bestillingen skal legges først
                 pushArray();
-                bestillingsKo[0] = order;
+                bestillingsKo[0] = order.etasje;
             }
 
         }
-        else if ((firstOrder.etasje > order.etasje)&&(firstOrder.etasje > currentFloor)) {
+        else if ((firstOrder > order.etasje)&&(firstOrder > currentFloor)) {
             if (order.type==ned) {
-                bestillingsKo[o_returnSizeOfOrders()+1] = order;
+                bestillingsKo[o_returnSizeOfOrders()+1] = order.etasje;
             }
             else {
                 // Bestillingen skal legges først
                 pushArrayBack();
-                bestillingsKo[0] = order;
+                bestillingsKo[0] = order.etasje;
             }
         }
+    }
+};
+
+void o_checkIfOrderisInLine() {
+    int orderFloor = order.etasje;
+    int sizeOfOrders = numOrders;
+    for (int i = 0; i < sizeOfOrders; i++) {
+        if (orderFloor == bestillingsKo[i]) {
+            // Det finnes allerede en bestilling dit
+            return;
+        }
+        // Det er en ny etasje og bestillingen må legges til
+        o_findPriority(order);
     }
 };
 
@@ -127,27 +126,23 @@ bool o_bestillingFraHeispanel(struct bestilling panelBestilling) {
 };
 
 bool o_orderFound() {
-    if (o_returnSizeOfOrders() == 0) {
+    if (bestillingsKo[0] == 0) {
         return false;
     }
     return true;
 };
-/*
-int o_returnNextOrder(bool* mother_orderDone) {
-    if (o_orderFound){
-    int next = bestillingsKo[0].etasje;
-        if (*mother_orderDone == false) {
-            return next;
-        }
-        else {
-             delete(bestillingsKo[0]);
-            pushArray();
-            return bestillingsKo[0].etasje;
-            *mother_orderDone = false;
-        }
-     }
-    else {
-        return 1;
-    }
 
-};*/
+void orderSent() {
+
+};
+
+int o_returnNextOrder(bool* mother_orderDone) {
+    if(o_orderFound()) {
+        int sending = bestillingsKo[0];
+        orderSent();
+        *mother_orderDone = true;
+        numOrders -= 1;
+        return sending;
+    }
+    
+};
