@@ -17,14 +17,14 @@ void atDestination(int currentFloor,int currentDestination, enum State* state,bo
 }
 void settRetning(int currentDestination,bool* retningOpp,int currentFloor){
     if (currentDestination < currentFloor){
-        if (elevatorIsMoving){
+        if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
         }
         *retningOpp = false;
     }
     else if (currentDestination > currentFloor){
-        if (elevatorIsMoving){
+        if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
         }
