@@ -25,11 +25,7 @@ static void clear_all_order_lights(){
 bool obstruksjon = false;
  
 int main(){
-    int error = hardware_init();
-    if(error != 0){
-        fprintf(stderr, "Unable to initialize hardware\n");
-        exit(1);
-    }
+    h_initiateHardware();
     timerStarted = false;
     state = UndefinedState;
 
@@ -40,48 +36,53 @@ int main(){
     bool m_currentMomentumDir = 1;
     
     while(1){
-        updateCurrentFloor(&currentFloor);
+        h_updateCurrentFloor(&currentFloor);
         //h_handleStopButton();
         //o_returnNextOrder(&m_orderDone);
         switch(state){
             case UndefinedState : 
+
                 //o_lookForOrders();
                 h_goToDefinedState(&state,&currentFloor);
+
                 break;
             case StandPlass :
+
                 h_stopElevatorMovement();
                 //o_lookForOrders();
-                setDestination(&currentDestination,&state);
-                if (h_stop(&state)){
-                    state = DoorOpen;
-                }
-                
+                h_setDestination(&currentDestination,&state);
+                h_goToStopState(&state);
                /* else if(o_orderFound()){
 
                     state = Bevegelse;
                 }*/
+
                 break;
             case StoppMellomEtasje :
+
                 h_stopElevatorMovement();
-                if (!h_stop(&state)){
+                if (!h_stopPushed()){
                     //o_lookForOrders();
                 }
                 //if (o_orderFound()){
                  //   state = Bevegelse;
                 //}
+
                 break;
             case Bevegelse :
+
                 h_goToDestination(currentDestination,currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
                 //o_lookForOrders();
-                h_stop(&state);
+                h_goToStopState(&state);
+
                 break;
             case DoorOpen:
+
                 h_stopElevatorMovement();
-                if (!h_stop(&state)){
+                if (!h_stopPushed()){
                     //o_lookForOrders();
                 }
-
-                if (!h_stop(&state) && !obstruksjon){
+                if (!h_stopPushed() && !obstruksjon){
                     //openTimedDoor går til neste tilstand når timeren er ferdig.
                     openTimedDoor(&state,&t0,&t1);
                 }
