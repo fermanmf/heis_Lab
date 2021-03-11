@@ -131,7 +131,7 @@ void orderSent() {
 };
 
 int o_returnNextOrder(bool* mother_orderDone) {
-    if(o_orderFound()) {
+    if(mother_orderDone) {
         int sending = bestillingsKo[0];
         orderSent();
         *mother_orderDone = false;

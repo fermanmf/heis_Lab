@@ -29,7 +29,7 @@ int main(){
     timerStarted = false;
     state = UndefinedState;
 
-    bool m_orderDone = false;
+    bool m_orderDone = true;
     int currentDestination = 0;
     //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
     bool m_currentMomentumDir = 1;
