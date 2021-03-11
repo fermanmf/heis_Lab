@@ -33,3 +33,5 @@ void o_checkDir(struct bestilling order);
 void pushArrayBack();
 
 void pushArray();
+
+void orderSent();
