@@ -93,7 +93,6 @@ void o_checkIfOrderisInLine() {
             return;
         }
         // Det er en ny etasje og bestillingen må legges til
-        o_findPriority(order);
     }
 };
 
