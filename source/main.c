@@ -65,7 +65,7 @@ int main(){
                 if (!h_stopPushed()){
                     o_lookForOrders();
                     if (numOrders !=0){
-                    state = bevegelse
+                    state = Bevegelse
                 }
                 }
                 //if (o_orderFound()){
