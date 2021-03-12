@@ -12,13 +12,15 @@ int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun
 struct bestilling order;
 
 void o_lookForOrders() {
+    if (!h_stopPushed){
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
             if (hardware_read_order(i, j)) {
                 order.etasje = i;
                 order.type = j;
                 o_orderCheck();
-            }
+             }
+          }
         }
     }
 };
@@ -81,15 +83,35 @@ void o_checkDir() {
         }
 };
 
-void o_checkIfOrderisInLine() {
-    int orderFloor = order.etasje;
-    int sizeOfOrders = numOrders;
-    for (int i = 0; i < sizeOfOrders; i++) {
-        if (orderFloor == bestillingsKo[i]) {
-            // Det finnes allerede en bestilling dit
-            return;
+// Returner hvor i rekken duplikatbestillingen ligger, evt -1 om ingen finnes
+int o_findOrderToSameFloor() {
+    // Funksjonen skal returnere true om det finnes et tilfelle av samme etasje i bestillingslisten
+    for (int i = 0; i < numOrders; i++) {
+        int floor = order.etasje;
+        if (bestillingsKo[i] == floor) {
+            // Det ligger allerede en bestilling til etasjen inne
+            return i;
         }
-        // Det er en ny etasje og bestillingen må legges til
+    }
+    return -1;
+};
+
+// Bestilling skal legges først
+void o_putOrderFirst() {
+    int num = o_findOrderToSameFloor();
+    if (num==-1) {
+        // Det finnes ingen andre tilfeller av etasjen i listen
+        pushArrayBack();
+        bestillingsKo[0]=order.etasje;
+        o_orderProcessed();
+    }
+    else {      // Det som allerede ligger der inne må fjernes
+        for (int i = num; i < (numOrders-1); i++) {
+            bestillingsKo[i] = bestillingsKo[i+1];
+        }
+        pushArrayBack();
+        bestillingsKo[0]=order.etasje;
+        o_orderProcessed();
     }
 };
 
@@ -107,37 +129,25 @@ void pushArray() {
     }  
 };
 
-int o_returnSizeOfOrders() {
-    int antallBestillinger = NELEMS(bestillingsKo);
-    return antallBestillinger;
-};
-
-bool o_bestillingFraHeispanel(struct bestilling panelBestilling) {
-    if (panelBestilling.type == 2) {
-        // Bestillingen kommer innenfra
-        return true;
-    }
-    return false;
-};
-
-bool o_orderFound() {
-    if (bestillingsKo[0] == -1) {
-        return false;
-    }
-    return true;
-};
-
 void orderSent() {
     pushArray();
     numOrders--;
 };
 
-int o_returnNextOrder(bool* mother_orderDone) {
+
+
+int o_returnNextOrder() {
     int sending = bestillingsKo[0];
-    if(*mother_orderDone) {
-        orderSent();
-        *mother_orderDone = false;
-        return sending;
-    }
     return sending;
+};
+
+void o_checkOrderDone() {
+    if(m_orderDone) {
+        orderSent();
+        m_orderDone = false;
+    }
+};
+
+bool queueIsEmpty() {
+    return numOrders;
 };

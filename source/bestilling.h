@@ -14,24 +14,24 @@ int numOrders;
 
 void o_lookForOrders();
 
-void o_leggTilBestilling(struct bestilling nyBestilling);
-
-bool o_bestillingFraHeispanel(struct bestilling panelBestilling);
-
-int o_returnSizeOfOrders();
-
-bool o_orderFound();
+void o_orderProcessed();
 
 void o_orderCheck();
 
-int o_returnNextOrder(bool* mother_orderDone);      // Funksjon skal bare brukes hvis det finnes en bestilling
-
-void o_checkIfOrderisInLine();
-
 void o_checkDir();
+
+int o_findOrderToSameFloor();
+
+void o_putOrderFirst();
 
 void pushArrayBack();
 
 void pushArray();
 
 void orderSent();
+
+int o_returnNextOrder();      // Funksjon skal bare brukes hvis det finnes en bestilling
+
+void o_checkOrderDone();
+
+bool queueIsEmpty();
