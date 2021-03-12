@@ -28,10 +28,9 @@ int main(){
     h_initiateHardware();
     while(1){
         h_updateCurrentFloor();
-        enum State state = h_getState();
         //h_handleStopButton();
         //o_returnNextOrder(&m_orderDone);
-        switch(state){
+        switch(h_getState()){
             case UndefinedState : 
 
                 h_goToDefinedState();
