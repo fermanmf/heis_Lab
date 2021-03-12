@@ -8,31 +8,35 @@
 #include <stdlib.h>
 
 int currentFloor = 0;
+bool m_orderDone = true;
+bool m_currentMomentumDir = 1;
+bool obstruction = false;
 
+static enum State state = UndefinedState;
 static bool elevatorIsMoving = true;
 
-void atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone){
+static void atDestination(int currentDestination){
      for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)&&(f==currentDestination)){
-        *state = DoorOpen;
-        *m_orderDone = true;
+        state = DoorOpen;
+        m_orderDone = true;
         }
     }
 }
-void settRetning(int currentDestination,bool* retningOpp,int currentFloor){
+static void settRetning(int currentDestination){
     if (currentDestination < currentFloor){
         if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
         }
-        *retningOpp = false;
+        m_currentMomentumDir = false;
     }
     else if (currentDestination > currentFloor){
         if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
         }
-        *retningOpp = true;
+        m_currentMomentumDir = true;
     }
 }
 void h_initiateHardware(){
@@ -43,18 +47,18 @@ void h_initiateHardware(){
         exit(1);
     }
 }
-void h_goToDestination(int currentDestination, int currentFloor, bool*currentMomentumDir, enum State* state,bool* m_orderDone){
-    settRetning(currentDestination,currentMomentumDir,currentFloor);
-    atDestination(currentFloor,currentDestination,state,m_orderDone);
+void h_goToDestination(int currentDestination){
+    settRetning(currentDestination);
+    atDestination(currentDestination);
 }
 
 
-void h_goToDefinedState(enum State* state,int* currentFloor){
+void h_goToDefinedState(){
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)){
-            *state = StandPlass;
-            *currentFloor = f;
+            state = StandPlass;
+            currentFloor = f;
         }
     }
 }
@@ -65,22 +69,22 @@ bool h_stopPushed(){
     }
     return stopPushed;
 }
-void h_goToStopState(enum State* state){
+void h_goToStopState(){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
           stopPushed = true;
     }
-    switch(*state){
+    switch(state){
         case StandPlass : 
             if(stopPushed){
-            *state = DoorOpen;}
+            state = DoorOpen;}
             break;
         case Bevegelse : 
             if (stopPushed && h_checkIfInbetween()){
-                *state = StoppMellomEtasje;
+                state = StoppMellomEtasje;
             }
             else if (stopPushed){
-                *state = DoorOpen;
+                state = DoorOpen;
             }
             break;
         default: 
@@ -105,21 +109,33 @@ bool h_checkIfInbetween(){
     return true;
 }
 
-void h_setDestination(enum State* state){
+void h_setDestination(){
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
             if (hardware_read_order(i, j)) {
-                *state = Bevegelse;
+                state = Bevegelse;
             }
         }
     }
 }
 
-void h_updateCurrentFloor(int*currentFloor){
+void h_updateCurrentFloor(){
    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)){
             hardware_command_floor_indicator_on(f);
-            *currentFloor = f;
+            currentFloor = f;
         }
     }
+}
+
+void h_goToStandPlass(bool timeIsUp){
+    state = StandPlass;
+}
+void h_goToBevegelse(bool queueIsEmpty){
+    if (!queueIsEmpty){
+        state = Bevegelse;
+    }
+}
+enum State h_getState(){
+    return state;
 }

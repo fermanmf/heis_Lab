@@ -6,29 +6,22 @@
 
 #pragma once
 
-enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
-enum State state;
-
+    enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 
     int currentFloor;
+    bool m_orderDone;
+    bool m_currentMomentumDir; 
+    bool obstruction;
 
     void h_initiateHardware();
-    void h_goToDestination(int currentDestination, int currentFloor, bool*m_currentMomentumDir, enum State* state,bool* m_orderDone); 
+    void h_goToDestination(int currentDestination); 
     void h_goToDefinedState();
     bool h_stopPushed();
-    void h_goToStopState(enum State* state);
+    void h_goToStopState();
     bool h_checkIfInbetween();
     void h_stopElevatorMovement();
-    //void h_atDestination(int currentFloor,int currentDestination, enum State* state,bool* m_orderDone);
-    void h_setDestination(enum State* state);
-    void h_updateCurrentFloor(int*currentFloor);
-            /* Code block that makes the elevator go up when it reach the botton
-            if(hardware_read_floor_sensor(0)){
-                hardware_command_movement(HARDWARE_MOVEMENT_UP);
-            }
-
-            Code block that makes the elevator go down when it reach the top floor
-            if(hardware_read_floor_sensor(HARDWARE_NUMBER_OF_FLOORS - 1)){
-                hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-            }
-*/
+    void h_setDestination();
+    void h_updateCurrentFloor();
+    void h_goToStandPlass(bool timeIsUp);
+    void h_goToBevegelse(bool queueIsEmpty);
+    enum State h_getState();

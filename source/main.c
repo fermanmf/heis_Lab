@@ -21,82 +21,54 @@ static void clear_all_order_lights(){
         }
     }
 }
-//dummy
-bool obstruksjon = false;
+
+
  
 int main(){
     h_initiateHardware();
-    timerStarted = false;
-    state = UndefinedState;
-
-    bool m_orderDone = true;
-    //int (*m_currentDestination)(bool) = &o_returnNextOrder(m_orderDone);
-    bool m_currentMomentumDir = 1;
-    
     while(1){
-        h_updateCurrentFloor(&currentFloor);
+        h_updateCurrentFloor();
+        enum State state = h_getState();
         //h_handleStopButton();
         //o_returnNextOrder(&m_orderDone);
         switch(state){
             case UndefinedState : 
 
-                
-                h_goToDefinedState(&state,&currentFloor);
+                h_goToDefinedState();
 
                 break;
             case StandPlass :
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_setDestination(&state);
-                h_goToStopState(&state);
-                if (numOrders !=0){
-                    state = Bevegelse;
-                }
-               /* else if(o_orderFound()){
-
-                    state = Bevegelse;
-                }*/
+                h_setDestination();
+                h_goToStopState();
+                h_goToBevegelse(numOrders);
 
                 break;
             case StoppMellomEtasje :
 
                 h_stopElevatorMovement();
-                if (!h_stopPushed()){
-                    o_lookForOrders();
-                    if (numOrders !=0){
-                    state = Bevegelse;
-                }
-                }
-                //if (o_orderFound()){
-                 //   state = Bevegelse;
-                //}
-
+                o_lookForOrders();
+                h_goToBevegelse(numOrders);
+                
                 break;
             case Bevegelse :
 
-                h_goToDestination(o_returnNextOrder(&m_orderDone),currentFloor,&m_currentMomentumDir,&state,&m_orderDone);
+                h_goToDestination(o_returnNextOrder(&m_orderDone));
                 o_lookForOrders();
-                h_goToStopState(&state);
+                h_goToStopState();
 
                 break;
             case DoorOpen:
 
                 h_stopElevatorMovement();
-                if (!h_stopPushed()){
-                    o_lookForOrders();
-                }
-                if (!h_stopPushed() && !obstruksjon){
-                    //openTimedDoor går til neste tilstand når timeren er ferdig.
-                    openTimedDoor(&state,&t0,&t1);
-                }
-                else{
-                    openDoor();
-                }
+                o_lookForOrders();
+                openTimedDoor();
+                h_goToStandPlass(timeIsUp);
+
                 break;
-
             default :
-
                 break;
         };
     }
