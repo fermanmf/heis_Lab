@@ -136,6 +136,6 @@ void h_goToBevegelse(bool queueIsEmpty){
         state = Bevegelse;
     }
 }
-enum State getState(){
+enum State h_getState(){
     return state;
 }
