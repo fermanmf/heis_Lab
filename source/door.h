@@ -9,12 +9,8 @@
                 hardware_command_stop_light(0);
             }*/ 
 
-struct timeval t0;
-struct timeval t1;
 
-bool timerStarted;
+bool timeIsUp;
 
-void openDoor();
 
-float timedifference(struct timeval t0, struct timeval t1);
-void openTimedDoor(enum State* state,struct timeval* t0,struct timeval* t1);
+void openTimedDoor();

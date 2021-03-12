@@ -7,30 +7,42 @@
 #include "door.h"
 
 
+static struct timeval t0;
+static struct timeval t1;
+static bool timerStarted;
 
+bool timeIsUp = false;
 
-
-void openDoor(){
-    hardware_command_door_open(1);
-};
-float timedifference(struct timeval t0, struct timeval t1){
+static float timedifference(struct timeval t0, struct timeval t1){
     return (t1.tv_sec - t0.tv_sec);
 }
+
+static void openDoor(){
+    hardware_command_door_open(1);
+};
+
  
-void openTimedDoor(enum State* state,struct timeval* t0,struct timeval* t1){
-    openDoor();
-    float elapsed = 0;
-    gettimeofday(t1,0);
-    if (timerStarted){
-        elapsed = timedifference(*t0,*t1);
-    }
-    if(!timerStarted){
-        gettimeofday(t0, 0);
-        timerStarted = true;
-    }
-   else if (elapsed > 5){
-        hardware_command_door_open(0);
+void openTimedDoor(){
+    if (h_stopPushed() || obstruction){
         timerStarted = false;
-        *state = StandPlass;
+        openDoor();
+    }
+    else{
+        openDoor();
+        timeIsUp = false;
+        float elapsed = 0;
+        gettimeofday(&t1,0);
+        if (timerStarted){
+            elapsed = timedifference(t0,t1);
+        }
+        if(!timerStarted){
+            gettimeofday(&t0, 0);
+            timerStarted = true;
+        }
+        else if (elapsed > 5){
+            hardware_command_door_open(0);
+            timerStarted = false;
+            timeIsUp = true;
+        }
     }
 }
