@@ -51,7 +51,7 @@ int main(){
                 h_setDestination(&state);
                 h_goToStopState(&state);
                 if (numOrders !=0){
-                    state = bevegelse
+                    state = Bevegelse;
                 }
                /* else if(o_orderFound()){
 
