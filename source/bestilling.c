@@ -61,9 +61,7 @@ void o_checkDir() {
             }
             else {
                 // Bestillingen skal legges først
-                pushArrayBack();
-                bestillingsKo[0] = order.etasje;
-                o_orderProcessed();
+                o_putOrderFirst();
             }
         }
         else if ((firstOrder > order.etasje)&&(firstOrder > currentFloor)) {
@@ -73,9 +71,7 @@ void o_checkDir() {
             }
             else {
                 // Bestillingen skal legges først
-                pushArrayBack();
-                bestillingsKo[0] = order.etasje;
-                o_orderProcessed();
+                o_putOrderFirst();
             }
         }
         else {

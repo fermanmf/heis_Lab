@@ -55,7 +55,7 @@ int main(){
                 break;
             case Bevegelse :
 
-                h_goToDestination(o_returnNextOrder(&m_orderDone));
+                h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
                 h_goToStopState();
 
