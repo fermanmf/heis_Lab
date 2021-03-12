@@ -64,6 +64,9 @@ int main(){
                 h_stopElevatorMovement();
                 if (!h_stopPushed()){
                     o_lookForOrders();
+                    if (numOrders !=0){
+                    state = bevegelse
+                }
                 }
                 //if (o_orderFound()){
                  //   state = Bevegelse;
