@@ -1,7 +1,8 @@
 
 /**
  * @file 
- * @brief This module contains functions that changes the state of the elevator. 
+ * @brief This module contains functions that give instructions 
+ * to the elevator and control at which state the elevator is at all times.
  */
 
 #pragma once
