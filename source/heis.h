@@ -6,6 +6,10 @@
  */
 
 #pragma once
+/**
+ * @brief This @c enum type keeps track of the possible states of the system.
+ * **/
+enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 
 /**
  * @brief This @c int  keeps track of the elevators current floor.
@@ -67,8 +71,7 @@ bool h_checkIfInbetween();
 
 void h_stopElevatorMovement();
 
-void h_setDestination();
-void h_updateCurrentFloor();
+//void h_setDestination();
 /**
  * @brief This function makes the elevator go to 
  * to the StandPlass state if the timer of the door is finished.
