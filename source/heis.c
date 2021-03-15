@@ -7,7 +7,6 @@
 #include "door.h"
 #include <stdlib.h>
 
-enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
 
 int currentFloor = 0;
 bool m_orderDone = true;

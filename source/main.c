@@ -40,7 +40,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_setDestination();
+                //h_setDestination();
                 h_goToStopState();
                 h_goToBevegelse(numOrders);
 
