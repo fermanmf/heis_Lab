@@ -137,7 +137,7 @@ int o_returnNextOrder() {
     return sending;
 };
 
-void o_checkOrderDone() {
+void o_checkIfOrderDone() {
     if(m_orderDone) {
         orderSent();
         m_orderDone = false;

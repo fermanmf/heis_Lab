@@ -41,7 +41,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                //h_setDestination();
+                o_checkIfOrderDone();
                 h_goToStopState();
                 h_goToBevegelse(numOrders);
 
