@@ -2,48 +2,32 @@
 \label{heis_8h}\index{source/heis.h@{source/heis.h}}
 
 
-This module contains functions that changes the state of the elevator.  
+This module contains functions that give instructions to the elevator and control at which state the elevator is at all times.  
 
 
 This graph shows which files directly or indirectly include this file\+:
 % FIG 0
-\doxysubsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{heis_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{heis_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
-enum {\bfseries State} \{ \newline
-{\bfseries Undefined\+State}, 
-{\bfseries Stand\+Plass}, 
-{\bfseries Stopp\+Mellom\+Etasje}, 
-{\bfseries Bevegelse}, 
-\newline
-{\bfseries Door\+Open}
- \}
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{heis_8h_a1094e37783921c6ceca6e39b93e5e5bc}\label{heis_8h_a1094e37783921c6ceca6e39b93e5e5bc}} 
-void {\bfseries h\+\_\+initiate\+Hardware} ()
-\item 
-\mbox{\Hypertarget{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}\label{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}} 
-void {\bfseries h\+\_\+go\+To\+Destination} (int current\+Destination)
-\item 
+void \mbox{\hyperlink{heis_8h_a1094e37783921c6ceca6e39b93e5e5bc}{h\+\_\+initiate\+Hardware}} ()
+\begin{DoxyCompactList}\small\item\em This function initiates the hardware . \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}{h\+\_\+go\+To\+Destination}} (int current\+Destination)
+\begin{DoxyCompactList}\small\item\em This function makes the elevator go to the current destination. When the elevator arrives a destination, the function changes the state of the system. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a8b742e187864a375af0785143330e3f9}\label{heis_8h_a8b742e187864a375af0785143330e3f9}} 
-void {\bfseries h\+\_\+go\+To\+Defined\+State} ()
-\item 
-\mbox{\Hypertarget{heis_8h_a13621c0918e8100138c3f5a4435a506c}\label{heis_8h_a13621c0918e8100138c3f5a4435a506c}} 
-bool {\bfseries h\+\_\+stop\+Pushed} ()
-\item 
+void \mbox{\hyperlink{heis_8h_a8b742e187864a375af0785143330e3f9}{h\+\_\+go\+To\+Defined\+State}} ()
+\begin{DoxyCompactList}\small\item\em This function brings the elevator to a floor (a defined state). If the elevator is initiated between two floors it always moves up. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{heis_8h_a13621c0918e8100138c3f5a4435a506c}{h\+\_\+stop\+Pushed}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if the stop-\/button is pushed. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_abebf9e0bc7c7bbdc1cd2d29608a7bf5d}\label{heis_8h_abebf9e0bc7c7bbdc1cd2d29608a7bf5d}} 
-void {\bfseries h\+\_\+go\+To\+Stop\+State} ()
-\item 
-\mbox{\Hypertarget{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}\label{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}} 
-bool {\bfseries h\+\_\+check\+If\+Inbetween} ()
-\item 
+void \mbox{\hyperlink{heis_8h_abebf9e0bc7c7bbdc1cd2d29608a7bf5d}{h\+\_\+go\+To\+Stop\+State}} ()
+\begin{DoxyCompactList}\small\item\em This function makes the elevator go to to either the Stop\+Between\+Floors state or the Door\+Open state, but only if the stop\+Button is pushed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}{h\+\_\+check\+If\+Inbetween}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the elevator is triggering any floor\+Sensor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a4629335ea6fc5e92e8f3dbe9a7862805}\label{heis_8h_a4629335ea6fc5e92e8f3dbe9a7862805}} 
-void {\bfseries h\+\_\+stop\+Elevator\+Movement} ()
-\item 
+void \mbox{\hyperlink{heis_8h_a4629335ea6fc5e92e8f3dbe9a7862805}{h\+\_\+stop\+Elevator\+Movement}} ()
+\begin{DoxyCompactList}\small\item\em This function simply stops the movement of the elevator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a74359d85a4e14d4c0bb33c50bfa41db4}\label{heis_8h_a74359d85a4e14d4c0bb33c50bfa41db4}} 
 void {\bfseries h\+\_\+set\+Destination} ()
 \item 
@@ -51,31 +35,122 @@ void {\bfseries h\+\_\+set\+Destination} ()
 void {\bfseries h\+\_\+update\+Current\+Floor} ()
 \item 
 \mbox{\Hypertarget{heis_8h_a92e1e3dac33595a4204bf31a8e38309f}\label{heis_8h_a92e1e3dac33595a4204bf31a8e38309f}} 
-void {\bfseries h\+\_\+go\+To\+Stand\+Plass} (bool time\+Is\+Up)
-\item 
-\mbox{\Hypertarget{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}\label{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}} 
-void {\bfseries h\+\_\+go\+To\+Bevegelse} (bool queue\+Is\+Empty)
-\item 
-\mbox{\Hypertarget{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}\label{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}} 
-enum State {\bfseries h\+\_\+get\+State} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{heis_8h_a92e1e3dac33595a4204bf31a8e38309f}{h\+\_\+go\+To\+Stand\+Plass}} (bool time\+Is\+Up)
+\begin{DoxyCompactList}\small\item\em This function makes the elevator go to to the Stand\+Plass state if the timer of the door is finished. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}{h\+\_\+go\+To\+Bevegelse}} (bool queue\+Is\+Empty)
+\begin{DoxyCompactList}\small\item\em This function makes the elevator go to to the Bevegelse state, but only if {\ttfamily queue\+Is\+Empty} is {\ttfamily true}. \end{DoxyCompactList}\item 
+enum State \mbox{\hyperlink{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}{h\+\_\+get\+State}} ()
+\begin{DoxyCompactList}\small\item\em This function simply returns the state of the system. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{heis_8h_af2ae3c80eff5c67623f0511ce43b3c90}\label{heis_8h_af2ae3c80eff5c67623f0511ce43b3c90}} 
-int {\bfseries current\+Floor}
-\item 
+int \mbox{\hyperlink{heis_8h_af2ae3c80eff5c67623f0511ce43b3c90}{current\+Floor}}
+\begin{DoxyCompactList}\small\item\em This {\ttfamily int} keeps track of the elevators current floor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a11ceb7c46f3c0de7b4633d1f05c7bfc6}\label{heis_8h_a11ceb7c46f3c0de7b4633d1f05c7bfc6}} 
-bool {\bfseries m\+\_\+order\+Done}
-\item 
+bool \mbox{\hyperlink{heis_8h_a11ceb7c46f3c0de7b4633d1f05c7bfc6}{m\+\_\+order\+Done}}
+\begin{DoxyCompactList}\small\item\em This {\ttfamily bool} tells whether or not the {\ttfamily go\+To\+Destinaiton()} function has finished an order. It is used to communicate to the order module that it can remove the order. ~\newline
+ \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a16fd40e14b1ccc893a8e2519e69b2b54}\label{heis_8h_a16fd40e14b1ccc893a8e2519e69b2b54}} 
-bool {\bfseries m\+\_\+current\+Momentum\+Dir}
-\item 
+bool \mbox{\hyperlink{heis_8h_a16fd40e14b1ccc893a8e2519e69b2b54}{m\+\_\+current\+Momentum\+Dir}}
+\begin{DoxyCompactList}\small\item\em This {\ttfamily bool} is true when the elevator moves up and false when it moves down. In the case of no movement the variable holds the latest direction. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{heis_8h_a737f58aac843a6a5bc9bd77b35491cf7}\label{heis_8h_a737f58aac843a6a5bc9bd77b35491cf7}} 
-bool {\bfseries obstruction}
-\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{heis_8h_a737f58aac843a6a5bc9bd77b35491cf7}{obstruction}}
+\begin{DoxyCompactList}\small\item\em This {\ttfamily bool} holds true when the obstruction button is active. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-This module contains functions that changes the state of the elevator. 
+This module contains functions that give instructions to the elevator and control at which state the elevator is at all times. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}\label{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}} 
+\index{heis.h@{heis.h}!h\_checkIfInbetween@{h\_checkIfInbetween}}
+\index{h\_checkIfInbetween@{h\_checkIfInbetween}!heis.h@{heis.h}}
+\doxysubsubsection{\texorpdfstring{h\_checkIfInbetween()}{h\_checkIfInbetween()}}
+{\footnotesize\ttfamily bool h\+\_\+check\+If\+Inbetween (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the elevator is triggering any floor\+Sensor. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if no floor sensor is triggered by the elevator. {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 105 of file heis.\+c.
+
+\mbox{\Hypertarget{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}\label{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}} 
+\index{heis.h@{heis.h}!h\_getState@{h\_getState}}
+\index{h\_getState@{h\_getState}!heis.h@{heis.h}}
+\doxysubsubsection{\texorpdfstring{h\_getState()}{h\_getState()}}
+{\footnotesize\ttfamily enum State h\+\_\+get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function simply returns the state of the system. 
+
+\begin{DoxyReturn}{Returns}
+state of the system. 
+\end{DoxyReturn}
+
+
+Definition at line 141 of file heis.\+c.
+
+\mbox{\Hypertarget{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}\label{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}} 
+\index{heis.h@{heis.h}!h\_goToBevegelse@{h\_goToBevegelse}}
+\index{h\_goToBevegelse@{h\_goToBevegelse}!heis.h@{heis.h}}
+\doxysubsubsection{\texorpdfstring{h\_goToBevegelse()}{h\_goToBevegelse()}}
+{\footnotesize\ttfamily void h\+\_\+go\+To\+Bevegelse (\begin{DoxyParamCaption}\item[{bool}]{queue\+Is\+Empty }\end{DoxyParamCaption})}
+
+
+
+This function makes the elevator go to to the Bevegelse state, but only if {\ttfamily queue\+Is\+Empty} is {\ttfamily true}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em queue\+Is\+Empty} & This variable is holding true if there are no orders. false otherwise. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 136 of file heis.\+c.
+
+\mbox{\Hypertarget{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}\label{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}} 
+\index{heis.h@{heis.h}!h\_goToDestination@{h\_goToDestination}}
+\index{h\_goToDestination@{h\_goToDestination}!heis.h@{heis.h}}
+\doxysubsubsection{\texorpdfstring{h\_goToDestination()}{h\_goToDestination()}}
+{\footnotesize\ttfamily void h\+\_\+go\+To\+Destination (\begin{DoxyParamCaption}\item[{int}]{current\+Destination }\end{DoxyParamCaption})}
+
+
+
+This function makes the elevator go to the current destination. When the elevator arrives a destination, the function changes the state of the system. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em current\+Destination} & It is the destination passed by by the order module. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 52 of file heis.\+c.
+
+\mbox{\Hypertarget{heis_8h_a13621c0918e8100138c3f5a4435a506c}\label{heis_8h_a13621c0918e8100138c3f5a4435a506c}} 
+\index{heis.h@{heis.h}!h\_stopPushed@{h\_stopPushed}}
+\index{h\_stopPushed@{h\_stopPushed}!heis.h@{heis.h}}
+\doxysubsubsection{\texorpdfstring{h\_stopPushed()}{h\_stopPushed()}}
+{\footnotesize\ttfamily bool h\+\_\+stop\+Pushed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function checks if the stop-\/button is pushed. 
+
+\begin{DoxyReturn}{Returns}
+0 if the stopbutton is not pushed. 1 if it is. 
+\end{DoxyReturn}
+
+
+Definition at line 67 of file heis.\+c.
 

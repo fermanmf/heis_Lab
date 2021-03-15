@@ -66,7 +66,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -74,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This module contains functions that changes the state of the elevator.  
+<p>This module contains functions that give instructions to the elevator and control at which state the elevator is at all times.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -85,41 +84,32 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="heis_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memItemLeft" align="right" valign="top"><a id="a5d74787dedbc4e11c1ab15bf487e61f8"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>State</b> { <br />
-&#160;&#160;<b>UndefinedState</b>, 
-<b>StandPlass</b>, 
-<b>StoppMellomEtasje</b>, 
-<b>Bevegelse</b>, 
-<br />
-&#160;&#160;<b>DoorOpen</b>
-<br />
- }</td></tr>
-<tr class="separator:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1094e37783921c6ceca6e39b93e5e5bc"><td class="memItemLeft" align="right" valign="top"><a id="a1094e37783921c6ceca6e39b93e5e5bc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_initiateHardware</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">h_initiateHardware</a> ()</td></tr>
+<tr class="memdesc:a1094e37783921c6ceca6e39b93e5e5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function initiates the hardware . <br /></td></tr>
 <tr class="separator:a1094e37783921c6ceca6e39b93e5e5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c4a03f86605b1945475d7a8e4b17f75"><td class="memItemLeft" align="right" valign="top"><a id="a5c4a03f86605b1945475d7a8e4b17f75"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_goToDestination</b> (int currentDestination)</td></tr>
+<tr class="memitem:a5c4a03f86605b1945475d7a8e4b17f75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">h_goToDestination</a> (int currentDestination)</td></tr>
+<tr class="memdesc:a5c4a03f86605b1945475d7a8e4b17f75"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function makes the elevator go to the current destination. When the elevator arrives a destination, the function changes the state of the system.  <a href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">More...</a><br /></td></tr>
 <tr class="separator:a5c4a03f86605b1945475d7a8e4b17f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b742e187864a375af0785143330e3f9"><td class="memItemLeft" align="right" valign="top"><a id="a8b742e187864a375af0785143330e3f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_goToDefinedState</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a8b742e187864a375af0785143330e3f9">h_goToDefinedState</a> ()</td></tr>
+<tr class="memdesc:a8b742e187864a375af0785143330e3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function brings the elevator to a floor (a defined state). If the elevator is initiated between two floors it always moves up. <br /></td></tr>
 <tr class="separator:a8b742e187864a375af0785143330e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13621c0918e8100138c3f5a4435a506c"><td class="memItemLeft" align="right" valign="top"><a id="a13621c0918e8100138c3f5a4435a506c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>h_stopPushed</b> ()</td></tr>
+<tr class="memitem:a13621c0918e8100138c3f5a4435a506c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">h_stopPushed</a> ()</td></tr>
+<tr class="memdesc:a13621c0918e8100138c3f5a4435a506c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the stop-button is pushed.  <a href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">More...</a><br /></td></tr>
 <tr class="separator:a13621c0918e8100138c3f5a4435a506c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abebf9e0bc7c7bbdc1cd2d29608a7bf5d"><td class="memItemLeft" align="right" valign="top"><a id="abebf9e0bc7c7bbdc1cd2d29608a7bf5d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_goToStopState</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#abebf9e0bc7c7bbdc1cd2d29608a7bf5d">h_goToStopState</a> ()</td></tr>
+<tr class="memdesc:abebf9e0bc7c7bbdc1cd2d29608a7bf5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function makes the elevator go to to either the StopBetweenFloors state or the DoorOpen state, but only if the stopButton is pushed. <br /></td></tr>
 <tr class="separator:abebf9e0bc7c7bbdc1cd2d29608a7bf5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fa4f27cf1e131e18ca402fc096f59b8"><td class="memItemLeft" align="right" valign="top"><a id="a4fa4f27cf1e131e18ca402fc096f59b8"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>h_checkIfInbetween</b> ()</td></tr>
+<tr class="memitem:a4fa4f27cf1e131e18ca402fc096f59b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a> ()</td></tr>
+<tr class="memdesc:a4fa4f27cf1e131e18ca402fc096f59b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the elevator is triggering any floorSensor.  <a href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">More...</a><br /></td></tr>
 <tr class="separator:a4fa4f27cf1e131e18ca402fc096f59b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4629335ea6fc5e92e8f3dbe9a7862805"><td class="memItemLeft" align="right" valign="top"><a id="a4629335ea6fc5e92e8f3dbe9a7862805"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_stopElevatorMovement</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">h_stopElevatorMovement</a> ()</td></tr>
+<tr class="memdesc:a4629335ea6fc5e92e8f3dbe9a7862805"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function simply stops the movement of the elevator. <br /></td></tr>
 <tr class="separator:a4629335ea6fc5e92e8f3dbe9a7862805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74359d85a4e14d4c0bb33c50bfa41db4"><td class="memItemLeft" align="right" valign="top"><a id="a74359d85a4e14d4c0bb33c50bfa41db4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>h_setDestination</b> ()</td></tr>
@@ -128,35 +118,164 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>h_setDestination</b> 
 void&#160;</td><td class="memItemRight" valign="bottom"><b>h_updateCurrentFloor</b> ()</td></tr>
 <tr class="separator:a38011cb9eaf2b18da02832e50451aba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92e1e3dac33595a4204bf31a8e38309f"><td class="memItemLeft" align="right" valign="top"><a id="a92e1e3dac33595a4204bf31a8e38309f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_goToStandPlass</b> (bool timeIsUp)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a92e1e3dac33595a4204bf31a8e38309f">h_goToStandPlass</a> (bool timeIsUp)</td></tr>
+<tr class="memdesc:a92e1e3dac33595a4204bf31a8e38309f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function makes the elevator go to to the StandPlass state if the timer of the door is finished. <br /></td></tr>
 <tr class="separator:a92e1e3dac33595a4204bf31a8e38309f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b12133bdf3a36dd83cb38e1581dbe35"><td class="memItemLeft" align="right" valign="top"><a id="a5b12133bdf3a36dd83cb38e1581dbe35"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>h_goToBevegelse</b> (bool queueIsEmpty)</td></tr>
+<tr class="memitem:a5b12133bdf3a36dd83cb38e1581dbe35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a5b12133bdf3a36dd83cb38e1581dbe35">h_goToBevegelse</a> (bool queueIsEmpty)</td></tr>
+<tr class="memdesc:a5b12133bdf3a36dd83cb38e1581dbe35"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function makes the elevator go to to the Bevegelse state, but only if <code>queueIsEmpty</code> is <code>true</code>.  <a href="heis_8h.html#a5b12133bdf3a36dd83cb38e1581dbe35">More...</a><br /></td></tr>
 <tr class="separator:a5b12133bdf3a36dd83cb38e1581dbe35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25c8cea536c2a40f7032555b1ee4e914"><td class="memItemLeft" align="right" valign="top"><a id="a25c8cea536c2a40f7032555b1ee4e914"></a>
-enum State&#160;</td><td class="memItemRight" valign="bottom"><b>h_getState</b> ()</td></tr>
+<tr class="memitem:a25c8cea536c2a40f7032555b1ee4e914"><td class="memItemLeft" align="right" valign="top">enum State&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">h_getState</a> ()</td></tr>
+<tr class="memdesc:a25c8cea536c2a40f7032555b1ee4e914"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function simply returns the state of the system.  <a href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">More...</a><br /></td></tr>
 <tr class="separator:a25c8cea536c2a40f7032555b1ee4e914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:af2ae3c80eff5c67623f0511ce43b3c90"><td class="memItemLeft" align="right" valign="top"><a id="af2ae3c80eff5c67623f0511ce43b3c90"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>currentFloor</b></td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a></td></tr>
+<tr class="memdesc:af2ae3c80eff5c67623f0511ce43b3c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">This <code>int</code> keeps track of the elevators current floor. <br /></td></tr>
 <tr class="separator:af2ae3c80eff5c67623f0511ce43b3c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11ceb7c46f3c0de7b4633d1f05c7bfc6"><td class="memItemLeft" align="right" valign="top"><a id="a11ceb7c46f3c0de7b4633d1f05c7bfc6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_orderDone</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a11ceb7c46f3c0de7b4633d1f05c7bfc6">m_orderDone</a></td></tr>
+<tr class="memdesc:a11ceb7c46f3c0de7b4633d1f05c7bfc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This <code>bool</code> tells whether or not the <code>goToDestinaiton()</code> function has finished an order. It is used to communicate to the order module that it can remove the order. <br  />
+ <br /></td></tr>
 <tr class="separator:a11ceb7c46f3c0de7b4633d1f05c7bfc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16fd40e14b1ccc893a8e2519e69b2b54"><td class="memItemLeft" align="right" valign="top"><a id="a16fd40e14b1ccc893a8e2519e69b2b54"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_currentMomentumDir</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a16fd40e14b1ccc893a8e2519e69b2b54">m_currentMomentumDir</a></td></tr>
+<tr class="memdesc:a16fd40e14b1ccc893a8e2519e69b2b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">This <code>bool</code> is true when the elevator moves up and false when it moves down. In the case of no movement the variable holds the latest direction. <br /></td></tr>
 <tr class="separator:a16fd40e14b1ccc893a8e2519e69b2b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a737f58aac843a6a5bc9bd77b35491cf7"><td class="memItemLeft" align="right" valign="top"><a id="a737f58aac843a6a5bc9bd77b35491cf7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>obstruction</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heis_8h.html#a737f58aac843a6a5bc9bd77b35491cf7">obstruction</a></td></tr>
+<tr class="memdesc:a737f58aac843a6a5bc9bd77b35491cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This <code>bool</code> holds true when the obstruction button is active. <br /></td></tr>
 <tr class="separator:a737f58aac843a6a5bc9bd77b35491cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This module contains functions that changes the state of the elevator. </p>
+<div class="textblock"><p>This module contains functions that give instructions to the elevator and control at which state the elevator is at all times. </p>
 
 <p class="definition">Definition in file <a class="el" href="heis_8h_source.html">heis.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a4fa4f27cf1e131e18ca402fc096f59b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa4f27cf1e131e18ca402fc096f59b8">&#9670;&nbsp;</a></span>h_checkIfInbetween()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool h_checkIfInbetween </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the elevator is triggering any floorSensor. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if no floor sensor is triggered by the elevator. <code>false</code> otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="heis_8c_source.html#l00105">105</a> of file <a class="el" href="heis_8c_source.html">heis.c</a>.</p>
+
+</div>
+</div>
+<a id="a25c8cea536c2a40f7032555b1ee4e914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c8cea536c2a40f7032555b1ee4e914">&#9670;&nbsp;</a></span>h_getState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum State h_getState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function simply returns the state of the system. </p>
+<dl class="section return"><dt>Returns</dt><dd>state of the system. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="heis_8c_source.html#l00141">141</a> of file <a class="el" href="heis_8c_source.html">heis.c</a>.</p>
+
+</div>
+</div>
+<a id="a5b12133bdf3a36dd83cb38e1581dbe35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b12133bdf3a36dd83cb38e1581dbe35">&#9670;&nbsp;</a></span>h_goToBevegelse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void h_goToBevegelse </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>queueIsEmpty</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function makes the elevator go to to the Bevegelse state, but only if <code>queueIsEmpty</code> is <code>true</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">queueIsEmpty</td><td>This variable is holding true if there are no orders. false otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="heis_8c_source.html#l00136">136</a> of file <a class="el" href="heis_8c_source.html">heis.c</a>.</p>
+
+</div>
+</div>
+<a id="a5c4a03f86605b1945475d7a8e4b17f75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4a03f86605b1945475d7a8e4b17f75">&#9670;&nbsp;</a></span>h_goToDestination()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void h_goToDestination </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentDestination</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function makes the elevator go to the current destination. When the elevator arrives a destination, the function changes the state of the system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentDestination</td><td>It is the destination passed by by the order module. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="heis_8c_source.html#l00052">52</a> of file <a class="el" href="heis_8c_source.html">heis.c</a>.</p>
+
+</div>
+</div>
+<a id="a13621c0918e8100138c3f5a4435a506c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13621c0918e8100138c3f5a4435a506c">&#9670;&nbsp;</a></span>h_stopPushed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool h_stopPushed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function checks if the stop-button is pushed. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 if the stopbutton is not pushed. 1 if it is. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="heis_8c_source.html#l00067">67</a> of file <a class="el" href="heis_8c_source.html">heis.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
