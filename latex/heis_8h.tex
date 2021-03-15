@@ -1,0 +1,81 @@
+\hypertarget{heis_8h}{}\doxysection{source/heis.h File Reference}
+\label{heis_8h}\index{source/heis.h@{source/heis.h}}
+
+
+This module contains functions that changes the state of the elevator.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{heis_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{heis_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
+enum {\bfseries State} \{ \newline
+{\bfseries Undefined\+State}, 
+{\bfseries Stand\+Plass}, 
+{\bfseries Stopp\+Mellom\+Etasje}, 
+{\bfseries Bevegelse}, 
+\newline
+{\bfseries Door\+Open}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{heis_8h_a1094e37783921c6ceca6e39b93e5e5bc}\label{heis_8h_a1094e37783921c6ceca6e39b93e5e5bc}} 
+void {\bfseries h\+\_\+initiate\+Hardware} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}\label{heis_8h_a5c4a03f86605b1945475d7a8e4b17f75}} 
+void {\bfseries h\+\_\+go\+To\+Destination} (int current\+Destination)
+\item 
+\mbox{\Hypertarget{heis_8h_a8b742e187864a375af0785143330e3f9}\label{heis_8h_a8b742e187864a375af0785143330e3f9}} 
+void {\bfseries h\+\_\+go\+To\+Defined\+State} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a13621c0918e8100138c3f5a4435a506c}\label{heis_8h_a13621c0918e8100138c3f5a4435a506c}} 
+bool {\bfseries h\+\_\+stop\+Pushed} ()
+\item 
+\mbox{\Hypertarget{heis_8h_abebf9e0bc7c7bbdc1cd2d29608a7bf5d}\label{heis_8h_abebf9e0bc7c7bbdc1cd2d29608a7bf5d}} 
+void {\bfseries h\+\_\+go\+To\+Stop\+State} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}\label{heis_8h_a4fa4f27cf1e131e18ca402fc096f59b8}} 
+bool {\bfseries h\+\_\+check\+If\+Inbetween} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a4629335ea6fc5e92e8f3dbe9a7862805}\label{heis_8h_a4629335ea6fc5e92e8f3dbe9a7862805}} 
+void {\bfseries h\+\_\+stop\+Elevator\+Movement} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a74359d85a4e14d4c0bb33c50bfa41db4}\label{heis_8h_a74359d85a4e14d4c0bb33c50bfa41db4}} 
+void {\bfseries h\+\_\+set\+Destination} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a38011cb9eaf2b18da02832e50451aba5}\label{heis_8h_a38011cb9eaf2b18da02832e50451aba5}} 
+void {\bfseries h\+\_\+update\+Current\+Floor} ()
+\item 
+\mbox{\Hypertarget{heis_8h_a92e1e3dac33595a4204bf31a8e38309f}\label{heis_8h_a92e1e3dac33595a4204bf31a8e38309f}} 
+void {\bfseries h\+\_\+go\+To\+Stand\+Plass} (bool time\+Is\+Up)
+\item 
+\mbox{\Hypertarget{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}\label{heis_8h_a5b12133bdf3a36dd83cb38e1581dbe35}} 
+void {\bfseries h\+\_\+go\+To\+Bevegelse} (bool queue\+Is\+Empty)
+\item 
+\mbox{\Hypertarget{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}\label{heis_8h_a25c8cea536c2a40f7032555b1ee4e914}} 
+enum State {\bfseries h\+\_\+get\+State} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{heis_8h_af2ae3c80eff5c67623f0511ce43b3c90}\label{heis_8h_af2ae3c80eff5c67623f0511ce43b3c90}} 
+int {\bfseries current\+Floor}
+\item 
+\mbox{\Hypertarget{heis_8h_a11ceb7c46f3c0de7b4633d1f05c7bfc6}\label{heis_8h_a11ceb7c46f3c0de7b4633d1f05c7bfc6}} 
+bool {\bfseries m\+\_\+order\+Done}
+\item 
+\mbox{\Hypertarget{heis_8h_a16fd40e14b1ccc893a8e2519e69b2b54}\label{heis_8h_a16fd40e14b1ccc893a8e2519e69b2b54}} 
+bool {\bfseries m\+\_\+current\+Momentum\+Dir}
+\item 
+\mbox{\Hypertarget{heis_8h_a737f58aac843a6a5bc9bd77b35491cf7}\label{heis_8h_a737f58aac843a6a5bc9bd77b35491cf7}} 
+bool {\bfseries obstruction}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains functions that changes the state of the elevator. 
+
