@@ -1,4 +1,8 @@
-
+#pragma once
+ 
+ void h_updateCurrentFloor();
+ 
+ 
  /*Lights are set and cleared like this: 
             for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
                 //Internal orders 

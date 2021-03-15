@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include "indicators.h"
 #include "hardware.h"
 #include <stdbool.h>
 #include "heis.h"
