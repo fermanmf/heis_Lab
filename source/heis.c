@@ -16,6 +16,7 @@ bool obstruction = false;
 static enum State state = UndefinedState;
 static bool elevatorIsMoving = true;
 
+
 static void atDestination(int currentDestination){
      for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)&&(f==currentDestination)){
@@ -24,6 +25,7 @@ static void atDestination(int currentDestination){
         }
     }
 }
+
 static void settRetning(int currentDestination){
     if (currentDestination < currentFloor){
         if (!elevatorIsMoving){
@@ -40,6 +42,9 @@ static void settRetning(int currentDestination){
         m_currentMomentumDir = true;
     }
 }
+
+
+
 void h_initiateHardware(){
     int error = hardware_init();
 
@@ -48,11 +53,11 @@ void h_initiateHardware(){
         exit(1);
     }
 }
+
 void h_goToDestination(int currentDestination){
     settRetning(currentDestination);
     atDestination(currentDestination);
 }
-
 
 void h_goToDefinedState(){
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
@@ -63,6 +68,7 @@ void h_goToDefinedState(){
         }
     }
 }
+
 bool h_stopPushed(){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
@@ -70,6 +76,7 @@ bool h_stopPushed(){
     }
     return stopPushed;
 }
+
 void h_goToStopState(){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
@@ -123,11 +130,20 @@ void h_setDestination(){
 void h_goToStandPlass(bool timeIsUp){
     state = StandPlass;
 }
+
 void h_goToBevegelse(bool queueIsEmpty){
     if (!queueIsEmpty){
         state = Bevegelse;
     }
 }
+
 enum State h_getState(){
     return state;
+}
+
+void goToObstructionState(){
+    if(hardware_read_obstruction_signal()){
+        obstruction = true;
+    }
+    else { obstruction = false;}
 }
