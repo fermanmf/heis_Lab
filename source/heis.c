@@ -132,7 +132,7 @@ void h_goToStandPlass(bool timeIsUp){
 }
 
 void h_goToBevegelse(bool queueIsEmpty){
-    if (!queueIsEmpty){
+    if (queueIsEmpty){
         state = Bevegelse;
     }
 }

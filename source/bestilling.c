@@ -14,7 +14,7 @@ int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun
 struct bestilling order;
 
 void o_lookForOrders() {
-    if (!h_stopPushed){
+    if (!h_stopPushed()){
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
             if (hardware_read_order(i, j)) {
@@ -236,7 +236,7 @@ int o_returnNextOrder() {
 };
 
 void o_checkIfOrderDone() {
-    if(m_orderDone) {
+    if((m_orderDone) && (numOrders>0)) {
         orderSent();
         m_orderDone = false;
     }

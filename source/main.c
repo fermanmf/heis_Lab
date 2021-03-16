@@ -27,6 +27,7 @@ static void clear_all_order_lights(){
  
 int main(){
     h_initiateHardware();
+    numOrders = 0;
     while(1){
         h_updateCurrentFloor();
         //h_handleStopButton();
