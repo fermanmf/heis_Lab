@@ -42,17 +42,17 @@ static void settRetning(int currentDestination){
         m_currentMomentumDir = true;
     }
     else if (m_currentMomentumDir){
-        if (!elevatorIsMoving){
+        
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
-        }
+        
         m_currentMomentumDir = false;
     }
     else {
-        if (!elevatorIsMoving){
+        
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
-        }
+        
         m_currentMomentumDir = true;
 
     }
@@ -95,7 +95,7 @@ bool h_stopPushed(){
 void h_goToStopState(){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
-          stopPushed = true;
+        stopPushed = true;
     }
     switch(state){
         case StandPlass : 
