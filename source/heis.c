@@ -41,7 +41,7 @@ static void settRetning(int currentDestination){
         }
         m_currentMomentumDir = true;
     }
-    else if (m_currentMomentumDir){
+   /* else if (m_currentMomentumDir ){
         
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
@@ -55,7 +55,7 @@ static void settRetning(int currentDestination){
         
         m_currentMomentumDir = true;
 
-    }
+    }*/
 }
 
 
