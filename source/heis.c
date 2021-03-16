@@ -128,7 +128,9 @@ void h_setDestination(){
 }
 
 void h_goToStandPlass(bool timeIsUp){
-    state = StandPlass;
+    if (timeIsUp){
+        state = StandPlass;
+    }
 }
 
 void h_goToBevegelse(bool queueIsEmpty){
