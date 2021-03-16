@@ -33,7 +33,7 @@ int main(){
         //h_handleStopButton();
         //o_returnNextOrder(&m_orderDone);
         switch(h_getState()){
-            case UndefinedState : 
+            case UndefinedState :
 
                 h_goToDefinedState();
 

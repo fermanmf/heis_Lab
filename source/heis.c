@@ -19,7 +19,7 @@ static bool elevatorIsMoving = true;
 
 static void atDestination(int currentDestination){
      for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-        if(hardware_read_floor_sensor(f)&&(f==currentDestination)){
+        if((hardware_read_floor_sensor(f))&&(f==currentDestination)){
         state = DoorOpen;
         m_orderDone = true;
         }
