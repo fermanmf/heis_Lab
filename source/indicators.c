@@ -13,13 +13,11 @@ void h_updateCurrentFloor(){
 }
 
 void h_setLightOnOrders() {
-    if (!h_stopPushed){
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
 
             hardware_command_order_light(i, j, 1);
 
-            }
         }
     }
 };

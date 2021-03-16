@@ -38,7 +38,7 @@ void orderSent();
 
 int o_returnNextOrder();      // Funksjon skal bare brukes hvis det finnes en bestilling
 
-void o_checkOrderDone();
+void o_checkIfOrderDone();
 
 bool queueIsEmpty();
 

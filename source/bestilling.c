@@ -3,6 +3,8 @@
 #include "bestilling.h"
 #include "heis.h"
 #include "hardware.h"
+#include "door.h"
+#include "indicators.h"
 
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -233,7 +235,7 @@ int o_returnNextOrder() {
     return sending;
 };
 
-void o_checkOrderDone() {
+void o_checkIfOrderDone() {
     if(m_orderDone) {
         orderSent();
         m_orderDone = false;
