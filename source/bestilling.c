@@ -105,27 +105,31 @@ void o_arrangeOrder() {
 
 // Bestilling må legges bak i køen
 void o_orderOverFirst() {
-    if (numOrders > 1) {
-    bool squeezedIn = false;
-    for (int i = 1; i < numOrders; i++) {
-        if (order.etasje < bestillingsKo[i]) {
-            squeezedIn = true;
-            for (int j = numOrders; j > i; j--) {
-                bestillingsKo[j] = bestillingsKo[j-1];
-            }
-            bestillingsKo[i] = order.etasje;
-            o_orderProcessed();
-            break;
-           }
-        }
-    if (!squeezedIn) {
+    if (numOrders==1) {
         bestillingsKo[numOrders] = order.etasje;
         o_orderProcessed();
-      }
     }
     else {
-        bestillingsKo[1] = order.etasje;
-        o_orderProcessed();
+        bool check = false;
+        int place;
+        for (int i = 1; i < numOrders; i++) {
+            if (order.etasje < bestillingsKo[i]) {
+                check = true;
+                place = i;
+                break;
+            }
+        }
+        if (check) {
+            for (int i = numOrders; i > place; i--) {
+                bestillingsKo[i] = bestillingsKo[i-1];
+            }
+            bestillingsKo[place] = order.etasje;
+            o_orderProcessed();
+        }
+        else {
+            bestillingsKo[numOrders] = order.etasje;
+            o_orderProcessed();
+        }   
     }
 };
 
