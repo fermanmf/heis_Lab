@@ -9,7 +9,7 @@
 #define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
 
 int bestillingsKo[10] = {0,0,0,0,0,0,0,0,0,0};
-int numOrders = 0;      // Hjelpevariabel for å testekoden, etterhvert skal kun arrayen sjekkes
+int numOrders = 0;
 
 struct bestilling order;
 
@@ -224,10 +224,9 @@ void pushArray() {
 };
 
 void orderSent() {
-    pushArray();
     numOrders--;
+    pushArray();
 };
-
 
 
 int o_returnNextOrder() {
@@ -238,7 +237,9 @@ int o_returnNextOrder() {
 void o_checkIfOrderDone() {
     if((m_orderDone) && (numOrders>0)) {
         orderSent();
-        m_orderDone = false;
+        if (numOrders>0) {
+            m_orderDone = false;
+        }
     }
 };
 

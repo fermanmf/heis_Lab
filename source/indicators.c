@@ -15,9 +15,12 @@ void h_updateCurrentFloor(){
 void h_setLightOnOrders() {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
+            if (hardware_read_order(i, j)) {
+            
+                hardware_command_order_light(i, j, 1);
 
-            hardware_command_order_light(i, j, 1);
-
+            }
+  
         }
     }
 };
