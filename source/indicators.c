@@ -11,3 +11,19 @@ void h_updateCurrentFloor(){
         }
     }
 }
+
+void h_setLightOnOrders() {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+
+            hardware_command_order_light(i, j, 1);
+
+        }
+    }
+};
+
+void h_resetOrderLights() {
+    for (int i = 0; i < 3; i++) {
+        hardware_command_order_light(currentFloor, i, 0);
+    }
+};

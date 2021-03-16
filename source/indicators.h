@@ -1,6 +1,10 @@
 #pragma once
  
  void h_updateCurrentFloor();
+
+ void h_setLightOnOrders();
+
+ void h_resetOrderLights();
  
  /* Code to clear all lights given the obstruction signal 
             if(hardware_read_obstruction_signal()){

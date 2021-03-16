@@ -18,11 +18,17 @@ void o_orderProcessed();
 
 void o_orderCheck();
 
-void o_checkDir();
+void o_arrangeOrder();
 
 int o_findOrderToSameFloor();
 
 void o_putOrderFirst();
+
+void o_orderOverFirst();
+
+void o_orderBelowFirst();
+
+void o_checkPriority();
 
 void pushArrayBack();
 
@@ -35,3 +41,5 @@ int o_returnNextOrder();      // Funksjon skal bare brukes hvis det finnes en be
 void o_checkIfOrderDone();
 
 bool queueIsEmpty();
+
+void o_clearOrders();
