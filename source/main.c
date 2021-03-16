@@ -41,7 +41,9 @@ int main(){
             case StandPlass :
 
                 h_stopElevatorMovement();
+                h_resetOrderLights();
                 o_lookForOrders();
+                h_setLightOnOrders();
                 o_checkIfOrderDone();
                 h_goToStopState();
                 h_goToBevegelse(numOrders);
@@ -58,6 +60,7 @@ int main(){
 
                 h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
+                h_setLightOnOrders();
                 h_goToStopState();
 
                 break;
