@@ -41,6 +41,21 @@ static void settRetning(int currentDestination){
         }
         m_currentMomentumDir = true;
     }
+    else if (m_currentMomentumDir){
+        if (!elevatorIsMoving){
+        hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+        elevatorIsMoving = true;
+        }
+        m_currentMomentumDir = false;
+    }
+    else {
+        if (!elevatorIsMoving){
+        hardware_command_movement(HARDWARE_MOVEMENT_UP);
+        elevatorIsMoving = true;
+        }
+        m_currentMomentumDir = true;
+
+    }
 }
 
 
@@ -105,7 +120,7 @@ void h_stopElevatorMovement(){
     if (elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         elevatorIsMoving = false;
-        }
+    }
 }
 
 bool h_checkIfInbetween(){
@@ -117,19 +132,10 @@ bool h_checkIfInbetween(){
     return true;
 }
 
-void h_setDestination(){
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (hardware_read_order(i, j)) {
-                state = Bevegelse;
-            }
-        }
-    }
-}
-
 void h_goToStandPlass(bool timeIsUp){
     if (timeIsUp){
         state = StandPlass;
+        hardware_command_door_open(0);
     }
 }
 
