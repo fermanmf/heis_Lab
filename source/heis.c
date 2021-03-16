@@ -9,7 +9,7 @@
 
 
 int currentFloor = 0;
-bool m_orderDone = true;
+bool m_orderDone = false;
 bool m_currentMomentumDir = 1;
 bool obstruction = false;
 
