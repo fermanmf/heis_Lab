@@ -237,9 +237,7 @@ int o_returnNextOrder() {
 void o_checkIfOrderDone() {
     if((m_orderDone) && (numOrders>0)) {
         orderSent();
-        if (numOrders>0) {
-            m_orderDone = false;
-        }
+        m_orderDone = false;
     }
 };
 
