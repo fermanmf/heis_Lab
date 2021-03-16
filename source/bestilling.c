@@ -225,7 +225,9 @@ void pushArray() {
 
 void orderSent() {
     numOrders--;
+    if (numOrders>0) {
     pushArray();
+    }
 };
 
 
