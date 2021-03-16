@@ -40,7 +40,7 @@ void openTimedDoor(){
             timerStarted = true;
         }
         else if (elapsed > 5){
-            
+            hardware_command_door_open(0);
             timerStarted = false;
             timeIsUp = true;
         }
