@@ -96,7 +96,7 @@ void o_arrangeOrder() {
         }
         // Bestillingen er den samme som ligger først
         else {
-            if (!o_checkExistence) {
+            if (!o_checkExistence()) {
             bestillingsKo[numOrders] = order.etasje;
             o_orderProcessed();
             }
