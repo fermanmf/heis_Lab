@@ -108,12 +108,22 @@ void o_arrangeOrder() {
         // Bestilling større enn 1. i køa og større enn der heisen står
         else if ((firstOrder > currentFloor)&&(order.etasje > firstOrder)){
             if (!o_checkExistence()) {
-            o_orderOverFirst();
+                if (order.type==ned) {
+                    bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
+                else {
+                    o_orderOverFirst();
+                }
             }
         }
         // Bestilling er mindre enn 1. i køa og mindre enn der heisen står
         else if ((firstOrder < currentFloor)&&(order.etasje < firstOrder)) {
             if (!o_checkExistence()) {
+                if (order.type==opp) {
+                    bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
              o_orderBelowFirst();
             }
         }
