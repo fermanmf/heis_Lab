@@ -287,6 +287,28 @@ void o_checkPriority() {
     }
 };
 
+void o_checkPriority2() {
+    // Finner rekkefølge etter heisen snur
+    int priority = numOrders;
+    for (int i = 1; i < numOrders; i++) {
+        if (bestillingsKo[i] > order.etasje) {
+            priority--;
+        }
+    }
+    if (priority==numOrders) {
+        // Sett den bakerst i køen
+        bestillingsKo[numOrders] = order.etasje;
+        o_orderProcessed();
+    }
+    else {
+        for (int i = numOrders; i > priority; i--) {
+            bestillingsKo[i] = bestillingsKo[i-1];
+        }
+        bestillingsKo[priority] = order.etasje;
+        o_orderProcessed();
+    }
+};
+
 void pushArrayBack() {
     for (int i = numOrders; i > 0; i--)
     {
