@@ -9,7 +9,7 @@
 
 static struct timeval t0;
 static struct timeval t1;
-static bool timerStarted;
+static bool timerStarted= false;
 
 bool timeIsUp = false;
 
@@ -25,6 +25,7 @@ static void openDoor(){
 void d_openTimedDoor(){
     if (h_stopPushed() || obstruction){
         timerStarted = false;
+        timeIsUp = false;
         openDoor();
     }
     else{
