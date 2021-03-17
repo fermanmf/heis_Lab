@@ -1,4 +1,4 @@
-SIM := true
+SIM := false
 SOURCES := main.c bestilling.c heis.c door.c indicators.c
 
 SOURCE_DIR := source
