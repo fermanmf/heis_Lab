@@ -125,7 +125,7 @@ void o_arrangeOrder() {
         }
 };
 
-static void o_between() {
+void o_between() {
     int firstOrder = bestillingsKo[0];
         if (numOrders==1) {
                 bestillingsKo[numOrders] = order.etasje;

@@ -20,6 +20,8 @@ void o_orderCheck();
 
 void o_arrangeOrder();
 
+void o_between();
+
 int o_findOrderToSameFloor();
 
 void o_putOrderFirst();
