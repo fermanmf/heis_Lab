@@ -124,7 +124,7 @@ void h_goToStopState(){
 };
 
 void h_stopElevatorMovement(){
-    
+    returnToCurrentFloor = true;
     if (elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         elevatorIsMoving = false;
