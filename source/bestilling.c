@@ -105,9 +105,6 @@ void o_arrangeOrder() {
                 o_putOrderFirst();
             }
         }
-        else if (currentFloor==order.etasje) {
-
-        }
         // Bestilling større enn 1. i køa og større enn der heisen står
         else if ((firstOrder > currentFloor)&&(order.etasje > firstOrder)){
             if (!o_checkExistence()) {
