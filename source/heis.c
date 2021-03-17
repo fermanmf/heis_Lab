@@ -17,6 +17,7 @@ bool obstruction = false;
 static enum State state = UndefinedState;
 static bool elevatorIsMoving = true;
 static bool returnToCurrentFloor = true;
+static bool isAbove = false;
 
 
 static void atDestination(int currentDestination){
@@ -36,7 +37,10 @@ static void settRetning(int currentDestination){
         elevatorIsMoving = true;
         }
         m_currentMomentumDir = false;
-        returnToCurrentFloor = true;
+        
+        if (hardware_read_floor_sensor(currentFloor)){
+        isAbove = false;
+        }
     }
     else if (currentDestination > currentFloor){
         if (!elevatorIsMoving){
@@ -44,24 +48,28 @@ static void settRetning(int currentDestination){
         elevatorIsMoving = true;
         }
         m_currentMomentumDir = true;
-        returnToCurrentFloor = true;
+        
+        if (hardware_read_floor_sensor(currentFloor)){
+        
+            isAbove ==true;
+        }
     }
-    else if (m_currentMomentumDir &&(returnToCurrentFloor)){
+    else if (isAbove){
         
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
         m_currentMomentumDir = false;
-        returnToCurrentFloor = false;
+       
+        
         
     }
-    else if (!m_currentMomentumDir && (returnToCurrentFloor)) {
+    else  {
+
+            hardware_command_movement(HARDWARE_MOVEMENT_UP);
         
-        hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
         m_currentMomentumDir = true;
-        returnToCurrentFloor = false;
         
-
     }
 }
 
@@ -172,3 +180,4 @@ void h_handleStopButton(){
     }
     else{hardware_command_stop_light(0);}
 }
+
