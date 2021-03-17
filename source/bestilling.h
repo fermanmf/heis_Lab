@@ -32,6 +32,8 @@ void o_orderBelowFirst();
 
 void o_checkPriority();
 
+void o_checkPriority2();
+
 void pushArrayBack();
 
 void pushArray();
