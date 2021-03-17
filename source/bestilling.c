@@ -62,8 +62,8 @@ void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
         if ((currentFloor==order.etasje)&&(h_checkIfInbetween())) {
-            if (!o_checkExistence()) {
-            o_between();
+            if (!o_checkExistence()){
+                            o_between();
             }
             return;
         }

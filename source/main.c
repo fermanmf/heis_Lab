@@ -16,7 +16,8 @@ int main(){
 
         i_updateCurrentFloor();
         h_handleStopButton();
-        
+        h_updateObstructionVar();
+
         switch(h_getState()){
             case UndefinedState :
 
