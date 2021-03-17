@@ -1,1 +1,2 @@
-start: 1 , press 2 then 3 then 0. description: leaves the area.
+start: 1 , press 2 then 3 then 0. description: leaves the area. --> FIXED
+
