@@ -124,7 +124,9 @@ void o_arrangeOrder() {
                     bestillingsKo[numOrders] = order.etasje;
                     o_orderProcessed();
                 }
-             o_orderBelowFirst();
+                else {
+                    o_orderBelowFirst();
+                }
             }
         }
         // Bestillingen er den samme som ligger først
