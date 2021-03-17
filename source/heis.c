@@ -16,6 +16,7 @@ bool obstruction = false;
 
 static enum State state = UndefinedState;
 static bool elevatorIsMoving = true;
+static bool returnToCurrentFloor = true;
 
 
 static void atDestination(int currentDestination){
@@ -28,12 +29,14 @@ static void atDestination(int currentDestination){
 }
 
 static void settRetning(int currentDestination){
+    
     if (currentDestination < currentFloor){
         if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
         }
         m_currentMomentumDir = false;
+        returnToCurrentFloor = true;
     }
     else if (currentDestination > currentFloor){
         if (!elevatorIsMoving){
@@ -41,22 +44,25 @@ static void settRetning(int currentDestination){
         elevatorIsMoving = true;
         }
         m_currentMomentumDir = true;
+        returnToCurrentFloor = true;
     }
-   /* else if (m_currentMomentumDir ){
+    else if (m_currentMomentumDir &&(returnToCurrentFloor)){
         
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
-        
         m_currentMomentumDir = false;
+        returnToCurrentFloor = false;
+        
     }
-    else {
+    else if (!m_currentMomentumDir && (returnToCurrentFloor)) {
         
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
-        
         m_currentMomentumDir = true;
+        returnToCurrentFloor = false;
+        
 
-    }*/
+    }
 }
 
 
@@ -71,8 +77,9 @@ void h_initiateHardware(){
 }
 
 void h_goToDestination(int currentDestination){
-    settRetning(currentDestination);
     atDestination(currentDestination);
+    settRetning(currentDestination);
+    
 }
 
 void h_goToDefinedState(){

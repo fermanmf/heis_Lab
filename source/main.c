@@ -9,9 +9,11 @@
 #include "door.h"
 
 int main(){
+
     h_initiateHardware();
-    numOrders = 0;
+
     while(1){
+
         i_updateCurrentFloor();
         h_handleStopButton();
         
@@ -52,7 +54,7 @@ int main(){
                 h_stopElevatorMovement();
                 o_lookForOrders();
                 i_setLightOnOrders();
-                openTimedDoor();
+                d_openTimedDoor();
                 h_goToStandPlass(timeIsUp);
 
                 break;
