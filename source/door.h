@@ -21,4 +21,4 @@ bool timeIsUp;
  * pushed.
  * 
  * **/
-void openTimedDoor();
+void d_openTimedDoor();

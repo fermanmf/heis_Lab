@@ -22,7 +22,7 @@ static void openDoor(){
 };
 
  
-void openTimedDoor(){
+void d_openTimedDoor(){
     if (h_stopPushed() || obstruction){
         timerStarted = false;
         openDoor();

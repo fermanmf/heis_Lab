@@ -52,7 +52,7 @@ int main(){
                 h_stopElevatorMovement();
                 o_lookForOrders();
                 i_setLightOnOrders();
-                openTimedDoor();
+                d_openTimedDoor();
                 h_goToStandPlass(timeIsUp);
 
                 break;
