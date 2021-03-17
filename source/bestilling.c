@@ -69,6 +69,11 @@ void o_arrangeOrder() {
                     o_checkPriority();
                 }
             }
+            else if (order.etasje > currentFloor) {
+                if (!o_checkExistence()) {
+                    o_checkPriority();
+                }
+            }
             else {
                 // Bestillingen skal legges først
                 o_putOrderFirst();
@@ -77,6 +82,11 @@ void o_arrangeOrder() {
         // Bestilling større enn der heisen står, men mindre enn 1. i køa
         else if ((firstOrder > order.etasje)&&(firstOrder > currentFloor)) {
             if (order.type==ned) {
+                if (!o_checkExistence()) {
+                o_checkPriority();
+               }
+            }
+            else if (order.etasje < currentFloor) {
                 if (!o_checkExistence()) {
                 o_checkPriority();
                }
