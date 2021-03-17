@@ -94,7 +94,7 @@ void o_arrangeOrder() {
         }
         // Bestilling er mindre enn 1. i køa og mindre enn der heisen står
         else if ((firstOrder < currentFloor)&&(order.etasje < firstOrder)) {
-            if (!o_checkExistence() {
+            if (!o_checkExistence()) {
              o_orderBelowFirst();
             }
         }
