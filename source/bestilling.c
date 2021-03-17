@@ -61,6 +61,11 @@ bool o_checkExistence() {
 void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
+        if ((currentFloor==order.etasje)&&(h_checkIfInbetween())) {
+            o_between();
+            return;
+        }
+
         // Bestilling større enn 1. i kø, og mindre enn der heisen står
         if ((firstOrder < order.etasje)&&(firstOrder < currentFloor)) {
 
@@ -96,6 +101,9 @@ void o_arrangeOrder() {
                 o_putOrderFirst();
             }
         }
+        else if (currentFloor==order.etasje) {
+
+        }
         // Bestilling større enn 1. i køa og større enn der heisen står
         else if ((firstOrder > currentFloor)&&(order.etasje > firstOrder)){
             if (!o_checkExistence()) {
@@ -116,6 +124,57 @@ void o_arrangeOrder() {
             }
         }
 };
+
+static void o_between() {
+    int firstOrder = bestillingsKo[0];
+        if (numOrders==1) {
+                bestillingsKo[numOrders] = order.etasje;
+                o_orderProcessed();
+        }
+        else {
+            if (firstOrder>currentFloor) {
+                int swap = 0;
+                for (int i = 1; i < numOrders; i++) {
+                    if (order.etasje>bestillingsKo[i]) {
+                         swap++;
+                     }
+                }
+                if (swap==0) {
+                     bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
+                else {
+                    for (int i = numOrders; i > swap; i--) {
+                        bestillingsKo[i] = bestillingsKo[i-1];
+                    }
+                    bestillingsKo[1] = order.etasje;
+                    o_orderProcessed();
+                }
+            }
+            else {
+                int swap = 0;
+                for (int i = 1; i < numOrders; i++) {
+                    if (order.etasje<bestillingsKo[i]) {
+                         swap++;
+                     }
+                }
+                if (swap==0) {
+                     bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
+                else {
+                    for (int i = numOrders; i > swap; i--) {
+                        bestillingsKo[i] = bestillingsKo[i-1];
+                    }
+                    bestillingsKo[1] = order.etasje;
+                    o_orderProcessed();
+                }
+
+            }
+                
+        }
+
+}
 
 // Bestilling må legges bak i køen
 void o_orderOverFirst() {
