@@ -6,6 +6,7 @@
 #include "hardware.h"
 #include "door.h"
 #include <stdlib.h>
+#include "indicators.h"
 
 
 int currentFloor = 0;
@@ -154,4 +155,13 @@ void goToObstructionState(){
         obstruction = true;
     }
     else { obstruction = false;}
+}
+
+void h_handleStopButton(){
+    if (h_stopPushed()){
+        o_clearOrders();
+        i_resetAllOrderLights();
+        hardware_command_stop_light(1);
+    }
+    else{hardware_command_stop_light(0);}
 }

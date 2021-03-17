@@ -12,9 +12,9 @@ int main(){
     h_initiateHardware();
     numOrders = 0;
     while(1){
-        h_updateCurrentFloor();
-        //h_handleStopButton();
-        //o_returnNextOrder(&m_orderDone);
+        i_updateCurrentFloor();
+        h_handleStopButton();
+        
         switch(h_getState()){
             case UndefinedState :
 
@@ -24,9 +24,9 @@ int main(){
             case StandPlass :
 
                 h_stopElevatorMovement();
-                h_resetOrderLights();
+                i_resetOrderLights();
                 o_lookForOrders();
-                h_setLightOnOrders();
+                i_setLightOnOrders();
                 o_checkIfOrderDone();
                 h_goToStopState();
                 h_goToBevegelse(numOrders);
@@ -43,7 +43,7 @@ int main(){
 
                 h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
-                h_setLightOnOrders();
+                i_setLightOnOrders();
                 h_goToStopState();
 
                 break;
@@ -51,7 +51,7 @@ int main(){
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_setLightOnOrders();
+                i_setLightOnOrders();
                 openTimedDoor();
                 h_goToStandPlass(timeIsUp);
 
