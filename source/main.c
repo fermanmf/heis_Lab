@@ -9,9 +9,11 @@
 #include "door.h"
 
 int main(){
+
     h_initiateHardware();
-    numOrders = 0;
+
     while(1){
+
         i_updateCurrentFloor();
         h_handleStopButton();
         
