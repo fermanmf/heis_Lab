@@ -30,6 +30,10 @@ bool m_currentMomentumDir;
  * **/
 bool obstruction;
 /**
+ * @brief This function deletes the orderqueu when the stopbutton is pushed . 
+ * **/
+void h_handleStopButton();
+ /**
  * @brief This function initiates the hardware . 
  * **/
 void h_initiateHardware();
