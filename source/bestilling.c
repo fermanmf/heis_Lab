@@ -80,7 +80,7 @@ void o_arrangeOrder() {
             }
             else if (order.etasje > currentFloor) {
                 if (!o_checkExistence()) {
-                    o_checkPriority();
+                    o_checkPriority2();
                 }
             }
             else {
