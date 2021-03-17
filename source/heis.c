@@ -165,7 +165,7 @@ enum State h_getState(){
     return state;
 }
 
-void goToObstructionState(){
+void h_updateObstructionVar(){
     if(hardware_read_obstruction_signal()){
         obstruction = true;
     }
@@ -173,11 +173,13 @@ void goToObstructionState(){
 }
 
 void h_handleStopButton(){
-    if (h_stopPushed()){
+    if (hardware_read_stop_signal()){
         o_clearOrders();
         i_resetAllOrderLights();
         hardware_command_stop_light(1);
     }
-    else{hardware_command_stop_light(0);}
+    else if (!hardware_read_stop_signal()){
+        hardware_command_stop_light(0);
+    }
 }
 

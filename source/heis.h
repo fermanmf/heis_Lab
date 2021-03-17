@@ -92,3 +92,8 @@ void h_goToBevegelse(bool queueIsEmpty);
  * @return state of the system.
  * **/
 enum State h_getState();
+/**
+ * @brief This function watches the global variable @c obstruction and makes 
+ * sure it holds the correct value at all times.
+ * **/
+void h_updateObstructionVar();
