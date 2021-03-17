@@ -51,7 +51,7 @@ static void settRetning(int currentDestination){
         
         if (hardware_read_floor_sensor(currentFloor)){
         
-            isAbove ==true;
+            isAbove =true;
         }
     }
     else if (isAbove){
