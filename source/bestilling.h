@@ -23,11 +23,6 @@ struct bestilling
 };
 
 /**
- * @brief This @c int  keeps track of the number of orders.
- * **/
-int numOrders;
-
-/**
  * @brief This function are constantly looking for orders and triggers when a button is pushed. 
  * **/
 void o_lookForOrders();

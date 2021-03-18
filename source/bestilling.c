@@ -6,10 +6,10 @@
 #include "door.h"
 #include "indicators.h"
 
-int bestillingsKo[10] = {0,0,0,0,0,0,0,0,0,0};
-int numOrders = 0;
+static int bestillingsKo[4] = {0,0,0,0};
+static int numOrders = 0;
 
-struct bestilling order;
+static struct bestilling order;
 
 static void pushArrayBack() {
     for (int i = numOrders; i > 0; i--)
@@ -352,7 +352,11 @@ void o_checkIfOrderDone() {
 
 void o_clearOrders() {
     numOrders = 0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 4; i++) {
         bestillingsKo[i] = 0;
     };
+};
+
+bool o_newOrderExists() {
+    return numOrders;
 };
