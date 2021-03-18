@@ -12,17 +12,15 @@ static int numOrders = 0;
 static struct bestilling order;
 
 static void pushArrayBack() {
-    for (int i = numOrders; i > 0; i--)
-    {
+    for (int i = numOrders; i > 0; i--) {
         bestillingsKo[i] = bestillingsKo[i-1];
     }
 };
 
 static void pushArray() {
-    for (int i = 1; i < (numOrders+1); i++)
-    {
+    for (int i = 1; i < (numOrders+1); i++) {
         bestillingsKo[i-1] = bestillingsKo[i];
-    }  
+    }
 };
 
 static void o_orderProcessed() {
@@ -234,16 +232,13 @@ static void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
         if ((g_currentFloor==order.etasje)&&(h_checkIfInbetween())) {
-
-            if ( !o_checkExistence() ){
-            o_between();
-
-            }
+            if ( !o_checkExistence() ) {
+                o_between();
+                }
             return;
         }
-        // Bestilling større enn 1. i kø, og mindre enn der heisen står
-        if ((firstOrder < order.etasje)&&(firstOrder < g_currentFloor)) {
 
+        if ((firstOrder < order.etasje)&&(firstOrder < g_currentFloor)) {
             if (order.type==opp) {
                 if (!o_checkExistence()) {
                     o_checkPriority();
@@ -255,7 +250,6 @@ static void o_arrangeOrder() {
                 }
             }
             else {
-                // Bestillingen skal legges først
                 o_putOrderFirst();
             }
         }
