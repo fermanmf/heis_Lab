@@ -17,7 +17,7 @@ int main(){
         i_updateCurrentFloor();
         h_updateObstructionVar();
         h_handleStopButton();
-        
+
         switch(h_getState()){
             case UndefinedState :
 
@@ -27,26 +27,26 @@ int main(){
             case AtRest :
 
                 h_stopElevatorMovement();
-                i_resetOrderLights();
+                i_resetFinishedOrderLight();
                 o_lookForOrders();
-                i_setLightOnOrders();
-                o_checkIfOrderDone();
-                h_goToStopState();
-                h_goToMoving(numOrders);
+                i_setOrderLights();
+                o_removeFinishedOrders();
+                h_goToStopStateIfStopPushed();
+                h_goToMovingIfOrderExists(numOrders);
 
                 break;
             case StoppBetweenFloors :
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_goToMoving(numOrders);
+                h_goToMovingIfOrderExists(numOrders);
                 
                 break;
             case Moving :
 
                 h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
-                i_setLightOnOrders();
+                i_setOrderLights();
                 h_goToStopState();
 
                 break;
@@ -54,9 +54,9 @@ int main(){
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                i_setLightOnOrders();
+                i_setorderLights();
                 d_openTimedDoor();
-                h_goToAtRest(timeIsUp);
+                h_goToAtRestIf(d_timeIsUp);
 
                 break;
             default :

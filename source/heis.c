@@ -11,7 +11,7 @@
 
 int g_currentFloor = 0;
 bool g_elevatorHasHandeledCurrentOrder = false;
-bool g_directionOfElevatorIsUp = 1;
+bool g_directionOfElevatorIsUp = true;
 bool g_obstructed = false;
 
 static enum State state = UndefinedState;
