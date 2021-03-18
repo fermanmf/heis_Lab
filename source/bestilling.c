@@ -6,32 +6,16 @@
 #include "door.h"
 #include "indicators.h"
 
-#define NELEMS(x)  (sizeof(x) / sizeof((x)[0]))
-
 int bestillingsKo[10] = {0,0,0,0,0,0,0,0,0,0};
 int numOrders = 0;
 
 struct bestilling order;
 
-void o_lookForOrders() {
-    if (!h_stopPushed()){
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (hardware_read_order(i, j)) {
-                order.etasje = i;
-                order.type = j;
-                o_orderCheck();
-             }
-          }
-        }
-    }
-};
-
-void o_orderProcessed() {
+static void o_orderProcessed() {
     numOrders++;
 };
 
-void o_orderCheck() {
+static void o_orderCheck() {
     // Sjekker først om det ligger bestillinger inne
     if (numOrders==0) {
         // Det ligger ikke inne noen bestillinger
@@ -46,7 +30,7 @@ void o_orderCheck() {
     }
 };
 
-bool o_checkExistence() {
+static bool o_checkExistence() {
     for(int i = 0; i < numOrders; i++) {
         if (bestillingsKo[i] == order.etasje) {
             return true;
@@ -58,7 +42,7 @@ bool o_checkExistence() {
 // Om det ligger en eller flere bestillinger inne
 // Sjekk først om bestillingen som er trykket inn allerede skal dit
 
-void o_arrangeOrder() {
+static void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
         if ((currentFloor==order.etasje)&&(h_checkIfInbetween())) {
@@ -138,7 +122,7 @@ void o_arrangeOrder() {
         }
 };
 
-void o_between() {
+static void o_between() {
     int firstOrder = bestillingsKo[0];
         if (numOrders==1) {
                 bestillingsKo[numOrders] = order.etasje;
@@ -190,7 +174,7 @@ void o_between() {
 }
 
 // Bestilling må legges bak i køen
-void o_orderOverFirst() {
+static void o_orderOverFirst() {
     if (numOrders==1) {
         bestillingsKo[numOrders] = order.etasje;
         o_orderProcessed();
@@ -219,7 +203,7 @@ void o_orderOverFirst() {
     }
 };
 
-void o_orderBelowFirst() {
+static void o_orderBelowFirst() {
     if (numOrders > 1) {
     bool squeezedIn = false;
     for (int i = 1; i < numOrders; i++) {
@@ -245,7 +229,7 @@ void o_orderBelowFirst() {
 };
 
 // Bestilling skal legges først
-void o_putOrderFirst() {
+static void o_putOrderFirst() {
     int num = o_findOrderToSameFloor();
     if (num==-1) {
         // Det finnes ingen andre tilfeller av etasjen i listen
@@ -265,7 +249,7 @@ void o_putOrderFirst() {
 };
 
 // Returner hvor i rekken duplikatbestillingen ligger, evt -1 om ingen finnes
-int o_findOrderToSameFloor() {
+static int o_findOrderToSameFloor() {
     // Funksjonen skal returnere true om det finnes et tilfelle av samme etasje i bestillingslisten
     for (int i = 0; i < numOrders; i++) {
         int floor = order.etasje;
@@ -277,7 +261,7 @@ int o_findOrderToSameFloor() {
     return -1;
 };
 
-void o_checkPriority() {
+static void o_checkPriority() {
     // Finner rekkefølge etter heisen snur
     int priority = numOrders;
     for (int i = 1; i < numOrders; i++) {
@@ -299,7 +283,7 @@ void o_checkPriority() {
     }
 };
 
-void o_checkPriority2() {
+static void o_checkPriority2() {
     // Finner rekkefølge etter heisen snur
     int priority = numOrders;
     for (int i = 1; i < numOrders; i++) {
@@ -321,25 +305,38 @@ void o_checkPriority2() {
     }
 };
 
-void pushArrayBack() {
+static void pushArrayBack() {
     for (int i = numOrders; i > 0; i--)
     {
         bestillingsKo[i] = bestillingsKo[i-1];
     }
 };
 
-void pushArray() {
+static void pushArray() {
     for (int i = 1; i < (numOrders+1); i++)
     {
         bestillingsKo[i-1] = bestillingsKo[i];
     }  
 };
 
-void orderSent() {
+static void orderSent() {
     numOrders--;
     pushArray();
 };
 
+void o_lookForOrders() {
+    if (!h_stopPushed()){
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (hardware_read_order(i, j)) {
+                order.etasje = i;
+                order.type = j;
+                o_orderCheck();
+             }
+          }
+        }
+    }
+};
 
 int o_returnNextOrder() {
     int sending = bestillingsKo[0];
@@ -351,10 +348,6 @@ void o_checkIfOrderDone() {
         orderSent();
         m_orderDone = false;
     }
-};
-
-bool queueIsEmpty() {
-    return numOrders;
 };
 
 void o_clearOrders() {
