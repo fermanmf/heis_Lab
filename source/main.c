@@ -56,7 +56,7 @@ int main(){
                 o_lookForOrders();
                 i_setorderLights();
                 d_openTimedDoor();
-                h_goToAtRestIf(timeIsUp);
+                h_goToAtRestIf(d_timeIsUp);
 
                 break;
             default :
