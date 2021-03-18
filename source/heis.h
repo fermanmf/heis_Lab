@@ -3,32 +3,32 @@
  * @file 
  * @brief This module contains functions that give instructions 
  * to the elevator and control at which state the elevator is at all times.
- */
+ */ 
 
 #pragma once
 /**
  * @brief This @c enum type keeps track of the possible states of the system.
  * **/
-enum State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};
+enum State {UndefinedState, AtRest, StoppBetweenFloors, Moving, DoorOpen};
 
 /**
  * @brief This @c int  keeps track of the elevators current floor.
  * **/
-int currentFloor;
+int g_currentFloor;
 /**
  * @brief This @c bool tells whether or not the @c goToDestinaiton() function has finished an order.
  * It is used to communicate to the order module that it can remove the order.  
  * **/
-bool m_orderDone;
+bool g_elevatorHasHandeledCurrentOrder;
 /**
  * @brief This @c bool is true when the elevator moves up and false when it moves down. 
  * In the case of no movement the variable holds the latest direction.
  * **/
-bool m_currentMomentumDir; 
+bool g_directionOfElevatorIsUp; 
 /**
  * @brief This @c bool holds true when the obstruction button is active.
  * **/
-bool obstruction;
+bool g_obstructed;
 /**
  * @brief This function deletes the orderqueu when the stopbutton is pushed . 
  * **/
@@ -80,13 +80,13 @@ void h_stopElevatorMovement();
  * @brief This function makes the elevator go to 
  * to the StandPlass state if the timer of the door is finished.
  * **/
-void h_goToStandPlass(bool timeIsUp);
+void h_goToAtRest(bool timeIsUp);
 /**
  * @brief This function makes the elevator go to 
  * to the Bevegelse state, but only if @p queueIsEmpty is @c true.
  * @param[in] queueIsEmpty This variable is holding true if there are no orders. false otherwise.
  * **/
-void h_goToBevegelse(bool queueIsEmpty);
+void h_goToMoving(bool queueIsEmpty);
 /**
  * @brief This function simply returns the state of the system.
  * @return state of the system.

@@ -15,16 +15,16 @@ int main(){
     while(1){
 
         i_updateCurrentFloor();
-        h_handleStopButton();
         h_updateObstructionVar();
-
+        h_handleStopButton();
+        
         switch(h_getState()){
             case UndefinedState :
 
                 h_goToDefinedState();
 
                 break;
-            case StandPlass :
+            case AtRest :
 
                 h_stopElevatorMovement();
                 i_resetOrderLights();
@@ -32,17 +32,17 @@ int main(){
                 i_setLightOnOrders();
                 o_checkIfOrderDone();
                 h_goToStopState();
-                h_goToBevegelse(numOrders);
+                h_goToMoving(numOrders);
 
                 break;
-            case StoppMellomEtasje :
+            case StoppBetweenFloors :
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_goToBevegelse(numOrders);
+                h_goToMoving(numOrders);
                 
                 break;
-            case Bevegelse :
+            case Moving :
 
                 h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
@@ -56,7 +56,7 @@ int main(){
                 o_lookForOrders();
                 i_setLightOnOrders();
                 d_openTimedDoor();
-                h_goToStandPlass(timeIsUp);
+                h_goToAtRest(timeIsUp);
 
                 break;
             default :
