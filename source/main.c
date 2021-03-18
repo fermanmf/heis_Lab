@@ -15,9 +15,9 @@ int main(){
     while(1){
 
         i_updateCurrentFloor();
-        h_handleStopButton();
         h_updateObstructionVar();
-
+        h_handleStopButton();
+        
         switch(h_getState()){
             case UndefinedState :
 
