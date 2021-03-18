@@ -9,14 +9,13 @@
 #include "indicators.h"
 
 
-int currentFloor = 0;
-bool m_orderDone = false;
-bool m_currentMomentumDir = 1;
-bool obstruction = false;
+int g_currentFloor = 0;
+bool g_elevatorHasHandeledCurrentOrder = false;
+bool g_directionOfElevatorIsUp = 1;
+bool g_obstructed = false;
 
 static enum State state = UndefinedState;
 static bool elevatorIsMoving = true;
-static bool returnToCurrentFloor = true;
 static bool isAbove = false;
 
 
@@ -24,32 +23,32 @@ static void atDestination(int currentDestination){
      for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if((hardware_read_floor_sensor(f))&&(f==currentDestination)){
         state = DoorOpen;
-        m_orderDone = true;
+        g_elevatorHasHandeledCurrentOrder = true;
         }
     }
 }
 
 static void settRetning(int currentDestination){
     
-    if (currentDestination < currentFloor){
+    if (currentDestination < g_currentFloor){
         if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
         }
-        m_currentMomentumDir = false;
+        g_directionOfElevatorIsUp = false;
         
-        if (hardware_read_floor_sensor(currentFloor)){
+        if (hardware_read_floor_sensor(g_currentFloor)){
         isAbove = false;
         }
     }
-    else if (currentDestination > currentFloor){
+    else if (currentDestination > g_currentFloor){
         if (!elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_UP);
         elevatorIsMoving = true;
         }
-        m_currentMomentumDir = true;
+        g_directionOfElevatorIsUp = true;
         
-        if (hardware_read_floor_sensor(currentFloor)){
+        if (hardware_read_floor_sensor(g_currentFloor)){
         
             isAbove =true;
         }
@@ -58,7 +57,7 @@ static void settRetning(int currentDestination){
         
         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
         elevatorIsMoving = true;
-        m_currentMomentumDir = false;
+        g_directionOfElevatorIsUp = false;
        
         
         
@@ -68,7 +67,7 @@ static void settRetning(int currentDestination){
             hardware_command_movement(HARDWARE_MOVEMENT_UP);
         
         elevatorIsMoving = true;
-        m_currentMomentumDir = true;
+        g_directionOfElevatorIsUp = true;
         
     }
 }
@@ -94,8 +93,8 @@ void h_goToDefinedState(){
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
     for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
         if(hardware_read_floor_sensor(f)){
-            state = StandPlass;
-            currentFloor = f;
+            state = AtRest;
+            g_currentFloor = f;
         }
     }
 }
@@ -114,13 +113,13 @@ void h_goToStopState(){
         stopPushed = true;
     }
     switch(state){
-        case StandPlass : 
+        case AtRest : 
             if(stopPushed){
             state = DoorOpen;}
             break;
-        case Bevegelse : 
+        case Moving : 
             if (stopPushed && h_checkIfInbetween()){
-                state = StoppMellomEtasje;
+                state = StoppBetweenFloors;
             }
             else if (stopPushed){
                 state = DoorOpen;
@@ -132,7 +131,7 @@ void h_goToStopState(){
 };
 
 void h_stopElevatorMovement(){
-    returnToCurrentFloor = true;
+    //returnToCurrentFloor = true;
     if (elevatorIsMoving){
         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         elevatorIsMoving = false;
@@ -150,14 +149,14 @@ bool h_checkIfInbetween(){
 
 void h_goToStandPlass(bool timeIsUp){
     if (timeIsUp){
-        state = StandPlass;
+        state = AtRest;
         hardware_command_door_open(0);
     }
 }
 
 void h_goToBevegelse(bool queueIsEmpty){
     if (queueIsEmpty){
-        state = Bevegelse;
+        state = Moving;
     }
 }
 
@@ -167,9 +166,9 @@ enum State h_getState(){
 
 void h_updateObstructionVar(){
     if(hardware_read_obstruction_signal()){
-        obstruction = true;
+        g_obstructed = true;
     }
-    else { obstruction = false;}
+    else { g_obstructed = false;}
 }
 
 void h_handleStopButton(){
