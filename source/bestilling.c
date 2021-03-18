@@ -343,7 +343,7 @@ int o_returnNextOrder() {
     return sending;
 };
 
-void o_checkIfOrderDone() {
+void o_removeFinishedOrders() {
     if((g_elevatorHasHandeledCurrentOrder) && (numOrders>0)) {
         orderSent();
         g_elevatorHasHandeledCurrentOrder = false;

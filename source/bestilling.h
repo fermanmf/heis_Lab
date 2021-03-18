@@ -35,9 +35,15 @@ int o_returnNextOrder();
 /**
  * @brief This function checks if the order is done and then pushed ahead the new in front of the array.
  * **/
-void o_checkIfOrderDone();
+void o_removeFinishedOrders();
 
 /**
  * @brief This function sets the number of order to 0, and also cleans the array and sets it to onlt zeros.
  * **/
 void o_clearOrders();
+
+/**
+ * @brief This function return numOrders as a bool.
+ * @return true if numOrders > 0 and false if numOrders = 0.
+ * **/
+bool o_newOrderExists();
