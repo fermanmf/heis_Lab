@@ -147,14 +147,14 @@ bool h_checkIfInbetween(){
     return true;
 }
 
-void h_goToAtRestIf(bool timeIsUp){
+void h_goToAtRestStateIf(bool timeIsUp){
     if (timeIsUp){
         state = AtRest;
         hardware_command_door_open(0);
     }
 }
 
-void h_goToMovingIfOrderExists(bool queueIsEmpty){
+void h_goToMovingStateIfOrderExists(bool queueIsEmpty){
     if (queueIsEmpty){
         state = Moving;
     }
