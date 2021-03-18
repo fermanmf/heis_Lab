@@ -13,7 +13,7 @@
  * @brief This @c boolean is set to true when the timer has counted 5 seconds.
  * it is set to false otherwise. It lets the elevator module know when to abandon the DoorOpen state
  * **/
-bool timeIsUp;
+bool d_timeIsUp;
 
 /**
  * @brief This function opens the door of the elevator. 

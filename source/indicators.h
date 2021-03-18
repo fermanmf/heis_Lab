@@ -12,12 +12,12 @@
  /**
  * @brief This function sets the lamp on the order button that is pushed. 
  * **/
- void i_setLightOnOrders();
+ void i_setOrderLights();
 /**
  * @brief This function resets the lamp on the order button when the 
  * elevator finishes the corresponding order. 
  * **/
- void i_resetOrderLights();
+ void i_resetFinishedOrderLights();
 /**
  * @brief This function resets all the order button lamps when the stop button is pushed. 
  * **/
