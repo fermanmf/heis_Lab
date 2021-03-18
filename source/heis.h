@@ -62,7 +62,7 @@ bool h_stopPushed();
  * if the stopButton is pushed.
  * **/
 
-void h_goToStopState();
+void h_goToStopStateIfPushed();
 /**
  * @brief Checks if the elevator is triggering any floorSensor
  * @return @c true if no floor sensor is triggered by the elevator. @c false otherwise.
@@ -80,13 +80,13 @@ void h_stopElevatorMovement();
  * @brief This function makes the elevator go to 
  * to the StandPlass state if the timer of the door is finished.
  * **/
-void h_goToAtRest(bool timeIsUp);
+void h_goToAtRestIf(bool timeIsUp);
 /**
  * @brief This function makes the elevator go to 
  * to the Bevegelse state, but only if @p queueIsEmpty is @c true.
  * @param[in] queueIsEmpty This variable is holding true if there are no orders. false otherwise.
  * **/
-void h_goToMoving(bool queueIsEmpty);
+void h_goToMovingIfOrderExists(bool queueIsEmpty);
 /**
  * @brief This function simply returns the state of the system.
  * @return state of the system.
