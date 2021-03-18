@@ -27,11 +27,11 @@ int main(){
             case AtRest :
 
                 h_stopElevatorMovement();
-                i_resetFinishedOrderLight();
+                i_resetFinishedOrderLights();
                 o_lookForOrders();
                 i_setOrderLights();
                 o_removeFinishedOrders();
-                h_goToStopStateIfStopPushed();
+                h_goToStopStateIfPushed();
                 h_goToMovingIfOrderExists(numOrders);
 
                 break;
@@ -47,14 +47,14 @@ int main(){
                 h_goToDestination(o_returnNextOrder());
                 o_lookForOrders();
                 i_setOrderLights();
-                h_goToStopState();
+                h_goToStopStateIfPushed();
 
                 break;
             case DoorOpen:
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                i_setorderLights();
+                i_setOrderLights();
                 d_openTimedDoor();
                 h_goToAtRestIf(d_timeIsUp);
 

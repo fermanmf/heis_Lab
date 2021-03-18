@@ -107,7 +107,7 @@ bool h_stopPushed(){
     return stopPushed;
 }
 
-void h_goToStopState(){
+void h_goToStopStateIfPushed(){
     bool stopPushed = false;
     if(hardware_read_stop_signal()){
         stopPushed = true;
@@ -147,14 +147,14 @@ bool h_checkIfInbetween(){
     return true;
 }
 
-void h_goToStandPlass(bool timeIsUp){
+void h_goToAtRestIf(bool timeIsUp){
     if (timeIsUp){
         state = AtRest;
         hardware_command_door_open(0);
     }
 }
 
-void h_goToBevegelse(bool queueIsEmpty){
+void h_goToMovingIfOrderExists(bool queueIsEmpty){
     if (queueIsEmpty){
         state = Moving;
     }
