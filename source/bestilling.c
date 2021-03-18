@@ -11,23 +11,27 @@ int numOrders = 0;
 
 struct bestilling order;
 
+static void pushArrayBack() {
+    for (int i = numOrders; i > 0; i--)
+    {
+        bestillingsKo[i] = bestillingsKo[i-1];
+    }
+};
+
+static void pushArray() {
+    for (int i = 1; i < (numOrders+1); i++)
+    {
+        bestillingsKo[i-1] = bestillingsKo[i];
+    }  
+};
+
 static void o_orderProcessed() {
     numOrders++;
 };
 
-static void o_orderCheck() {
-    // Sjekker først om det ligger bestillinger inne
-    if (numOrders==0) {
-        // Det ligger ikke inne noen bestillinger
-        bestillingsKo[0]=order.etasje;
-        o_orderProcessed();
-        return;
-    }
-    else {
-        // Det ligger inne bestillinger
-        o_arrangeOrder();
-        return;
-    }
+static void orderSent() {
+    numOrders--;
+    pushArray();
 };
 
 static bool o_checkExistence() {
@@ -39,89 +43,6 @@ static bool o_checkExistence() {
     return false;
 }
 
-// Om det ligger en eller flere bestillinger inne
-// Sjekk først om bestillingen som er trykket inn allerede skal dit
-
-static void o_arrangeOrder() {
-    int firstOrder = bestillingsKo[0];
-
-        if ((currentFloor==order.etasje)&&(h_checkIfInbetween())) {
-
-            if ( !o_checkExistence() ){
-            o_between();
-
-            }
-            return;
-        }
-
-        // Bestilling større enn 1. i kø, og mindre enn der heisen står
-        if ((firstOrder < order.etasje)&&(firstOrder < currentFloor)) {
-
-            if (order.type==opp) {
-                if (!o_checkExistence()) {
-                    o_checkPriority();
-                }
-            }
-            else if (order.etasje > currentFloor) {
-                if (!o_checkExistence()) {
-                    o_checkPriority2();
-                }
-            }
-            else {
-                // Bestillingen skal legges først
-                o_putOrderFirst();
-            }
-        }
-        // Bestilling større enn der heisen står, men mindre enn 1. i køa
-        else if ((firstOrder > order.etasje)&&(firstOrder > currentFloor)) {
-            if (order.type==ned) {
-                if (!o_checkExistence()) {
-                o_checkPriority();
-               }
-            }
-            else if (order.etasje < currentFloor) {
-                if (!o_checkExistence()) {
-                o_checkPriority();
-               }
-            }
-            else {
-                // Bestillingen skal legges først
-                o_putOrderFirst();
-            }
-        }
-        // Bestilling større enn 1. i køa og større enn der heisen står
-        else if ((firstOrder > currentFloor)&&(order.etasje > firstOrder)){
-            if (!o_checkExistence()) {
-                if (order.type==ned) {
-                    bestillingsKo[numOrders] = order.etasje;
-                    o_orderProcessed();
-                }
-                else {
-                    o_orderOverFirst();
-                }
-            }
-        }
-        // Bestilling er mindre enn 1. i køa og mindre enn der heisen står
-        else if ((firstOrder < currentFloor)&&(order.etasje < firstOrder)) {
-            if (!o_checkExistence()) {
-                if (order.type==opp) {
-                    bestillingsKo[numOrders] = order.etasje;
-                    o_orderProcessed();
-                }
-                else {
-                    o_orderBelowFirst();
-                }
-            }
-        }
-        // Bestillingen er den samme som ligger først
-        else {
-            if (!o_checkExistence()) {
-            bestillingsKo[numOrders] = order.etasje;
-            o_orderProcessed();
-            }
-        }
-};
-
 static void o_between() {
     int firstOrder = bestillingsKo[0];
         if (numOrders==1) {
@@ -129,7 +50,7 @@ static void o_between() {
                 o_orderProcessed();
         }
         else {
-            if (firstOrder>currentFloor) {
+            if (firstOrder>g_currentFloor) {
                 int swap = 0;
                 for (int i = 1; i < numOrders; i++) {
                     if (order.etasje>bestillingsKo[i]) {
@@ -228,6 +149,19 @@ static void o_orderBelowFirst() {
     }
 };
 
+// Returner hvor i rekken duplikatbestillingen ligger, evt -1 om ingen finnes
+static int o_findOrderToSameFloor() {
+    // Funksjonen skal returnere true om det finnes et tilfelle av samme etasje i bestillingslisten
+    for (int i = 0; i < numOrders; i++) {
+        int floor = order.etasje;
+        if (bestillingsKo[i] == floor) {
+            // Det ligger allerede en bestilling til etasjen inne
+            return i;
+        }
+    }
+    return -1;
+};
+
 // Bestilling skal legges først
 static void o_putOrderFirst() {
     int num = o_findOrderToSameFloor();
@@ -246,19 +180,6 @@ static void o_putOrderFirst() {
         o_orderProcessed();
         numOrders--; // Det blir fjernet et element fra lista
     }
-};
-
-// Returner hvor i rekken duplikatbestillingen ligger, evt -1 om ingen finnes
-static int o_findOrderToSameFloor() {
-    // Funksjonen skal returnere true om det finnes et tilfelle av samme etasje i bestillingslisten
-    for (int i = 0; i < numOrders; i++) {
-        int floor = order.etasje;
-        if (bestillingsKo[i] == floor) {
-            // Det ligger allerede en bestilling til etasjen inne
-            return i;
-        }
-    }
-    return -1;
 };
 
 static void o_checkPriority() {
@@ -305,23 +226,102 @@ static void o_checkPriority2() {
     }
 };
 
-static void pushArrayBack() {
-    for (int i = numOrders; i > 0; i--)
-    {
-        bestillingsKo[i] = bestillingsKo[i-1];
+
+// Om det ligger en eller flere bestillinger inne
+// Sjekk først om bestillingen som er trykket inn allerede skal dit
+
+static void o_arrangeOrder() {
+    int firstOrder = bestillingsKo[0];
+
+        if ((g_currentFloor==order.etasje)&&(h_checkIfInbetween())) {
+
+            if ( !o_checkExistence() ){
+            o_between();
+
+            }
+            return;
+        }
+        // Bestilling større enn 1. i kø, og mindre enn der heisen står
+        if ((firstOrder < order.etasje)&&(firstOrder < g_currentFloor)) {
+
+            if (order.type==opp) {
+                if (!o_checkExistence()) {
+                    o_checkPriority();
+                }
+            }
+            else if (order.etasje > g_currentFloor) {
+                if (!o_checkExistence()) {
+                    o_checkPriority2();
+                }
+            }
+            else {
+                // Bestillingen skal legges først
+                o_putOrderFirst();
+            }
+        }
+        // Bestilling større enn der heisen står, men mindre enn 1. i køa
+        else if ((firstOrder > order.etasje)&&(firstOrder > g_currentFloor)) {
+            if (order.type==ned) {
+                if (!o_checkExistence()) {
+                o_checkPriority();
+               }
+            }
+            else if (order.etasje < g_currentFloor) {
+                if (!o_checkExistence()) {
+                o_checkPriority();
+               }
+            }
+            else {
+                // Bestillingen skal legges først
+                o_putOrderFirst();
+            }
+        }
+        // Bestilling større enn 1. i køa og større enn der heisen står
+        else if ((firstOrder > g_currentFloor)&&(order.etasje > firstOrder)){
+            if (!o_checkExistence()) {
+                if (order.type==ned) {
+                    bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
+                else {
+                    o_orderOverFirst();
+                }
+            }
+        }
+        // Bestilling er mindre enn 1. i køa og mindre enn der heisen står
+        else if ((firstOrder < g_currentFloor)&&(order.etasje < firstOrder)) {
+            if (!o_checkExistence()) {
+                if (order.type==opp) {
+                    bestillingsKo[numOrders] = order.etasje;
+                    o_orderProcessed();
+                }
+                else {
+                    o_orderBelowFirst();
+                }
+            }
+        }
+        // Bestillingen er den samme som ligger først
+        else {
+            if (!o_checkExistence()) {
+            bestillingsKo[numOrders] = order.etasje;
+            o_orderProcessed();
+            }
+        }
+};
+
+static void o_orderCheck() {
+    // Sjekker først om det ligger bestillinger inne
+    if (numOrders==0) {
+        // Det ligger ikke inne noen bestillinger
+        bestillingsKo[0]=order.etasje;
+        o_orderProcessed();
+        return;
     }
-};
-
-static void pushArray() {
-    for (int i = 1; i < (numOrders+1); i++)
-    {
-        bestillingsKo[i-1] = bestillingsKo[i];
-    }  
-};
-
-static void orderSent() {
-    numOrders--;
-    pushArray();
+    else {
+        // Det ligger inne bestillinger
+        o_arrangeOrder();
+        return;
+    }
 };
 
 void o_lookForOrders() {
@@ -344,9 +344,9 @@ int o_returnNextOrder() {
 };
 
 void o_checkIfOrderDone() {
-    if((m_orderDone) && (numOrders>0)) {
+    if((g_elevatorHasHandeledCurrentOrder) && (numOrders>0)) {
         orderSent();
-        m_orderDone = false;
+        g_elevatorHasHandeledCurrentOrder = false;
     }
 };
 
