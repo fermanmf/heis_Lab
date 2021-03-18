@@ -154,7 +154,7 @@ void h_goToAtRestStateIf(bool timeIsUp){
     }
 }
 
-void h_goToMovingStateIfOrderExists(bool queueIsEmpty){
+void h_goToMovingStateIf(bool queueIsEmpty){
     if (queueIsEmpty){
         state = Moving;
     }
