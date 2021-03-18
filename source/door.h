@@ -10,11 +10,14 @@
 #include <sys/time.h>
 
 /**
- * @brief This @c boolean is set to true when the timer has counted 5 seconds.
- * it is set to false otherwise. It lets the elevator module know when to abandon the DoorOpen state
+ * @brief This function lets the elevator module know when to abandon the DoorOpen state
+ * @return @c true when the door has been open for 3 seconds. @c false otherwise. 
  * **/
-bool d_timeIsUp;
-
+bool d_timeIsUp();
+/**
+ * @brief This func sets the variable timeIsUp that belongs to door.c to false. Used by the elevator module.
+ * **/
+void d_resetTimIsUpVar();
 /**
  * @brief This function opens the door of the elevator. 
  * It also deals with problems such as the Stop button and the obstruction button being

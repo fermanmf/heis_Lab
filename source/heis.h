@@ -86,7 +86,7 @@ void h_goToAtRestIf(bool timeIsUp);
  * to the Bevegelse state, but only if @p queueIsEmpty is @c true.
  * @param[in] queueIsEmpty This variable is holding true if there are no orders. false otherwise.
  * **/
-void h_goToMovingIfOrderExists(bool queueIsEmpty);
+void h_goToMovingStateIfOrderExists(bool queueIsEmpty);
 /**
  * @brief This function simply returns the state of the system.
  * @return state of the system.

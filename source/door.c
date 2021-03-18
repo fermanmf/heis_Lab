@@ -11,7 +11,7 @@ static struct timeval t0;
 static struct timeval t1;
 static bool timerStarted= false;
 
-bool d_timeIsUp = false;
+static bool timeIsUp = false;
 
 static float timedifference(struct timeval t0, struct timeval t1){
     return (t1.tv_sec - t0.tv_sec);
@@ -25,12 +25,12 @@ static void openDoor(){
 void d_openTimedDoor(){
     if (h_stopPushed() || g_obstructed){
         timerStarted = false;
-        d_timeIsUp = false;
+        timeIsUp = false;
         openDoor();
     }
     else{
         openDoor();
-        d_timeIsUp = false;
+        timeIsUp = false;
         float elapsed = 0;
         gettimeofday(&t1,0);
         if (timerStarted){
@@ -43,7 +43,15 @@ void d_openTimedDoor(){
         else if (elapsed > 5){
             hardware_command_door_open(0);
             timerStarted = false;
-            d_timeIsUp = true;
+            timeIsUp = true;
         }
     }
+}
+
+bool d_timeIsUp(){
+ return timeIsUp;
+}
+
+void resetTimeIsUpVar(){
+    timeIsUp = false;
 }

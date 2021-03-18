@@ -32,14 +32,14 @@ int main(){
                 i_setOrderLights();
                 o_removeFinishedOrders();
                 h_goToStopStateIfPushed();
-                h_goToMovingIfOrderExists(numOrders);
+                h_goToMovingStateIf(o_newOrderExists());
 
                 break;
             case StoppBetweenFloors :
 
                 h_stopElevatorMovement();
                 o_lookForOrders();
-                h_goToMovingIfOrderExists(numOrders);
+                h_goToMovingStateIf(newOrderExists());
                 
                 break;
             case Moving :
@@ -56,7 +56,7 @@ int main(){
                 o_lookForOrders();
                 i_setOrderLights();
                 d_openTimedDoor();
-                h_goToAtRestIf(d_timeIsUp);
+                h_goToAtRestStateIf(d_timeIsUp());
 
                 break;
             default :
