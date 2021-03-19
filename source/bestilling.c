@@ -6,6 +6,15 @@
 #include "door.h"
 #include "indicators.h"
 
+enum bestillingsType{opp, inn, ned};
+
+
+struct bestilling
+{
+    int etasje;                 // Etasje heisen skal til
+    enum bestillingsType type;  // Knapptypen, enten er knappen fra heispanelet, eller så er det utenfra med et ønske om enten opp eller ned
+
+}; 
 static int bestillingsKo[4] = {0,0,0,0};
 static int numOrders = 0;
 

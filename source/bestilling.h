@@ -8,21 +8,6 @@
 #pragma once
 
 /**
- * @brief This @c enum type sets the different types of buttons.
- * **/
-enum bestillingsType{opp, inn, ned};
-
-/**
- * @brief This @c struct type sets the different types of buttons.
- * **/
-struct bestilling
-{
-    int etasje;                 // Etasje heisen skal til
-    enum bestillingsType type;  // Knapptypen, enten er knappen fra heispanelet, eller så er det utenfra med et ønske om enten opp eller ned
-
-};
-
-/**
  * @brief This function are constantly looking for orders and triggers when a button is pushed. 
  * **/
 void o_lookForOrders();
