@@ -93,7 +93,7 @@ static void o_orderWhenElevatorIsBetweenFloors() {
 }
 
 // Bestilling må legges bak i køen
-static void o_orderOverFirst() {
+static void o_arrangeHigherOrderBehindFirstOrder() {
     if (numOrders==1) {
         bestillingsKo[numOrders] = order.etasje;
         o_orderProcessed();
@@ -122,7 +122,7 @@ static void o_orderOverFirst() {
     }
 };
 
-static void o_orderBelowFirst() {
+static void o_arrangeLowerOrderBehindFirstOrder() {
     if (numOrders > 1) {
     bool squeezedIn = false;
     for (int i = 1; i < numOrders; i++) {
@@ -202,7 +202,7 @@ static void o_checkPriority() {
     }
 };
 
-static void o_checkPriority2() {
+static void o_checkPriorityForOrderAboveElevator() {
     // Finner rekkefølge etter heisen snur
     int priority = numOrders;
     for (int i = 1; i < numOrders; i++) {
@@ -232,7 +232,7 @@ static void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
         if ((g_currentFloor==order.etasje)&&(h_checkIfInbetween())) {
-            if (!o_checkExistence() ) {
+            if (!o_checkExistence()) {
                 o_orderWhenElevatorIsBetweenFloors();
                 }
             return;
@@ -246,7 +246,7 @@ static void o_arrangeOrder() {
             }
             else if (order.etasje > g_currentFloor) {
                 if (!o_checkExistence()) {
-                    o_checkPriority2();
+                    o_checkPriorityForOrderAboveElevator();
                 }
             }
             else {
@@ -278,7 +278,7 @@ static void o_arrangeOrder() {
                     o_orderProcessed();
                 }
                 else {
-                    o_orderOverFirst();
+                    o_arrangeHigherOrderBehindFirstOrder();
                 }
             }
         }
@@ -290,7 +290,7 @@ static void o_arrangeOrder() {
                     o_orderProcessed();
                 }
                 else {
-                    o_orderBelowFirst();
+                    o_arrangeLowerOrderBehindFirstOrder();
                 }
             }
         }
