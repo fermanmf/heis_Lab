@@ -69,45 +69,24 @@ $(function() {
 <div class="title">bestilling.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">enum</span> bestillingsType{opp, inn, ned};</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="structbestilling.html">    6</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structbestilling.html">bestilling</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordtype">int</span> etasje;                 <span class="comment">// Etasje heisen skal til</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">enum</span> bestillingsType type;  <span class="comment">// Knapptypen, enten er knappen fra heispanelet, eller så er det utenfra med et ønske om enten opp eller ned</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;};</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">int</span> numOrders;</div>
+<a href="bestilling_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> <a class="code" href="bestilling_8h.html#a55552a36cc230a87374fdf6e0e94d56f">o_lookForOrders</a>();</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> o_lookForOrders();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> o_orderProcessed();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> o_orderCheck();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> o_checkDir();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">int</span> o_findOrderToSameFloor();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">int</span> <a class="code" href="bestilling_8h.html#aa4dcb98cccecbf8b41d14540c1ad9a82">o_returnNextOrder</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> <a class="code" href="bestilling_8h.html#aa0d5ec0f5545a90d87089e10134dc75b">o_removeFinishedOrders</a>();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> o_putOrderFirst();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> pushArrayBack();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span> pushArray();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> orderSent();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">int</span> o_returnNextOrder();      <span class="comment">// Funksjon skal bare brukes hvis det finnes en bestilling</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> o_checkOrderDone();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">bool</span> queueIsEmpty();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> <a class="code" href="bestilling_8h.html#aeb4ad9175b89c600fffc6110f46b15b5">o_clearOrders</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="bestilling_8h.html#a1b481cebc7849f4f611712c38fcf277b">o_newOrderExists</a>();</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructbestilling_html"><div class="ttname"><a href="structbestilling.html">bestilling</a></div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8h_source.html#l00006">bestilling.h:6</a></div></div>
+<div class="ttc" id="abestilling_8h_html_aa0d5ec0f5545a90d87089e10134dc75b"><div class="ttname"><a href="bestilling_8h.html#aa0d5ec0f5545a90d87089e10134dc75b">o_removeFinishedOrders</a></div><div class="ttdeci">void o_removeFinishedOrders()</div><div class="ttdoc">This function checks if the order is done and then pushed ahead the new in front of the array.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00349">bestilling.c:349</a></div></div>
+<div class="ttc" id="abestilling_8h_html_aeb4ad9175b89c600fffc6110f46b15b5"><div class="ttname"><a href="bestilling_8h.html#aeb4ad9175b89c600fffc6110f46b15b5">o_clearOrders</a></div><div class="ttdeci">void o_clearOrders()</div><div class="ttdoc">This function sets the number of order to 0, and also cleans the array and sets it to onlt zeros.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00356">bestilling.c:356</a></div></div>
+<div class="ttc" id="abestilling_8h_html_a55552a36cc230a87374fdf6e0e94d56f"><div class="ttname"><a href="bestilling_8h.html#a55552a36cc230a87374fdf6e0e94d56f">o_lookForOrders</a></div><div class="ttdeci">void o_lookForOrders()</div><div class="ttdoc">This function are constantly looking for orders and triggers when a button is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00330">bestilling.c:330</a></div></div>
+<div class="ttc" id="abestilling_8h_html_a1b481cebc7849f4f611712c38fcf277b"><div class="ttname"><a href="bestilling_8h.html#a1b481cebc7849f4f611712c38fcf277b">o_newOrderExists</a></div><div class="ttdeci">bool o_newOrderExists()</div><div class="ttdoc">This function return numOrders as a bool.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00363">bestilling.c:363</a></div></div>
+<div class="ttc" id="abestilling_8h_html_aa4dcb98cccecbf8b41d14540c1ad9a82"><div class="ttname"><a href="bestilling_8h.html#aa4dcb98cccecbf8b41d14540c1ad9a82">o_returnNextOrder</a></div><div class="ttdeci">int o_returnNextOrder()</div><div class="ttdoc">This function returnes the next order from the array of awaiting orders.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00344">bestilling.c:344</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

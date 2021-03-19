@@ -69,34 +69,20 @@ $(function() {
 <div class="title">indicators.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; <span class="comment">/*Lights are set and cleared like this: </span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">            for(int f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">                //Internal orders </span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">                if(hardware_read_order(f, HARDWARE_ORDER_INSIDE)){</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">                    hardware_command_order_light(f, HARDWARE_ORDER_INSIDE, 1);</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">                }</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">                //Orders going up </span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">                if(hardware_read_order(f, HARDWARE_ORDER_UP)){</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">                    hardware_command_order_light(f, HARDWARE_ORDER_UP, 1);</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">                }</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">                //Orders going down </span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">                if(hardware_read_order(f, HARDWARE_ORDER_DOWN)){</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">                    hardware_command_order_light(f, HARDWARE_ORDER_DOWN, 1);</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">                }</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">            } </span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// All buttons must be polled, like this: </span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">            for(int f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">                if(hardware_read_floor_sensor(f)){</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">                    hardware_command_floor_indicator_on(f);</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">                }</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">            }</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">*/</span></div>
+<a href="indicators_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; <span class="keywordtype">void</span> <a class="code" href="indicators_8h.html#a7c43b2eef01579900061e8078d74f022">i_updateCurrentFloor</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; <span class="keywordtype">void</span> <a class="code" href="indicators_8h.html#a5f3f252e80a06ab5699dd175106ce6f5">i_setOrderLights</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; <span class="keywordtype">void</span> <a class="code" href="indicators_8h.html#acd43bb9411253c5ae3b1a79e0cdd4c06">i_resetFinishedOrderLights</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keywordtype">void</span> <a class="code" href="indicators_8h.html#a9b09d3aff0bdb996181b659d553337cb">i_resetAllOrderLights</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aindicators_8h_html_acd43bb9411253c5ae3b1a79e0cdd4c06"><div class="ttname"><a href="indicators_8h.html#acd43bb9411253c5ae3b1a79e0cdd4c06">i_resetFinishedOrderLights</a></div><div class="ttdeci">void i_resetFinishedOrderLights()</div><div class="ttdoc">This function resets the lamp on the order button when the elevator finishes the corresponding order.</div><div class="ttdef"><b>Definition:</b> <a href="indicators_8c_source.html#l00028">indicators.c:28</a></div></div>
+<div class="ttc" id="aindicators_8h_html_a5f3f252e80a06ab5699dd175106ce6f5"><div class="ttname"><a href="indicators_8h.html#a5f3f252e80a06ab5699dd175106ce6f5">i_setOrderLights</a></div><div class="ttdeci">void i_setOrderLights()</div><div class="ttdoc">This function sets the lamp on the order button that is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="indicators_8c_source.html#l00015">indicators.c:15</a></div></div>
+<div class="ttc" id="aindicators_8h_html_a9b09d3aff0bdb996181b659d553337cb"><div class="ttname"><a href="indicators_8h.html#a9b09d3aff0bdb996181b659d553337cb">i_resetAllOrderLights</a></div><div class="ttdeci">void i_resetAllOrderLights()</div><div class="ttdoc">This function resets all the order button lamps when the stop button is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="indicators_8c_source.html#l00034">indicators.c:34</a></div></div>
+<div class="ttc" id="aindicators_8h_html_a7c43b2eef01579900061e8078d74f022"><div class="ttname"><a href="indicators_8h.html#a7c43b2eef01579900061e8078d74f022">i_updateCurrentFloor</a></div><div class="ttdeci">void i_updateCurrentFloor()</div><div class="ttdoc">This function updates the currentFloor variable.</div><div class="ttdef"><b>Definition:</b> <a href="indicators_8c_source.html#l00006">indicators.c:6</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

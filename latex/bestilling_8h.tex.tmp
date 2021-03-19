@@ -1,0 +1,51 @@
+\hypertarget{bestilling_8h}{}\doxysection{source/bestilling.h File Reference}
+\label{bestilling_8h}\index{source/bestilling.h@{source/bestilling.h}}
+
+
+This module contains functions that handle orders and arranging them i the correct order.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{bestilling_8h_a55552a36cc230a87374fdf6e0e94d56f}\label{bestilling_8h_a55552a36cc230a87374fdf6e0e94d56f}} 
+void \mbox{\hyperlink{bestilling_8h_a55552a36cc230a87374fdf6e0e94d56f}{o\+\_\+look\+For\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em This function are constantly looking for orders and triggers when a button is pushed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{bestilling_8h_aa4dcb98cccecbf8b41d14540c1ad9a82}\label{bestilling_8h_aa4dcb98cccecbf8b41d14540c1ad9a82}} 
+int \mbox{\hyperlink{bestilling_8h_aa4dcb98cccecbf8b41d14540c1ad9a82}{o\+\_\+return\+Next\+Order}} ()
+\begin{DoxyCompactList}\small\item\em This function returnes the next order from the array of awaiting orders. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{bestilling_8h_aa0d5ec0f5545a90d87089e10134dc75b}\label{bestilling_8h_aa0d5ec0f5545a90d87089e10134dc75b}} 
+void \mbox{\hyperlink{bestilling_8h_aa0d5ec0f5545a90d87089e10134dc75b}{o\+\_\+remove\+Finished\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em This function checks if the order is done and then pushed ahead the new in front of the array. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{bestilling_8h_aeb4ad9175b89c600fffc6110f46b15b5}\label{bestilling_8h_aeb4ad9175b89c600fffc6110f46b15b5}} 
+void \mbox{\hyperlink{bestilling_8h_aeb4ad9175b89c600fffc6110f46b15b5}{o\+\_\+clear\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em This function sets the number of order to 0, and also cleans the array and sets it to onlt zeros. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{bestilling_8h_a1b481cebc7849f4f611712c38fcf277b}{o\+\_\+new\+Order\+Exists}} ()
+\begin{DoxyCompactList}\small\item\em This function return num\+Orders as a bool. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains functions that handle orders and arranging them i the correct order. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{bestilling_8h_a1b481cebc7849f4f611712c38fcf277b}\label{bestilling_8h_a1b481cebc7849f4f611712c38fcf277b}} 
+\index{bestilling.h@{bestilling.h}!o\_newOrderExists@{o\_newOrderExists}}
+\index{o\_newOrderExists@{o\_newOrderExists}!bestilling.h@{bestilling.h}}
+\doxysubsubsection{\texorpdfstring{o\_newOrderExists()}{o\_newOrderExists()}}
+{\footnotesize\ttfamily bool o\+\_\+new\+Order\+Exists (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function return num\+Orders as a bool. 
+
+\begin{DoxyReturn}{Returns}
+true if num\+Orders $>$ 0 and false if num\+Orders = 0. 
+\end{DoxyReturn}
+
+
+Definition at line 363 of file bestilling.\+c.
+

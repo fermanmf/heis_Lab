@@ -72,169 +72,219 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;stdbool.h&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;stdio.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;bestilling.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bestilling_8h.html">bestilling.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="heis_8h.html">heis.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hardware_8h.html">hardware.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;door.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="door_8h.html">door.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">enum</span> State {UndefinedState, StandPlass, StoppMellomEtasje, Bevegelse, DoorOpen};</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="indicators_8h.html">indicators.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">int</span> <a class="code" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a> = 0;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a11ceb7c46f3c0de7b4633d1f05c7bfc6">m_orderDone</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a16fd40e14b1ccc893a8e2519e69b2b54">m_currentMomentumDir</a> = 1;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a737f58aac843a6a5bc9bd77b35491cf7">obstruction</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">int</span> <a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a> = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a5cfddd2e528f3b60e2cbfe6e561d5e75">g_elevatorHasHandeledCurrentOrder</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#aa42928d4992dd1fe5b0d7de25f44d39c">g_obstructed</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">static</span> <span class="keyword">enum</span> State state = UndefinedState;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">static</span> <span class="keyword">enum</span> <a class="code" href="heis_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a> state = UndefinedState;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> elevatorIsMoving = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> atDestination(<span class="keywordtype">int</span> currentDestination){</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)&amp;&amp;(f==currentDestination)){</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        state = DoorOpen;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="heis_8h.html#a11ceb7c46f3c0de7b4633d1f05c7bfc6">m_orderDone</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> settRetning(<span class="keywordtype">int</span> currentDestination){</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (currentDestination &lt; <a class="code" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a>){</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (!elevatorIsMoving){</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_DOWN);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="heis_8h.html#a16fd40e14b1ccc893a8e2519e69b2b54">m_currentMomentumDir</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (currentDestination &gt; <a class="code" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a>){</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (!elevatorIsMoving){</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_UP);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="heis_8h.html#a16fd40e14b1ccc893a8e2519e69b2b54">m_currentMomentumDir</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">h_initiateHardware</a>(){</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">int</span> error = <a class="code" href="hardware_8h.html#a054b8fb8768311d46be58d6a4890d771">hardware_init</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span>(error != 0){</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        fprintf(stderr, <span class="stringliteral">&quot;Unable to initialize hardware\n&quot;</span>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        exit(1);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">h_goToDestination</a>(<span class="keywordtype">int</span> currentDestination){</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    settRetning(currentDestination);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    atDestination(currentDestination);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="heis_8h.html#a8b742e187864a375af0785143330e3f9">   58</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a8b742e187864a375af0785143330e3f9">h_goToDefinedState</a>(){</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_UP);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)){</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            state = StandPlass;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <a class="code" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a> = f;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">   67</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">h_stopPushed</a>(){</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> stopPushed = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          stopPushed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> stopPushed;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> isAbove = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> atDestination(<span class="keywordtype">int</span> currentDestination){</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span>((<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f))&amp;&amp;(f==currentDestination)){</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        state = DoorOpen;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="heis_8h.html#a5cfddd2e528f3b60e2cbfe6e561d5e75">g_elevatorHasHandeledCurrentOrder</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> settRetning(<span class="keywordtype">int</span> currentDestination){</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (currentDestination &lt; <a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a>){</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (!elevatorIsMoving){</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_DOWN);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(<a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a>)){</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        isAbove = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (currentDestination &gt; <a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a>){</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> (!elevatorIsMoving){</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_UP);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(<a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a>)){</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            isAbove =<span class="keyword">true</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (isAbove){</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_DOWN);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;       </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">else</span>  {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_UP);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        elevatorIsMoving = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="heis_8h.html#abebf9e0bc7c7bbdc1cd2d29608a7bf5d">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#abebf9e0bc7c7bbdc1cd2d29608a7bf5d">h_goToStopState</a>(){</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">bool</span> stopPushed = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          stopPushed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">switch</span>(state){</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">case</span> StandPlass : </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">if</span>(stopPushed){</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            state = DoorOpen;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">case</span> Bevegelse : </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">if</span> (stopPushed &amp;&amp; <a class="code" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a>()){</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                state = StoppMellomEtasje;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stopPushed){</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                state = DoorOpen;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">default</span>: </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">   97</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">h_stopElevatorMovement</a>(){</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (elevatorIsMoving){</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_STOP);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        elevatorIsMoving = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">  105</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a>(){</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)){</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">void</span> h_setDestination(){</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; i++) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 3; j++) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="hardware_8h.html#a87917f3aa093fb46ca821a400d011ee8">hardware_read_order</a>(i, j)) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                state = Bevegelse;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">void</span> h_updateCurrentFloor(){</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;   <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)){</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <a class="code" href="hardware_8h.html#a407a6ec035ba357de6aa0fbe55501d1e">hardware_command_floor_indicator_on</a>(f);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <a class="code" href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a> = f;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">   77</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">h_initiateHardware</a>(){</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">int</span> error = <a class="code" href="hardware_8h.html#a054b8fb8768311d46be58d6a4890d771">hardware_init</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span>(error != 0){</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        fprintf(stderr, <span class="stringliteral">&quot;Unable to initialize hardware\n&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        exit(1);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">   86</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">h_goToDestination</a>(<span class="keywordtype">int</span> currentDestination){</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    atDestination(currentDestination);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    settRetning(currentDestination);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="heis_8h.html#a8b742e187864a375af0785143330e3f9">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a8b742e187864a375af0785143330e3f9">h_goToDefinedState</a>(){</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_UP);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)){</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            state = AtRest;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <a class="code" href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a> = f;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">  102</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">h_stopPushed</a>(){</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">bool</span> stopPushed = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;          stopPushed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> stopPushed;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="heis_8h.html#a9d63307189ea8f6509294dc162f7f255">  110</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a9d63307189ea8f6509294dc162f7f255">h_goToStopStateIfPushed</a>(){</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">bool</span> stopPushed = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        stopPushed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">switch</span>(state){</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">case</span> AtRest : </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span>(stopPushed){</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            state = DoorOpen;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">case</span> Moving : </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">if</span> (stopPushed &amp;&amp; <a class="code" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a>()){</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                state = StoppBetweenFloors;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (stopPushed){</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                state = DoorOpen;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">default</span>: </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="heis_8h.html#a92e1e3dac33595a4204bf31a8e38309f">  133</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a92e1e3dac33595a4204bf31a8e38309f">h_goToStandPlass</a>(<span class="keywordtype">bool</span> timeIsUp){</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    state = StandPlass;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="heis_8h.html#a5b12133bdf3a36dd83cb38e1581dbe35">  136</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a5b12133bdf3a36dd83cb38e1581dbe35">h_goToBevegelse</a>(<span class="keywordtype">bool</span> queueIsEmpty){</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">if</span> (!queueIsEmpty){</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        state = Bevegelse;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">  141</a></span>&#160;<span class="keyword">enum</span> State <a class="code" href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">h_getState</a>(){</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">return</span> state;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">  133</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">h_stopElevatorMovement</a>(){</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="comment">//returnToCurrentFloor = true;</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (elevatorIsMoving){</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="code" href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a>(HARDWARE_MOVEMENT_STOP);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        elevatorIsMoving = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">  141</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a>(){</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> f = 0; f &lt; HARDWARE_NUMBER_OF_FLOORS; f++){</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a>(f)){</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="heis_8h.html#a2f28867b02a6d09a5207c8ae7821c0fb">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a2f28867b02a6d09a5207c8ae7821c0fb">h_goToAtRestStateIf</a>(<span class="keywordtype">bool</span> timeIsUp){</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">if</span> (timeIsUp){</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        state = AtRest;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <a class="code" href="hardware_8h.html#a80d99ddaa8e7b58c9a88b60ea553c1b6">hardware_command_door_open</a>(0);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="heis_8h.html#a1d8c0d2f1c597cfd5652b173a00bed0e">  157</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#a1d8c0d2f1c597cfd5652b173a00bed0e">h_goToMovingStateIf</a>(<span class="keywordtype">bool</span> queueIsEmpty){</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">if</span> (queueIsEmpty){</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        state = Moving;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;}</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">  163</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="heis_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a> <a class="code" href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">h_getState</a>(){</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> state;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="heis_8h.html#ae11d74cf9763da1ecba9e8523f9ea0d1">  167</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#ae11d74cf9763da1ecba9e8523f9ea0d1">h_updateObstructionVar</a>(){</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="hardware_8h.html#a459fe57a3ee4bc2a28e8a15b2ab14c2d">hardware_read_obstruction_signal</a>()){</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <a class="code" href="heis_8h.html#aa42928d4992dd1fe5b0d7de25f44d39c">g_obstructed</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">else</span> { <a class="code" href="heis_8h.html#aa42928d4992dd1fe5b0d7de25f44d39c">g_obstructed</a> = <span class="keyword">false</span>;}</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="heis_8h.html#abcb86d3c1735b75a0a18dba589b9dcd8">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="heis_8h.html#abcb86d3c1735b75a0a18dba589b9dcd8">h_handleStopButton</a>(){</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <a class="code" href="bestilling_8h.html#aeb4ad9175b89c600fffc6110f46b15b5">o_clearOrders</a>();</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="indicators_8h.html#a9b09d3aff0bdb996181b659d553337cb">i_resetAllOrderLights</a>();</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="hardware_8h.html#aa75b3ac17f72b25946414f48d0063a10">hardware_command_stop_light</a>(1);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!<a class="code" href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a>()){</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <a class="code" href="hardware_8h.html#aa75b3ac17f72b25946414f48d0063a10">hardware_command_stop_light</a>(0);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="ahardware_8h_html_a01de081ef0510a111053c18cd31afa27"><div class="ttname"><a href="hardware_8h.html#a01de081ef0510a111053c18cd31afa27">hardware_command_movement</a></div><div class="ttdeci">void hardware_command_movement(HardwareMovement movement)</div><div class="ttdoc">Commands the elevator to either move up or down, or commands it to halt.</div></div>
 <div class="ttc" id="ahardware_8h_html_a4a77b27c86675c00b513db3445966804"><div class="ttname"><a href="hardware_8h.html#a4a77b27c86675c00b513db3445966804">hardware_read_stop_signal</a></div><div class="ttdeci">int hardware_read_stop_signal()</div><div class="ttdoc">Polls the hardware for the current stop signal.</div></div>
-<div class="ttc" id="aheis_8h_html_a92e1e3dac33595a4204bf31a8e38309f"><div class="ttname"><a href="heis_8h.html#a92e1e3dac33595a4204bf31a8e38309f">h_goToStandPlass</a></div><div class="ttdeci">void h_goToStandPlass(bool timeIsUp)</div><div class="ttdoc">This function makes the elevator go to to the StandPlass state if the timer of the door is finished.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00133">heis.c:133</a></div></div>
-<div class="ttc" id="aheis_8h_html_a11ceb7c46f3c0de7b4633d1f05c7bfc6"><div class="ttname"><a href="heis_8h.html#a11ceb7c46f3c0de7b4633d1f05c7bfc6">m_orderDone</a></div><div class="ttdeci">bool m_orderDone</div><div class="ttdoc">This bool tells whether or not the goToDestinaiton() function has finished an order....</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00018">heis.h:18</a></div></div>
-<div class="ttc" id="aheis_8h_html_a13621c0918e8100138c3f5a4435a506c"><div class="ttname"><a href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">h_stopPushed</a></div><div class="ttdeci">bool h_stopPushed()</div><div class="ttdoc">This function checks if the stop-button is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00067">heis.c:67</a></div></div>
-<div class="ttc" id="aheis_8h_html_a4629335ea6fc5e92e8f3dbe9a7862805"><div class="ttname"><a href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">h_stopElevatorMovement</a></div><div class="ttdeci">void h_stopElevatorMovement()</div><div class="ttdoc">This function simply stops the movement of the elevator.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00097">heis.c:97</a></div></div>
+<div class="ttc" id="aindicators_8h_html"><div class="ttname"><a href="indicators_8h.html">indicators.h</a></div><div class="ttdoc">This module contains functions that turns the indicators of the buttons and floor lights on and off a...</div></div>
+<div class="ttc" id="aheis_8h_html_a13621c0918e8100138c3f5a4435a506c"><div class="ttname"><a href="heis_8h.html#a13621c0918e8100138c3f5a4435a506c">h_stopPushed</a></div><div class="ttdeci">bool h_stopPushed()</div><div class="ttdoc">This function checks if the stop-button is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00102">heis.c:102</a></div></div>
+<div class="ttc" id="aheis_8h_html_a5cfddd2e528f3b60e2cbfe6e561d5e75"><div class="ttname"><a href="heis_8h.html#a5cfddd2e528f3b60e2cbfe6e561d5e75">g_elevatorHasHandeledCurrentOrder</a></div><div class="ttdeci">bool g_elevatorHasHandeledCurrentOrder</div><div class="ttdoc">This bool tells whether or not the goToDestinaiton() function has finished an order....</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00022">heis.h:22</a></div></div>
+<div class="ttc" id="aheis_8h_html_a4629335ea6fc5e92e8f3dbe9a7862805"><div class="ttname"><a href="heis_8h.html#a4629335ea6fc5e92e8f3dbe9a7862805">h_stopElevatorMovement</a></div><div class="ttdeci">void h_stopElevatorMovement()</div><div class="ttdoc">This function simply stops the movement of the elevator.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00133">heis.c:133</a></div></div>
 <div class="ttc" id="ahardware_8h_html_a054b8fb8768311d46be58d6a4890d771"><div class="ttname"><a href="hardware_8h.html#a054b8fb8768311d46be58d6a4890d771">hardware_init</a></div><div class="ttdeci">int hardware_init()</div><div class="ttdoc">Initializes the elevator control hardware. Must be called once before other calls to the elevator har...</div></div>
-<div class="ttc" id="aheis_8h_html_a16fd40e14b1ccc893a8e2519e69b2b54"><div class="ttname"><a href="heis_8h.html#a16fd40e14b1ccc893a8e2519e69b2b54">m_currentMomentumDir</a></div><div class="ttdeci">bool m_currentMomentumDir</div><div class="ttdoc">This bool is true when the elevator moves up and false when it moves down. In the case of no movement...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00023">heis.h:23</a></div></div>
+<div class="ttc" id="abestilling_8h_html_aeb4ad9175b89c600fffc6110f46b15b5"><div class="ttname"><a href="bestilling_8h.html#aeb4ad9175b89c600fffc6110f46b15b5">o_clearOrders</a></div><div class="ttdeci">void o_clearOrders()</div><div class="ttdoc">This function sets the number of order to 0, and also cleans the array and sets it to onlt zeros.</div><div class="ttdef"><b>Definition:</b> <a href="bestilling_8c_source.html#l00356">bestilling.c:356</a></div></div>
+<div class="ttc" id="aheis_8h_html_a5d74787dedbc4e11c1ab15bf487e61f8"><div class="ttname"><a href="heis_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a></div><div class="ttdeci">State</div><div class="ttdoc">This enum type keeps track of the possible states of the system.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00012">heis.h:12</a></div></div>
+<div class="ttc" id="ahardware_8h_html_a80d99ddaa8e7b58c9a88b60ea553c1b6"><div class="ttname"><a href="hardware_8h.html#a80d99ddaa8e7b58c9a88b60ea553c1b6">hardware_command_door_open</a></div><div class="ttdeci">void hardware_command_door_open(int door_open)</div><div class="ttdoc">Commands the hardware to open- or close the elevator door.</div></div>
 <div class="ttc" id="aheis_8h_html"><div class="ttname"><a href="heis_8h.html">heis.h</a></div><div class="ttdoc">This module contains functions that give instructions to the elevator and control at which state the ...</div></div>
-<div class="ttc" id="aheis_8h_html_a5c4a03f86605b1945475d7a8e4b17f75"><div class="ttname"><a href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">h_goToDestination</a></div><div class="ttdeci">void h_goToDestination(int currentDestination)</div><div class="ttdoc">This function makes the elevator go to the current destination. When the elevator arrives a destinati...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00052">heis.c:52</a></div></div>
-<div class="ttc" id="aheis_8h_html_a8b742e187864a375af0785143330e3f9"><div class="ttname"><a href="heis_8h.html#a8b742e187864a375af0785143330e3f9">h_goToDefinedState</a></div><div class="ttdeci">void h_goToDefinedState()</div><div class="ttdoc">This function brings the elevator to a floor (a defined state). If the elevator is initiated between ...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00058">heis.c:58</a></div></div>
-<div class="ttc" id="aheis_8h_html_a1094e37783921c6ceca6e39b93e5e5bc"><div class="ttname"><a href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">h_initiateHardware</a></div><div class="ttdeci">void h_initiateHardware()</div><div class="ttdoc">This function initiates the hardware .</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00044">heis.c:44</a></div></div>
-<div class="ttc" id="aheis_8h_html_af2ae3c80eff5c67623f0511ce43b3c90"><div class="ttname"><a href="heis_8h.html#af2ae3c80eff5c67623f0511ce43b3c90">currentFloor</a></div><div class="ttdeci">int currentFloor</div><div class="ttdoc">This int keeps track of the elevators current floor.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00013">heis.h:13</a></div></div>
-<div class="ttc" id="ahardware_8h_html_a87917f3aa093fb46ca821a400d011ee8"><div class="ttname"><a href="hardware_8h.html#a87917f3aa093fb46ca821a400d011ee8">hardware_read_order</a></div><div class="ttdeci">int hardware_read_order(int floor, HardwareOrder order_type)</div><div class="ttdoc">Polls the hardware for the status of orders from floor floor of type order_type.</div></div>
-<div class="ttc" id="aheis_8h_html_a737f58aac843a6a5bc9bd77b35491cf7"><div class="ttname"><a href="heis_8h.html#a737f58aac843a6a5bc9bd77b35491cf7">obstruction</a></div><div class="ttdeci">bool obstruction</div><div class="ttdoc">This bool holds true when the obstruction button is active.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00027">heis.h:27</a></div></div>
-<div class="ttc" id="aheis_8h_html_a25c8cea536c2a40f7032555b1ee4e914"><div class="ttname"><a href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">h_getState</a></div><div class="ttdeci">enum State h_getState()</div><div class="ttdoc">This function simply returns the state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00141">heis.c:141</a></div></div>
-<div class="ttc" id="aheis_8h_html_a5b12133bdf3a36dd83cb38e1581dbe35"><div class="ttname"><a href="heis_8h.html#a5b12133bdf3a36dd83cb38e1581dbe35">h_goToBevegelse</a></div><div class="ttdeci">void h_goToBevegelse(bool queueIsEmpty)</div><div class="ttdoc">This function makes the elevator go to to the Bevegelse state, but only if queueIsEmpty is true.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00136">heis.c:136</a></div></div>
-<div class="ttc" id="aheis_8h_html_a4fa4f27cf1e131e18ca402fc096f59b8"><div class="ttname"><a href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a></div><div class="ttdeci">bool h_checkIfInbetween()</div><div class="ttdoc">Checks if the elevator is triggering any floorSensor.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00105">heis.c:105</a></div></div>
+<div class="ttc" id="aindicators_8h_html_a9b09d3aff0bdb996181b659d553337cb"><div class="ttname"><a href="indicators_8h.html#a9b09d3aff0bdb996181b659d553337cb">i_resetAllOrderLights</a></div><div class="ttdeci">void i_resetAllOrderLights()</div><div class="ttdoc">This function resets all the order button lamps when the stop button is pushed.</div><div class="ttdef"><b>Definition:</b> <a href="indicators_8c_source.html#l00034">indicators.c:34</a></div></div>
+<div class="ttc" id="aheis_8h_html_a5c4a03f86605b1945475d7a8e4b17f75"><div class="ttname"><a href="heis_8h.html#a5c4a03f86605b1945475d7a8e4b17f75">h_goToDestination</a></div><div class="ttdeci">void h_goToDestination(int currentDestination)</div><div class="ttdoc">This function makes the elevator go to the current destination. When the elevator arrives a destinati...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00086">heis.c:86</a></div></div>
+<div class="ttc" id="aheis_8h_html_a2f28867b02a6d09a5207c8ae7821c0fb"><div class="ttname"><a href="heis_8h.html#a2f28867b02a6d09a5207c8ae7821c0fb">h_goToAtRestStateIf</a></div><div class="ttdeci">void h_goToAtRestStateIf(bool timeIsUp)</div><div class="ttdoc">This function makes the elevator go to to the StandPlass state if the timer of the door is finished.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00150">heis.c:150</a></div></div>
+<div class="ttc" id="aheis_8h_html_a8b742e187864a375af0785143330e3f9"><div class="ttname"><a href="heis_8h.html#a8b742e187864a375af0785143330e3f9">h_goToDefinedState</a></div><div class="ttdeci">void h_goToDefinedState()</div><div class="ttdoc">This function brings the elevator to a floor (a defined state). If the elevator is initiated between ...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00092">heis.c:92</a></div></div>
+<div class="ttc" id="aheis_8h_html_a1094e37783921c6ceca6e39b93e5e5bc"><div class="ttname"><a href="heis_8h.html#a1094e37783921c6ceca6e39b93e5e5bc">h_initiateHardware</a></div><div class="ttdeci">void h_initiateHardware()</div><div class="ttdoc">This function initiates the hardware .</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00077">heis.c:77</a></div></div>
+<div class="ttc" id="ahardware_8h_html_aa75b3ac17f72b25946414f48d0063a10"><div class="ttname"><a href="hardware_8h.html#aa75b3ac17f72b25946414f48d0063a10">hardware_command_stop_light</a></div><div class="ttdeci">void hardware_command_stop_light(int on)</div><div class="ttdoc">Sets the light in the panel stop button.</div></div>
+<div class="ttc" id="ahardware_8h_html_a459fe57a3ee4bc2a28e8a15b2ab14c2d"><div class="ttname"><a href="hardware_8h.html#a459fe57a3ee4bc2a28e8a15b2ab14c2d">hardware_read_obstruction_signal</a></div><div class="ttdeci">int hardware_read_obstruction_signal()</div><div class="ttdoc">Polls the hardware for the current obstruction signal.</div></div>
+<div class="ttc" id="aheis_8h_html_a25c8cea536c2a40f7032555b1ee4e914"><div class="ttname"><a href="heis_8h.html#a25c8cea536c2a40f7032555b1ee4e914">h_getState</a></div><div class="ttdeci">enum State h_getState()</div><div class="ttdoc">This function simply returns the state of the system.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00163">heis.c:163</a></div></div>
+<div class="ttc" id="aheis_8h_html_abcb86d3c1735b75a0a18dba589b9dcd8"><div class="ttname"><a href="heis_8h.html#abcb86d3c1735b75a0a18dba589b9dcd8">h_handleStopButton</a></div><div class="ttdeci">void h_handleStopButton()</div><div class="ttdoc">This function deletes the orderqueu when the stopbutton is pushed .</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00174">heis.c:174</a></div></div>
+<div class="ttc" id="aheis_8h_html_ae11d74cf9763da1ecba9e8523f9ea0d1"><div class="ttname"><a href="heis_8h.html#ae11d74cf9763da1ecba9e8523f9ea0d1">h_updateObstructionVar</a></div><div class="ttdeci">void h_updateObstructionVar()</div><div class="ttdoc">This function watches the global variable obstruction and makes sure it holds the correct value at al...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00167">heis.c:167</a></div></div>
+<div class="ttc" id="aheis_8h_html_a4fa4f27cf1e131e18ca402fc096f59b8"><div class="ttname"><a href="heis_8h.html#a4fa4f27cf1e131e18ca402fc096f59b8">h_checkIfInbetween</a></div><div class="ttdeci">bool h_checkIfInbetween()</div><div class="ttdoc">Checks if the elevator is triggering any floorSensor.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00141">heis.c:141</a></div></div>
 <div class="ttc" id="ahardware_8h_html"><div class="ttname"><a href="hardware_8h.html">hardware.h</a></div><div class="ttdoc">Driver for the elevator hardware.</div></div>
-<div class="ttc" id="aheis_8h_html_abebf9e0bc7c7bbdc1cd2d29608a7bf5d"><div class="ttname"><a href="heis_8h.html#abebf9e0bc7c7bbdc1cd2d29608a7bf5d">h_goToStopState</a></div><div class="ttdeci">void h_goToStopState()</div><div class="ttdoc">This function makes the elevator go to to either the StopBetweenFloors state or the DoorOpen state,...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00074">heis.c:74</a></div></div>
-<div class="ttc" id="ahardware_8h_html_a407a6ec035ba357de6aa0fbe55501d1e"><div class="ttname"><a href="hardware_8h.html#a407a6ec035ba357de6aa0fbe55501d1e">hardware_command_floor_indicator_on</a></div><div class="ttdeci">void hardware_command_floor_indicator_on(int floor)</div><div class="ttdoc">Commands the hardware to turn on the floor indicator for floor. All indicators all mutually exclusive...</div></div>
+<div class="ttc" id="aheis_8h_html_aab5380e985916a91d6dbb192299e017d"><div class="ttname"><a href="heis_8h.html#aab5380e985916a91d6dbb192299e017d">g_currentFloor</a></div><div class="ttdeci">int g_currentFloor</div><div class="ttdoc">This int keeps track of the elevators current floor.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00017">heis.h:17</a></div></div>
+<div class="ttc" id="aheis_8h_html_aa42928d4992dd1fe5b0d7de25f44d39c"><div class="ttname"><a href="heis_8h.html#aa42928d4992dd1fe5b0d7de25f44d39c">g_obstructed</a></div><div class="ttdeci">bool g_obstructed</div><div class="ttdoc">This bool holds true when the obstruction button is active.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00031">heis.h:31</a></div></div>
+<div class="ttc" id="aheis_8h_html_a00ac9b778b7ad9b4c499a51fc8a16503"><div class="ttname"><a href="heis_8h.html#a00ac9b778b7ad9b4c499a51fc8a16503">g_directionOfElevatorIsUp</a></div><div class="ttdeci">bool g_directionOfElevatorIsUp</div><div class="ttdoc">This bool is true when the elevator moves up and false when it moves down. In the case of no movement...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8h_source.html#l00027">heis.h:27</a></div></div>
+<div class="ttc" id="adoor_8h_html"><div class="ttname"><a href="door_8h.html">door.h</a></div><div class="ttdoc">This module contains functions that handle the door and the timer that keeps it open for 5 seconds.</div></div>
+<div class="ttc" id="aheis_8h_html_a9d63307189ea8f6509294dc162f7f255"><div class="ttname"><a href="heis_8h.html#a9d63307189ea8f6509294dc162f7f255">h_goToStopStateIfPushed</a></div><div class="ttdeci">void h_goToStopStateIfPushed()</div><div class="ttdoc">This function makes the elevator go to to either the StopBetweenFloors state or the DoorOpen state,...</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00110">heis.c:110</a></div></div>
+<div class="ttc" id="aheis_8h_html_a1d8c0d2f1c597cfd5652b173a00bed0e"><div class="ttname"><a href="heis_8h.html#a1d8c0d2f1c597cfd5652b173a00bed0e">h_goToMovingStateIf</a></div><div class="ttdeci">void h_goToMovingStateIf(bool queueIsEmpty)</div><div class="ttdoc">This function makes the elevator go to to the Bevegelse state, but only if queueIsEmpty is true.</div><div class="ttdef"><b>Definition:</b> <a href="heis_8c_source.html#l00157">heis.c:157</a></div></div>
 <div class="ttc" id="ahardware_8h_html_ab048489e6302bb5604aad753f2d7d501"><div class="ttname"><a href="hardware_8h.html#ab048489e6302bb5604aad753f2d7d501">hardware_read_floor_sensor</a></div><div class="ttdeci">int hardware_read_floor_sensor(int floor)</div><div class="ttdoc">Polls the floor sensor for the given floor.</div></div>
+<div class="ttc" id="abestilling_8h_html"><div class="ttname"><a href="bestilling_8h.html">bestilling.h</a></div><div class="ttdoc">This module contains functions that handle orders and arranging them i the correct order.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

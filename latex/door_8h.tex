@@ -1,0 +1,61 @@
+\hypertarget{door_8h}{}\doxysection{source/door.h File Reference}
+\label{door_8h}\index{source/door.h@{source/door.h}}
+
+
+This module contains functions that handle the door and the timer that keeps it open for 5 seconds.  
+
+
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+Include dependency graph for door.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{door_8h_af5ed763117a612c278be56f5e65008a3}{d\+\_\+time\+Is\+Up}} ()
+\begin{DoxyCompactList}\small\item\em This function lets the elevator module know when to abandon the Door\+Open state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{door_8h_a561cd0a5da4a01f1a3906aead680d7c9}\label{door_8h_a561cd0a5da4a01f1a3906aead680d7c9}} 
+void \mbox{\hyperlink{door_8h_a561cd0a5da4a01f1a3906aead680d7c9}{d\+\_\+reset\+Tim\+Is\+Up\+Var}} ()
+\begin{DoxyCompactList}\small\item\em This func sets the variable time\+Is\+Up that belongs to \mbox{\hyperlink{door_8c_source}{door.\+c}} to false. Used by the elevator module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{door_8h_ae75c9eb5c36fe3339649a1d20dbf67d6}{d\+\_\+open\+Timed\+Door}} ()
+\begin{DoxyCompactList}\small\item\em This function opens the door of the elevator. It also deals with problems such as the Stop button and the obstruction button being pushed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module contains functions that handle the door and the timer that keeps it open for 5 seconds. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{door_8h_ae75c9eb5c36fe3339649a1d20dbf67d6}\label{door_8h_ae75c9eb5c36fe3339649a1d20dbf67d6}} 
+\index{door.h@{door.h}!d\_openTimedDoor@{d\_openTimedDoor}}
+\index{d\_openTimedDoor@{d\_openTimedDoor}!door.h@{door.h}}
+\doxysubsubsection{\texorpdfstring{d\_openTimedDoor()}{d\_openTimedDoor()}}
+{\footnotesize\ttfamily void d\+\_\+open\+Timed\+Door (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function opens the door of the elevator. It also deals with problems such as the Stop button and the obstruction button being pushed. 
+
+
+
+Definition at line 25 of file door.\+c.
+
+\mbox{\Hypertarget{door_8h_af5ed763117a612c278be56f5e65008a3}\label{door_8h_af5ed763117a612c278be56f5e65008a3}} 
+\index{door.h@{door.h}!d\_timeIsUp@{d\_timeIsUp}}
+\index{d\_timeIsUp@{d\_timeIsUp}!door.h@{door.h}}
+\doxysubsubsection{\texorpdfstring{d\_timeIsUp()}{d\_timeIsUp()}}
+{\footnotesize\ttfamily bool d\+\_\+time\+Is\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function lets the elevator module know when to abandon the Door\+Open state. 
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} when the door has been open for 3 seconds. {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 51 of file door.\+c.
+
