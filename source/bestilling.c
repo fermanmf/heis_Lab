@@ -41,7 +41,7 @@ static bool o_checkExistence() {
     return false;
 }
 
-static void o_between() {
+static void o_orderWhenElevatorIsBetweenFloors() {
     int firstOrder = bestillingsKo[0];
         if (numOrders==1) {
                 bestillingsKo[numOrders] = order.etasje;
@@ -232,8 +232,8 @@ static void o_arrangeOrder() {
     int firstOrder = bestillingsKo[0];
 
         if ((g_currentFloor==order.etasje)&&(h_checkIfInbetween())) {
-            if ( !o_checkExistence() ) {
-                o_between();
+            if (!o_checkExistence() ) {
+                o_orderWhenElevatorIsBetweenFloors();
                 }
             return;
         }
